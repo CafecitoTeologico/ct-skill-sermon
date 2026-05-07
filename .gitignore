@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Local artifacts
+/local-test/
+*.log
+
+# Local user configuration — datos personales del usuario
+# (rutas absolutas, nombres, entidades, github handles, preferencias)
+# Cada usuario crea su propio config-local.md basado en config-local-example.md.
+# Este archivo NUNCA debe llegar al repo público.
+config-local.md

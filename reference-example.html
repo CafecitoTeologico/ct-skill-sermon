@@ -1,0 +1,1966 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  Jesús sana, sin importar las etiquetas
+  Presentación de sermón · Single Page Application autocontenida
+  ============================================================================
+
+  Predicación
+    Pasaje:     Marcos 5:21–43 (NTV)
+    Lugar:      Iglesia Alianza República
+    Fecha:      03 de mayo, 2026
+    Predicador: Jonathan Ricardo Proaño Alcívar
+
+  Programa (SPA) creado por
+    Jonathan Ricardo Proaño Alcívar (Parlox)
+    Contacto:    jonathan@parlox.net · github.com/parlox
+    Asistencia:  Codificación asistida con IA Claude (Anthropic)
+    Disponible:  https://github.com/AlianzaRepublica
+
+  Licencia del programa
+    AGPL-3.0-or-later (GNU Affero General Public License v3.0 o posterior)
+    https://www.gnu.org/licenses/agpl-3.0.html
+    Software libre. Si lo modificas o lo sirves a través de una red,
+    debes liberar el código fuente bajo la misma licencia.
+
+  Tecnología
+    HTML5 + CSS (container queries) + JavaScript vanilla
+    MQTT 3.1.1 sobre WebSocket Secure (cliente mínimo escrito a mano)
+    Broker: HiveMQ público (broker.hivemq.com:8884/mqtt)
+    Topic:  alianzarepublica/sermon/2026-05-03/dhaftbwhv0/control
+
+  Modos (vía query param)
+    ?mode=standalone   → vista personal, sin red
+    ?mode=screen       → cabina, recibe el control
+    ?mode=control      → control del predicador, notas y cronómetro
+    ?mode=print        → vista print-friendly + bloque info para PDF/papel
+    (sin parámetro)    → menú selector de modo
+
+  Generado con el skill /sermon (v0.1.0).
+  ============================================================================
+-->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jesús sana, sin importar las etiquetas</title>
+<style>
+:root {
+  --bg-dark-1: #0E1428;
+  --bg-dark-2: #1A2444;
+  --bg-dark-3: #2D1B33;
+  --text-warm: #F5EFE6;
+  --text-warm-dim: #BFB5A6;
+  --accent-gold: #D4A574;
+  --accent-gold-bright: #E6BC85;
+  --bg-light-1: #FAF4E8;
+  --bg-light-2: #F0E6D2;
+  --text-dark: #2A2520;
+  --text-dark-dim: #5C5247;
+  --accent-burgundy: #8B3A3A;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+  background: #000;
+  color: var(--text-warm);
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== STAGE & CANVAS ===== */
+.stage {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  overflow: hidden;
+}
+
+.slide-canvas {
+  position: relative;
+  width: min(100vw, calc(100vh * 16 / 9));
+  height: min(100vh, calc(100vw * 9 / 16));
+  container-type: size;
+  container-name: canvas;
+  overflow: hidden;
+}
+
+.slide-canvas.mini {
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== SLIDES ===== */
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6cqh 8cqw;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+.slide.active { opacity: 1; }
+
+.slide.theme-dark {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(212, 165, 116, 0.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 85%, rgba(139, 58, 58, 0.12) 0%, transparent 55%),
+    linear-gradient(135deg, var(--bg-dark-1) 0%, var(--bg-dark-2) 50%, var(--bg-dark-3) 100%);
+  color: var(--text-warm);
+}
+.slide.theme-light {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(212, 165, 116, 0.22) 0%, transparent 65%),
+    linear-gradient(135deg, var(--bg-light-1) 0%, var(--bg-light-2) 100%);
+  color: var(--text-dark);
+}
+
+/* Cover */
+.cover-title {
+  font-weight: 900;
+  font-size: 7.5cqw;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  max-width: 95%;
+  margin-bottom: 5cqh;
+}
+.cover-title .accent { color: var(--accent-gold); }
+.cover-church {
+  font-size: 2.6cqw;
+  font-weight: 500;
+  color: var(--text-warm-dim);
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5cqh;
+}
+.cover-date {
+  font-size: 1.6cqw;
+  font-weight: 400;
+  color: var(--text-warm-dim);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.cover-speaker {
+  position: absolute;
+  bottom: 4cqh;
+  font-size: 0.95cqw;
+  color: var(--text-warm-dim);
+  opacity: 0.55;
+  letter-spacing: 0.05em;
+}
+
+/* Passage */
+.passage-ref {
+  font-weight: 800;
+  font-size: 11cqw;
+  letter-spacing: -0.02em;
+  color: var(--text-warm);
+  margin-bottom: 3cqh;
+  line-height: 1;
+}
+.passage-decor {
+  width: 8cqw;
+  height: 0.3cqh;
+  background: var(--accent-gold);
+  margin: 4cqh 0;
+  opacity: 0.7;
+  min-height: 2px;
+}
+.passage-note {
+  font-size: 1.8cqw;
+  color: var(--text-warm-dim);
+  font-style: italic;
+}
+
+/* Hook */
+.hook-text {
+  font-weight: 800;
+  font-size: 6.5cqw;
+  line-height: 1.15;
+  max-width: 90%;
+  letter-spacing: -0.015em;
+}
+.hook-text .accent { color: var(--accent-gold); }
+
+/* Transition */
+.transition-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4cqw;
+  flex-wrap: wrap;
+  max-width: 95%;
+}
+.transition-phrase {
+  font-weight: 700;
+  font-size: 4.5cqw;
+  line-height: 1.2;
+  flex: 1 1 35%;
+  min-width: 30cqw;
+}
+.transition-phrase.left {
+  color: var(--text-warm-dim);
+  text-align: right;
+  font-style: italic;
+}
+.transition-phrase.right {
+  color: var(--accent-gold-bright);
+  text-align: left;
+  font-weight: 800;
+}
+.transition-arrow {
+  font-size: 5cqw;
+  color: var(--accent-gold);
+  font-weight: 300;
+}
+
+/* Two-col */
+.twocol-wrap {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 3cqw;
+  width: 100%;
+  max-width: 90cqw;
+}
+.twocol-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5cqh 2cqw;
+  border-radius: 1cqw;
+  background: rgba(255, 255, 255, 0.03);
+  border-top: 0.3cqh solid var(--accent-gold);
+}
+.twocol-label {
+  font-size: 2cqw;
+  color: var(--text-warm-dim);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin-bottom: 2cqh;
+  text-transform: uppercase;
+}
+.twocol-value {
+  font-size: 4.5cqw;
+  font-weight: 800;
+  color: var(--text-warm);
+  line-height: 1.1;
+}
+.twocol-card.alt .twocol-value { color: var(--accent-gold-bright); }
+
+/* Section */
+.section-numeral {
+  font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 16cqw;
+  color: var(--accent-gold);
+  line-height: 0.95;
+  margin-bottom: 3cqh;
+  opacity: 0.9;
+}
+.section-title {
+  font-weight: 800;
+  font-size: 5cqw;
+  line-height: 1.15;
+  max-width: 90%;
+  letter-spacing: -0.015em;
+}
+
+/* Contrast */
+.contrast-wrap {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  max-width: 90cqw;
+}
+.contrast-item {
+  flex: 1;
+  padding: 4cqh 3cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.contrast-item:first-child {
+  border-right: 1px solid rgba(212, 165, 116, 0.3);
+}
+.contrast-word {
+  font-weight: 800;
+  font-size: 6cqw;
+  margin-bottom: 2cqh;
+  letter-spacing: -0.015em;
+}
+.contrast-item:first-child .contrast-word { color: var(--text-warm); }
+.contrast-item:last-child .contrast-word { color: var(--accent-gold); }
+.contrast-sub {
+  font-size: 1.8cqw;
+  color: var(--text-warm-dim);
+  line-height: 1.4;
+  max-width: 90%;
+  font-style: italic;
+}
+
+/* Verse */
+.verse-ref {
+  font-size: 2cqw;
+  font-weight: 600;
+  color: var(--accent-burgundy);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 5cqh;
+}
+.verse-text {
+  font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  font-size: 4cqw;
+  line-height: 1.35;
+  font-weight: 400;
+  max-width: 85cqw;
+  color: var(--text-dark);
+}
+.verse-text.emphasis {
+  font-size: 5cqw;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.3;
+}
+.verse-decor {
+  width: 6cqw;
+  height: 2px;
+  background: var(--accent-burgundy);
+  margin-top: 5cqh;
+  opacity: 0.5;
+}
+
+/* Paired */
+.paired-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3cqh;
+  max-width: 95%;
+}
+.paired-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3cqw;
+  flex-wrap: wrap;
+}
+.paired-left {
+  font-size: 4cqw;
+  font-weight: 500;
+  color: var(--text-warm-dim);
+  font-style: italic;
+}
+.paired-arrow {
+  font-size: 4cqw;
+  color: var(--accent-gold);
+  font-weight: 300;
+}
+.paired-right {
+  font-size: 5cqw;
+  font-weight: 800;
+  color: var(--accent-gold-bright);
+  letter-spacing: -0.01em;
+}
+
+/* Punch */
+.punch-line1 {
+  font-size: 4.5cqw;
+  font-weight: 500;
+  color: var(--text-warm-dim);
+  margin-bottom: 3cqh;
+  line-height: 1.2;
+}
+.punch-line2 {
+  font-size: 7cqw;
+  font-weight: 900;
+  color: var(--accent-gold-bright);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* Action */
+.action-number {
+  font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 20cqw;
+  font-weight: 700;
+  color: var(--accent-gold);
+  line-height: 0.85;
+  margin-bottom: 3cqh;
+  opacity: 0.9;
+}
+.action-title {
+  font-size: 5cqw;
+  font-weight: 800;
+  line-height: 1.15;
+  max-width: 90%;
+  margin-bottom: 2cqh;
+  letter-spacing: -0.015em;
+}
+.action-subtitle {
+  font-size: 2.4cqw;
+  font-weight: 400;
+  color: var(--text-warm-dim);
+  line-height: 1.3;
+  max-width: 80%;
+  font-style: italic;
+}
+
+/* Key phrase */
+.keyphrase-decor {
+  width: 8cqw;
+  height: 2px;
+  background: var(--accent-burgundy);
+  margin-bottom: 5cqh;
+  opacity: 0.6;
+}
+.keyphrase-text {
+  font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  font-size: 5cqw;
+  line-height: 1.3;
+  font-weight: 500;
+  font-style: italic;
+  max-width: 90cqw;
+  color: var(--text-dark);
+}
+
+/* Blackout */
+.blackout {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+.blackout.on {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== PULPIT VIEW ===== */
+.control {
+  display: none;
+  position: fixed;
+  inset: 0;
+  flex-direction: column;
+  background: #15151A;
+  color: #E5E5E5;
+  font-size: 14px;
+  overflow: hidden;
+}
+body.mode-control { background: #15151A; overflow: hidden; }
+body.mode-control .control { display: flex; }
+body.mode-control .stage { display: none; }
+body.mode-control .blackout { display: none; }
+
+.control-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: #0F0F12;
+  border-bottom: 1px solid #2A2A30;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.control-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #999;
+}
+.status-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #555;
+  transition: background 200ms;
+  flex-shrink: 0;
+}
+.status-dot.connected { background: #4ADE80; box-shadow: 0 0 8px #4ADE80; }
+.status-dot.connecting { background: #FBBF24; box-shadow: 0 0 8px #FBBF24; animation: pulse 1.5s infinite; }
+.status-dot.disconnected { background: #EF4444; box-shadow: 0 0 8px #EF4444; }
+.status-dot.disabled { background: #555; }
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.control-timer {
+  font-family: 'SF Mono', Menlo, Monaco, Consolas, monospace;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #4ADE80;
+  transition: color 300ms;
+}
+.control-timer.good { color: #4ADE80; }   /* 0:00 – 30:00 */
+.control-timer.warn { color: #FB923C; }   /* 30:01 – 35:00 */
+.control-timer.danger { color: #EF4444; } /* 35:01 → ∞ */
+.control-timer.paused { opacity: 0.4; }
+
+.control-counter {
+  font-size: 14px;
+  color: #999;
+  font-family: 'SF Mono', Menlo, Monaco, Consolas, monospace;
+}
+.control-counter strong { color: #FFF; font-size: 17px; }
+
+.control-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  grid-template-rows: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 10px;
+  padding: 10px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.preview-cell {
+  background: #0F0F12;
+  border-radius: 8px;
+  border: 1px solid #2A2A30;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.preview-cell.current { grid-column: 1; grid-row: 1; }
+.preview-cell.next { grid-column: 2; grid-row: 1; }
+
+.preview-label {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  font-size: 10.5px;
+  color: #FFF;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  z-index: 5;
+  background: rgba(0,0,0,0.55);
+  padding: 4px 9px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.preview-frame {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.preview-empty {
+  color: #555;
+  font-style: italic;
+  font-size: 14px;
+}
+
+.control-notes {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  background: #0F0F12;
+  border-radius: 8px;
+  border: 1px solid #2A2A30;
+  padding: 14px 20px;
+  overflow-y: auto;
+}
+.notes-label {
+  font-size: 10.5px;
+  color: #888;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.notes-content {
+  white-space: pre-wrap;
+  font-size: 16px;
+  line-height: 1.55;
+  color: #DDD;
+  font-family: 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+}
+
+.control-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: #0F0F12;
+  border-top: 1px solid #2A2A30;
+  flex-wrap: wrap;
+}
+.btn {
+  background: #2A2A35;
+  color: #E5E5E5;
+  border: 1px solid #3A3A45;
+  border-radius: 6px;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 150ms;
+  font-family: inherit;
+}
+.btn:hover { background: #3A3A45; border-color: #4A4A55; }
+.btn:active { transform: scale(0.97); }
+.btn.primary { background: #2563EB; border-color: #3B82F6; }
+.btn.primary:hover { background: #3B82F6; }
+.btn.danger { background: #7F1D1D; border-color: #991B1B; }
+.btn.danger:hover { background: #991B1B; }
+.btn.danger.active {
+  background: #DC2626;
+  border-color: #EF4444;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
+}
+.btn.small { padding: 9px 14px; font-size: 13px; }
+
+.help-hint {
+  position: fixed;
+  bottom: 8px;
+  left: 16px;
+  font-size: 11px;
+  color: #555;
+  font-family: 'SF Mono', Menlo, monospace;
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .control-body {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 0.6fr 1fr;
+  }
+  .preview-cell.current { grid-column: 1; grid-row: 1; }
+  .preview-cell.next { grid-column: 1; grid-row: 2; }
+  .control-notes { grid-column: 1; grid-row: 3; }
+  .control-header { font-size: 12px; padding: 8px 12px; }
+  .control-timer { font-size: 20px; }
+  .btn { padding: 10px 14px; font-size: 13px; }
+  .btn.small { padding: 8px 10px; font-size: 12px; }
+  .help-hint { display: none; }
+}
+
+/* Standalone hint */
+.standalone-hint {
+  position: fixed;
+  bottom: 10px;
+  right: 14px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.18);
+  font-family: 'SF Mono', Menlo, monospace;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Screen-mode discreet status dot (only visible to cabin up close) */
+.screen-status-dot {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #555;
+  z-index: 100;
+  opacity: 0.55;
+  transition: background 200ms, box-shadow 200ms;
+  display: none;
+}
+body.mode-screen .screen-status-dot { display: block; }
+.screen-status-dot.connected { background: #4ADE80; box-shadow: 0 0 5px rgba(74, 222, 128, 0.6); }
+.screen-status-dot.connecting { background: #FBBF24; box-shadow: 0 0 5px rgba(251, 191, 36, 0.6); animation: pulse 1.5s infinite; }
+.screen-status-dot.disconnected { background: #EF4444; box-shadow: 0 0 5px rgba(239, 68, 68, 0.6); }
+
+/* ===== MODE SELECTOR (when opened without ?mode=) ===== */
+.selector {
+  display: none;
+  position: fixed;
+  inset: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(212, 165, 116, 0.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 85%, rgba(139, 58, 58, 0.12) 0%, transparent 55%),
+    linear-gradient(135deg, var(--bg-dark-1) 0%, var(--bg-dark-2) 50%, var(--bg-dark-3) 100%);
+  color: var(--text-warm);
+  padding: 5vh 5vw;
+  text-align: center;
+  z-index: 200;
+  overflow: auto;
+}
+body.mode-select .selector { display: flex; }
+body.mode-select .stage,
+body.mode-select .control,
+body.mode-select .blackout,
+body.mode-select .standalone-hint { display: none; }
+
+.selector-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  margin-bottom: 1vh;
+  letter-spacing: -0.01em;
+  max-width: 90vw;
+  line-height: 1.15;
+}
+.selector-title .accent { color: var(--accent-gold); }
+.selector-sub {
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  color: var(--text-warm-dim);
+  margin-bottom: 5vh;
+  letter-spacing: 0.05em;
+}
+.selector-options {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  max-width: 460px;
+}
+.opt {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 165, 116, 0.25);
+  color: var(--text-warm);
+  border-radius: 10px;
+  padding: 22px 24px;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  transition: all 180ms;
+}
+.opt:hover {
+  background: rgba(212, 165, 116, 0.10);
+  border-color: var(--accent-gold);
+  transform: translateY(-1px);
+}
+.opt:active { transform: translateY(0); }
+.opt-icon {
+  font-size: 1.8rem;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(212, 165, 116, 0.12);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.opt-body { flex: 1; min-width: 0; }
+.opt-name {
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin-bottom: 3px;
+  letter-spacing: -0.005em;
+}
+.opt-desc {
+  font-size: 0.88rem;
+  color: var(--text-warm-dim);
+  line-height: 1.35;
+}
+.opt.primary { border-color: var(--accent-gold); background: rgba(212, 165, 116, 0.08); }
+.opt.primary .opt-icon { background: rgba(212, 165, 116, 0.22); }
+
+.selector-footer {
+  margin-top: 4vh;
+  font-size: 0.75rem;
+  color: var(--text-warm-dim);
+  opacity: 0.5;
+  max-width: 460px;
+  line-height: 1.5;
+}
+.selector-credits {
+  margin-top: 3vh;
+  padding-top: 2vh;
+  border-top: 1px solid rgba(212, 165, 116, 0.12);
+  font-size: 0.7rem;
+  color: var(--text-warm-dim);
+  opacity: 0.45;
+  max-width: 460px;
+  line-height: 1.7;
+  text-align: center;
+}
+.selector-credits a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+}
+.selector-credits a:hover {
+  color: var(--accent-gold);
+  opacity: 1;
+}
+.selector-credits .sep {
+  opacity: 0.4;
+  margin: 0 6px;
+}
+
+/* ===== PRINT MODE (4to modo) ===== */
+.print-view { display: none; }
+body.mode-print {
+  background: #f5f5f5; color: #1a1a1a; overflow: auto; min-height: 100vh;
+}
+body.mode-print .selector,
+body.mode-print .stage,
+body.mode-print .control,
+body.mode-print .blackout,
+body.mode-print .standalone-hint,
+body.mode-print .screen-status-dot { display: none !important; }
+body.mode-print .print-view { display: block; }
+
+.print-toolbar {
+  position: sticky; top: 0; z-index: 100;
+  background: white; padding: 14px 24px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+}
+.print-toolbar .pt-title { font-size: 14px; font-weight: 600; color: #444; }
+.print-toolbar button {
+  background: #1a1a1a; color: white; border: 0;
+  border-radius: 6px; padding: 9px 18px;
+  font: inherit; font-weight: 600; font-size: 13px; cursor: pointer;
+}
+.print-toolbar button:hover { background: #333; }
+
+.print-pages { padding: 30px 24px; max-width: 980px; margin: 0 auto; }
+.print-slide {
+  background: white; border: 1px solid #e0e0e0; border-radius: 8px;
+  padding: 50px 60px; margin-bottom: 24px;
+  min-height: 60vh;
+  display: flex; flex-direction: column; justify-content: center;
+  font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  position: relative;
+}
+.print-slide-meta {
+  position: absolute; top: 14px; left: 24px; right: 24px;
+  display: flex; justify-content: space-between;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 10px; color: #aaa;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.print-slide h1.cover { font-size: 32pt; line-height: 1.15; color: #1a1a1a; margin-bottom: 18px; }
+.print-slide .cover-meta { font-size: 12pt; color: #666; line-height: 1.6; font-family: -apple-system, sans-serif; }
+.print-slide h2.section-num { font-size: 14pt; color: #888; text-transform: uppercase; letter-spacing: 0.12em; font-family: -apple-system, sans-serif; margin-bottom: 8px; }
+.print-slide h2.section-title { font-size: 26pt; line-height: 1.2; color: #1a1a1a; margin-bottom: 12px; }
+.print-slide .punch-text,
+.print-slide .hook-text,
+.print-slide .key-phrase-text { font-size: 22pt; line-height: 1.4; color: #2a2a2a; font-style: italic; }
+.print-slide .key-phrase-text { color: #1a1a1a; font-weight: 600; font-style: normal; }
+.print-slide .verse-ref { font-size: 11pt; color: #888; font-family: -apple-system, sans-serif; margin-bottom: 14px; letter-spacing: 0.05em; }
+.print-slide blockquote.verse-text {
+  font-size: 16pt; line-height: 1.6; color: #2a2a2a;
+  padding-left: 22px; border-left: 3px solid #D4A574;
+  font-style: italic; margin: 0;
+}
+.print-slide .verse-emphasis { color: #6B1209; font-weight: 600; font-style: normal; }
+.print-slide .twocol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 16px; }
+.print-slide .twocol-grid h3 { font-size: 13pt; color: #888; font-family: -apple-system, sans-serif; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+.print-slide .twocol-grid p { font-size: 15pt; line-height: 1.5; color: #2a2a2a; }
+.print-slide .twocol-grid .alt p { color: #6B1209; }
+.print-slide .action-num { font-size: 14pt; color: #888; font-family: -apple-system, sans-serif; margin-bottom: 8px; }
+.print-slide .action-title { font-size: 22pt; line-height: 1.3; color: #1a1a1a; margin-bottom: 10px; }
+.print-slide .action-subtitle { font-size: 14pt; line-height: 1.5; color: #555; }
+.print-slide.theme-light { background: #fdfcf9; }
+.print-slide em { font-style: italic; color: #6B1209; }
+
+.print-license-block {
+  background: white; border: 1px solid #e0e0e0; border-radius: 8px;
+  padding: 20px 30px; margin-top: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+  font-size: 10pt; color: #555;
+}
+.print-license-block h2 { font-size: 12pt; margin-bottom: 12px; color: #2a2a2a; font-weight: 600; letter-spacing: 0.02em; }
+.print-license-block table { width: 100%; margin-bottom: 14px; border-collapse: collapse; }
+.print-license-block th { text-align: left; font-weight: 500; color: #888; padding: 3px 12px 3px 0; width: 95px; vertical-align: top; font-size: 9pt; }
+.print-license-block td { padding: 3px 0; color: #2a2a2a; font-size: 10pt; }
+.print-license-block .attribution,
+.print-license-block .license { font-size: 9pt; color: #666; line-height: 1.55; margin-bottom: 8px; }
+.print-license-block a { color: #444; }
+
+@media print {
+  /* Override any overflow/height constraints from base body so all pages print */
+  html, body {
+    overflow: visible !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+  body.mode-print {
+    background: white !important;
+    overflow: visible !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+  .print-toolbar { display: none !important; }
+  .print-pages { padding: 0; max-width: none; }
+  .print-slide {
+    border: none; margin-bottom: 0; box-shadow: none;
+    page-break-after: always; page-break-inside: avoid;
+    min-height: auto; height: 100vh; padding: 30mm 25mm;
+  }
+  .print-license-block {
+    border: none; box-shadow: none;
+    page-break-before: auto; /* let it flow naturally, no forced break */
+    padding: 18mm 22mm;
+    margin-top: 0;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage"></div>
+<div class="blackout" id="blackout"></div>
+<div class="screen-status-dot" id="screenStatusDot" title="Estado MQTT"></div>
+
+<div class="selector" id="selector">
+  <div class="selector-title">Jesús sana,<br><span class="accent">sin importar las etiquetas</span></div>
+  <div class="selector-sub">Iglesia Alianza República · 3 de mayo, 2026</div>
+
+  <div class="selector-options">
+    <button class="opt primary" data-mode="standalone">
+      <div class="opt-icon">👤</div>
+      <div class="opt-body">
+        <div class="opt-name">Ver presentación</div>
+        <div class="opt-desc">Para verla por tu cuenta · navega con flechas o haciendo clic</div>
+      </div>
+    </button>
+    <button class="opt" data-mode="screen">
+      <div class="opt-icon">📺</div>
+      <div class="opt-body">
+        <div class="opt-name">Cabina · pantalla</div>
+        <div class="opt-desc">Recibe el control desde el púlpito y proyecta</div>
+      </div>
+    </button>
+    <button class="opt" data-mode="control">
+      <div class="opt-icon">🎛</div>
+      <div class="opt-body">
+        <div class="opt-name">Modo control · predicador</div>
+        <div class="opt-desc">Vista del predicador con notas, cronómetro y controles</div>
+      </div>
+    </button>
+    <button class="opt" data-mode="print">
+      <div class="opt-icon">📄</div>
+      <div class="opt-body">
+        <div class="opt-name">Imprimir · guardar PDF</div>
+        <div class="opt-desc">Vista lineal de todas las láminas + ficha informativa para imprimir o exportar PDF</div>
+      </div>
+    </button>
+  </div>
+
+  <div class="selector-footer">
+    Si no sabes cuál escoger, presiona "Ver presentación".
+  </div>
+
+  <div class="selector-credits">
+    Programa (SPA) creado por Jonathan Ricardo Proaño Alcívar
+    en base al bosquejo de Jonathan Ricardo Proaño Alcívar.<br>
+    Asistido con IA Claude (Anthropic) ·
+    <a href="mailto:jonathan@parlox.net">jonathan@parlox.net</a><br>
+    Disponible en
+    <a href="https://github.com/AlianzaRepublica" target="_blank" rel="noopener">github.com/AlianzaRepublica</a>
+    <span class="sep">·</span>
+    Licenciado bajo
+    <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank" rel="noopener">AGPL-3.0-or-later</a>
+    — software libre con código abierto al servirse en red.
+  </div>
+</div>
+
+<div class="print-view" id="printView">
+  <div class="print-toolbar">
+    <div class="pt-title">Jesús sana, sin importar las etiquetas — Vista de impresión</div>
+    <button id="btnPrint" type="button">Imprimir / Guardar PDF</button>
+  </div>
+  <div class="print-pages" id="printPages"></div>
+</div>
+
+<div class="control" id="control">
+  <div class="control-header">
+    <div class="control-status">
+      <span class="status-dot disabled" id="statusDot"></span>
+      <span id="statusText">Inicializando…</span>
+    </div>
+    <div class="control-timer" id="timer">00:00</div>
+    <div class="control-counter">Lámina <strong id="counterCurrent">1</strong> / <span id="counterTotal">21</span></div>
+  </div>
+
+  <div class="control-body">
+    <div class="preview-cell current">
+      <div class="preview-label">Actual</div>
+      <div class="preview-frame" id="previewCurrent"></div>
+    </div>
+    <div class="preview-cell next">
+      <div class="preview-label">Siguiente</div>
+      <div class="preview-frame" id="previewNext"></div>
+    </div>
+    <div class="control-notes">
+      <div class="notes-label">Bosquejo · esta lámina</div>
+      <div class="notes-content" id="notesContent"></div>
+    </div>
+  </div>
+
+  <div class="control-controls">
+    <button class="btn small" id="btnTimerToggle">⏸ Pausar</button>
+    <button class="btn small" id="btnTimerReset">↻ Reset</button>
+    <button class="btn" id="btnPrev">← Anterior</button>
+    <button class="btn danger" id="btnBlackout">Pantalla negra (B)</button>
+    <button class="btn primary" id="btnNext">Siguiente →</button>
+    <button class="btn small" id="btnResync">⟲ Resync</button>
+  </div>
+
+  <div class="help-hint">← → o espacio: navegar  ·  B: blackout  ·  Esc: salir blackout  ·  Home/End: primera/última</div>
+</div>
+
+<div class="standalone-hint" id="standaloneHint"></div>
+
+<script>
+'use strict';
+
+// ============== MINI MQTT 3.1.1 over WebSocket (QoS 0) ==============
+class MiniMQTT {
+  constructor(url, options) {
+    options = options || {};
+    this.url = url;
+    this.clientId = options.clientId || ('c-' + Math.random().toString(36).slice(2, 12));
+    this.keepalive = options.keepalive || 60;
+    this.handlers = { connect: [], message: [], close: [], error: [] };
+    this.subs = new Set();
+    this.ws = null;
+    this.pingInterval = null;
+    this.reconnectTimer = null;
+    this.reconnectDelay = 2000;
+    this.shouldReconnect = true;
+    this._connected = false;
+  }
+  on(e, h) { (this.handlers[e] = this.handlers[e] || []).push(h); }
+  emit(e) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    (this.handlers[e] || []).forEach(function(h) { try { h.apply(null, args); } catch(_){} });
+  }
+  connect() { this.shouldReconnect = true; this._open(); }
+  end() {
+    this.shouldReconnect = false;
+    if (this.reconnectTimer) { clearTimeout(this.reconnectTimer); this.reconnectTimer = null; }
+    this._cleanup();
+    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+      try { this.ws.send(new Uint8Array([0xE0, 0x00])); } catch(_){}
+      this.ws.close();
+    }
+  }
+  _open() {
+    var self = this;
+    try {
+      this.ws = new WebSocket(this.url, ['mqtt']);
+      this.ws.binaryType = 'arraybuffer';
+    } catch (e) {
+      this.emit('error', e);
+      this._scheduleReconnect();
+      return;
+    }
+    this.ws.onopen = function() { self._sendConnect(); };
+    this.ws.onmessage = function(e) { self._onMessage(new Uint8Array(e.data)); };
+    this.ws.onclose = function() {
+      self._connected = false;
+      self._cleanup();
+      self.emit('close');
+      if (self.shouldReconnect) self._scheduleReconnect();
+    };
+    this.ws.onerror = function(e) { self.emit('error', e); };
+  }
+  _scheduleReconnect() {
+    var self = this;
+    if (this.reconnectTimer) return;
+    var delay = Math.min(this.reconnectDelay, 15000);
+    this.reconnectTimer = setTimeout(function() {
+      self.reconnectTimer = null;
+      self._open();
+    }, delay);
+    this.reconnectDelay = Math.min(Math.floor(this.reconnectDelay * 1.5), 15000);
+  }
+  _cleanup() {
+    if (this.pingInterval) { clearInterval(this.pingInterval); this.pingInterval = null; }
+  }
+  _encLen(len) {
+    var out = [];
+    do { var b = len % 128; len = Math.floor(len / 128); if (len > 0) b |= 0x80; out.push(b); } while (len > 0);
+    return out;
+  }
+  _encStr(s) {
+    var b = new TextEncoder().encode(s);
+    var out = new Array(b.length + 2);
+    out[0] = (b.length >> 8) & 0xFF; out[1] = b.length & 0xFF;
+    for (var i = 0; i < b.length; i++) out[i + 2] = b[i];
+    return out;
+  }
+  _sendConnect() {
+    var proto = this._encStr('MQTT');
+    var cid = this._encStr(this.clientId);
+    var vh = proto.concat([4, 0x02, (this.keepalive >> 8) & 0xFF, this.keepalive & 0xFF]);
+    var rem = vh.length + cid.length;
+    var fh = [0x10].concat(this._encLen(rem));
+    this.ws.send(new Uint8Array(fh.concat(vh, cid)));
+  }
+  subscribe(topic) {
+    this.subs.add(topic);
+    if (this._connected) this._sendSub(topic);
+  }
+  _sendSub(topic) {
+    var pid = Math.floor(Math.random() * 65534) + 1;
+    var vh = [(pid >> 8) & 0xFF, pid & 0xFF];
+    var tb = this._encStr(topic);
+    var payload = tb.concat([0x00]);
+    var rem = vh.length + payload.length;
+    var fh = [0x82].concat(this._encLen(rem));
+    this.ws.send(new Uint8Array(fh.concat(vh, payload)));
+  }
+  publish(topic, msg) {
+    if (!this._connected || !this.ws || this.ws.readyState !== WebSocket.OPEN) return false;
+    var tb = this._encStr(topic);
+    var pb = typeof msg === 'string' ? new TextEncoder().encode(msg) : msg;
+    var rem = tb.length + pb.length;
+    var fh = [0x30].concat(this._encLen(rem));
+    var packet = new Uint8Array(fh.length + tb.length + pb.length);
+    packet.set(fh, 0);
+    packet.set(tb, fh.length);
+    packet.set(pb, fh.length + tb.length);
+    try { this.ws.send(packet); return true; } catch (e) { return false; }
+  }
+  _onMessage(data) {
+    var off = 0;
+    while (off < data.length) {
+      var type = data[off] >> 4;
+      var flags = data[off] & 0x0F;
+      off++;
+      var rem = 0, mult = 1, byte;
+      do {
+        if (off >= data.length) return;
+        byte = data[off++];
+        rem += (byte & 0x7F) * mult;
+        mult *= 128;
+      } while ((byte & 0x80) !== 0);
+      var end = off + rem;
+
+      if (type === 2) { // CONNACK
+        var rc = data[off + 1];
+        if (rc === 0) {
+          this._connected = true;
+          this.reconnectDelay = 2000;
+          var self = this;
+          this.subs.forEach(function(t) { self._sendSub(t); });
+          this.pingInterval = setInterval(function() {
+            if (self.ws && self.ws.readyState === WebSocket.OPEN) {
+              try { self.ws.send(new Uint8Array([0xC0, 0x00])); } catch(_){}
+            }
+          }, this.keepalive * 800);
+          this.emit('connect');
+        } else {
+          this.emit('error', new Error('CONNACK rc=' + rc));
+        }
+      } else if (type === 3) { // PUBLISH
+        var tlen = (data[off] << 8) | data[off + 1];
+        var topic = new TextDecoder().decode(data.slice(off + 2, off + 2 + tlen));
+        var qos = (flags >> 1) & 0x03;
+        var pStart = off + 2 + tlen;
+        if (qos > 0) pStart += 2;
+        var payload = new TextDecoder().decode(data.slice(pStart, end));
+        this.emit('message', topic, payload);
+      }
+      off = end;
+    }
+  }
+}
+
+// ============== CONFIG ==============
+const TOPIC = 'alianzarepublica/sermon/2026-05-03/dhaftbwhv0/control';
+const BROKER_URL = 'wss://broker.hivemq.com:8884/mqtt';
+const TARGET_MINUTES = 35;
+// Cronómetro: umbrales en segundos según política del skill /sermon
+const TIMER_GREEN_UNTIL_SECS = 30 * 60;  // 0:00 → 30:00 verde
+const TIMER_ORANGE_UNTIL_SECS = 35 * 60; // 30:01 → 35:00 anaranjado
+                                          // 35:01 → ∞ rojo
+
+// ============== SLIDES ==============
+const SLIDES = [
+  {
+    type: 'cover',
+    theme: 'dark',
+    title: 'Jesús sana,<br><span class="accent">sin importar las etiquetas</span>',
+    church: 'Iglesia Alianza República',
+    date: '3 de mayo, 2026',
+    speaker: 'Jonathan Ricardo Proaño Alcívar',
+    notes: '— Saludo y bienvenida\n— Oración inicial\n— Anuncio del tema'
+  },
+  {
+    type: 'passage',
+    theme: 'dark',
+    reference: 'Marcos 5:21-43',
+    note: 'Pasajes paralelos: Mateo 9:18-26 · Lucas 8:40-56',
+    notes: '— Lectura del pasaje (NTV)\n— Mencionar pasajes paralelos\n— Textos de referencia: Levítico 15:25-27; Números 15:37-41; Malaquías 4:2'
+  },
+  {
+    type: 'hook',
+    theme: 'dark',
+    text: '¿Cuánto tiempo necesita una etiqueta para convertirse en <span class="accent">identidad</span>?',
+    notes: 'HOOK\n\n— A veces basta una palabra\n— Una caída\n— Una enfermedad, un fracaso\n— Una historia familiar, una herida\n— Una etapa difícil, una decisión pasada\n— Una opinión ajena'
+  },
+  {
+    type: 'transition',
+    theme: 'dark',
+    left: '«Estoy atravesando esto»',
+    right: '«Yo soy esto»',
+    notes: '— Al principio era algo que nos pasó\n— Otros empiezan a repetirlo\n— Nosotros empezamos a creerlo\n— Un día ya no decimos "estoy atravesando" sino "yo soy"\n\n— Marcos 5: una mujer que durante 12 años no solo sufrió una enfermedad — sufrió una etiqueta\n— La ley decía: impureza ritual TEMPORAL\n— La sociedad la convirtió en identidad PERMANENTE\n— Ya no era mujer, hija de Israel, persona a imagen de Dios. Era "la impura", "la enferma"'
+  },
+  {
+    type: 'two-col',
+    theme: 'dark',
+    leftLabel: 'Una niña',
+    leftValue: '12 años<br>de vida',
+    rightLabel: 'Una mujer',
+    rightValue: '12 años<br>de sufrimiento',
+    notes: '— Dos historias entrelazadas\n— No es coincidencia ni código esotérico\n— Recurso literario: Cristo gobierna lo visible Y lo escondido\n\n— Jesús iba a casa de Jairo (principal de la sinagoga)\n— Había urgencia, una niña muriendo, familia reconocida\n— En medio de esa historia visible, se detuvo por una historia escondida\n\n— El Reino de Dios no se mueve por influencias humanas o etiquetas, sino por el propósito del Rey'
+  },
+  {
+    type: 'section',
+    theme: 'dark',
+    numeral: 'I',
+    title: 'Jesús ve a quienes otros han reducido a una etiqueta',
+    notes: 'PUNTO I — anuncio\n\nDesarrollo consolidado de los 3 sub-puntos en el siguiente slide'
+  },
+  {
+    type: 'contrast',
+    theme: 'dark',
+    items: [
+      { word: 'Visible', sub: 'Jairo: nombre, cargo, reconocimiento' },
+      { word: 'Escondida', sub: 'La mujer: dolor, vergüenza, aislamiento' }
+    ],
+    notes: 'I.1 — Historia visible y escondida\n  a) Jairo: nombre, cargo, reconocimiento, necesidad URGENTE\n  b) La mujer: dolor, vergüenza, aislamiento, necesidad SILENCIOSA\n\nI.2 — Doce años de vida y doce años de sufrimiento\n  a) Hija de Jairo: vida, cuidado, familia, esperanza\n  b) La mujer: pérdida, desgaste, soledad, exclusión\n\nI.3 — Condición temporal convertida en identidad permanente\n  a) Ley de pureza: enseñaba santidad de Dios y necesidad de limpieza\n  b) La sociedad: condición ritual TEMPORAL → etiqueta PERMANENTE de rechazo'
+  },
+  {
+    type: 'section',
+    theme: 'dark',
+    numeral: 'II',
+    title: 'Jesús recibe una fe que reconoce al Mesías',
+    notes: 'PUNTO II — anuncio'
+  },
+  {
+    type: 'verse',
+    theme: 'light',
+    reference: 'Marcos 5:27-28 · NTV',
+    text: 'Ella había oído de Jesús, así que se le acercó por detrás entre la multitud y tocó su túnica. Pues pensó: «Si tan solo tocara su túnica, quedaré sana».',
+    notes: 'II.1 — Se acerca con confianza, no con influencia\n  a) Jairo: de frente, tiene lugar ante la comunidad\n  b) Ella: por detrás, la vergüenza la había escondido\n\nII.2 — No toca el manto por superstición, sino por fe\n  a) El borde del manto = pacto y promesa de sanidad del Mesías\n  b) Malaquías 4:2 — el Sol de justicia trae sanidad en sus alas\n  c) Su toque = confesión: Jesús es el Cristo prometido\n\nII.3 — No contamina a Jesús; Jesús la limpia a ella\n  a) Lógica ritual: el contacto transmite impureza\n  b) En Cristo se invierte: su santidad vence lo intocable'
+  },
+  {
+    type: 'section',
+    theme: 'dark',
+    numeral: 'III',
+    title: 'Jesús no permite una restauración incompleta',
+    notes: 'PUNTO III — anuncio\n\n3 versículos clave seguidos para sostener este punto'
+  },
+  {
+    type: 'verse',
+    theme: 'light',
+    reference: 'Marcos 5:30 · NTV',
+    text: 'Jesús se dio cuenta de inmediato de que había salido poder sanador de él, así que se dio vuelta y preguntó a la multitud: «¿Quién tocó mi túnica?».',
+    notes: 'III.1 — Jesús la llama al frente NO para humillarla, sino para restaurarla\n\n— Si se iba en secreto: sanidad física pero seguía cargando sospecha social\n— La gente podía seguir recordándola por su pasado\n— Jesús la detiene para que todos sepan: ella ya no debe ser vista como impura'
+  },
+  {
+    type: 'verse',
+    theme: 'light',
+    reference: 'Marcos 5:33 · NTV',
+    text: 'Entonces la mujer, asustada y temblando al darse cuenta de lo que le había pasado, se le acercó y se arrodilló delante de él y le confesó lo que había hecho.',
+    notes: '— Ella confiesa todo delante de él\n— No es humillación, es preparación para la restauración pública\n— Lo que recibió en secreto, Cristo lo confirma en público'
+  },
+  {
+    type: 'verse',
+    theme: 'light',
+    reference: 'Marcos 5:34 · NTV',
+    text: '«Hija, tu fe te ha sanado. Ve en paz. Se acabó tu sufrimiento».',
+    emphasis: true,
+    notes: '⭐ CLÍMAX DEL PASAJE ⭐\n\nIII.2 — Jesús la llama "HIJA", no "mujer impura"\n  a) La gente la definía por su condición; Jesús por su relación con Dios\n  b) Le devuelve dignidad, pertenencia, identidad\n\nIII.3 — Jesús la envía en paz, no solo con salud\n  a) La sanidad tocó su cuerpo; la palabra de Cristo restauró su vida\n  b) Llegó escondida entre la multitud; salió enviada en paz por el Mesías\n\n— PAUSA — dejar que la frase asiente'
+  },
+  {
+    type: 'paired',
+    theme: 'dark',
+    left: 'Buscaba ser sana',
+    right: 'Jesús la llamó hija',
+    notes: 'CONCLUSIÓN — primera de tres frases pareadas\n\n— Doce años no son coincidencia\n— Una niña creciendo con amor; una mujer perdiendo todo\n— Una historia visible; otra escondida\n— Una familia con nombre; una mujer sin nombre\n— Ambas historias se encontraron delante del mismo Cristo'
+  },
+  {
+    type: 'paired',
+    theme: 'dark',
+    left: 'Buscaba salir de su enfermedad',
+    right: 'Jesús la devolvió a la comunidad',
+    notes: 'CONCLUSIÓN — segunda frase pareada\n\n— Su poder no está al servicio de jerarquías humanas\n— Camina hacia la casa del líder religioso, pero también se detiene por la marginada\n— Atiende la urgencia visible sin ignorar el dolor secreto'
+  },
+  {
+    type: 'paired',
+    theme: 'dark',
+    left: 'Buscaba alcanzar en secreto',
+    right: 'Jesús la restauró en público',
+    notes: 'CONCLUSIÓN — tercera frase pareada\n\n— Recibió mucho más de lo que buscaba\n— Transición a la frase punch'
+  },
+  {
+    type: 'punch',
+    theme: 'dark',
+    line1: 'Jesús no solo perdona pecadores.',
+    line2: 'Jesús restaura hijos.',
+    notes: '⚡ PUNCH LINE de la conclusión ⚡\n\n— Pausar para que la frase asiente\n— Mirar a la congregación\n— Transición a aplicación: "Esta semana…"'
+  },
+  {
+    type: 'action',
+    theme: 'dark',
+    number: '1',
+    title: 'Identifica tu etiqueta',
+    subtitle: 'y respóndela con la verdad de Cristo',
+    notes: 'APLICACIÓN — Esta semana, permite que Cristo confronte dos cosas:\n  · La etiqueta que has cargado sobre ti\n  · La etiqueta que tú has puesto sobre alguien más\n\nACCIÓN 1:\n— Escribe una palabra o frase que te ha definido incorrectamente:\n  · "fracasado", "impuro", "rechazado"\n  · "inútil", "demasiado tarde"\n  · "no digno", "sin lugar"\n— Respóndela delante de Dios:\n  «Señor, esto me pasó, pero esto no define quién soy delante de ti»'
+  },
+  {
+    type: 'action',
+    theme: 'dark',
+    number: '2',
+    title: 'Identifica a alguien a quien has reducido a una etiqueta',
+    subtitle: '',
+    notes: 'ACCIÓN 2:\n\n— Puede ser alguien de:\n  · familia\n  · trabajo\n  · iglesia, grupo de vida\n  · colegio, universidad\n  · círculo cercano\n\n— Decide DELANTE DE CRISTO dejar de mirar, tratar, mencionar o recordar a esa persona solo por:\n  · su error\n  · su carácter difícil\n  · su pasado\n  · su debilidad\n  · su condición'
+  },
+  {
+    type: 'action',
+    theme: 'dark',
+    number: '3',
+    title: 'Alcánzala para Jesús',
+    subtitle: '',
+    notes: 'ACCIÓN 3:\n\nSi NO conoce a Cristo:\n— Acércate con amor, respeto y testimonio\n— Apúntala hacia Jesús\n\nSi YA es creyente:\n— Contribuye sanamente a su caminar con Dios\n— NO desde la crítica o la etiqueta\n— Desde la gracia, la verdad y la restauración'
+  },
+  {
+    type: 'key-phrase',
+    theme: 'light',
+    text: 'Cristo no te llama por la etiqueta que otros te pusieron;<br>te llama por la <em>identidad</em> que Él vino a restaurar.',
+    notes: '🔑 FRASE CLAVE DEL SERMÓN 🔑\n\n— Pausa larga\n— Oración final\n— Bendición'
+  }
+];
+
+// ============== STATE ==============
+const params = new URLSearchParams(window.location.search);
+const mode = params.get('mode') || 'select';
+const CLIENT_ID = 'sermon-' + mode + '-' + Math.random().toString(36).slice(2, 8);
+
+let state = {
+  slide: 0,
+  blackout: false,
+  ts: 0
+};
+
+let mqtt = null;
+let stageCanvas = null;
+let suppressPublish = false;
+
+// ============== RENDER ==============
+function renderSlide(s) {
+  const el = document.createElement('div');
+  el.className = 'slide theme-' + s.theme;
+  let html = '';
+  switch (s.type) {
+    case 'cover':
+      html = `
+        <h1 class="cover-title">${s.title}</h1>
+        <div class="cover-church">${s.church}</div>
+        <div class="cover-date">${s.date}</div>
+        <div class="cover-speaker">${s.speaker}</div>
+      `;
+      break;
+    case 'passage':
+      html = `
+        <div class="passage-ref">${s.reference}</div>
+        <div class="passage-decor"></div>
+        <div class="passage-note">${s.note}</div>
+      `;
+      break;
+    case 'hook':
+      html = `<div class="hook-text">${s.text}</div>`;
+      break;
+    case 'transition':
+      html = `
+        <div class="transition-wrap">
+          <div class="transition-phrase left">${s.left}</div>
+          <div class="transition-arrow">→</div>
+          <div class="transition-phrase right">${s.right}</div>
+        </div>
+      `;
+      break;
+    case 'two-col':
+      html = `
+        <div class="twocol-wrap">
+          <div class="twocol-card">
+            <div class="twocol-label">${s.leftLabel}</div>
+            <div class="twocol-value">${s.leftValue}</div>
+          </div>
+          <div class="twocol-card alt">
+            <div class="twocol-label">${s.rightLabel}</div>
+            <div class="twocol-value">${s.rightValue}</div>
+          </div>
+        </div>
+      `;
+      break;
+    case 'section':
+      html = `
+        <div class="section-numeral">${s.numeral}</div>
+        <div class="section-title">${s.title}</div>
+      `;
+      break;
+    case 'contrast':
+      html = `
+        <div class="contrast-wrap">
+          ${s.items.map(i => `
+            <div class="contrast-item">
+              <div class="contrast-word">${i.word}</div>
+              <div class="contrast-sub">${i.sub}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      break;
+    case 'verse':
+      html = `
+        <div class="verse-ref">${s.reference}</div>
+        <div class="verse-text${s.emphasis ? ' emphasis' : ''}">${s.text}</div>
+        <div class="verse-decor"></div>
+      `;
+      break;
+    case 'paired':
+      html = `
+        <div class="paired-wrap">
+          <div class="paired-row">
+            <div class="paired-left">${s.left}</div>
+            <div class="paired-arrow">→</div>
+            <div class="paired-right">${s.right}</div>
+          </div>
+        </div>
+      `;
+      break;
+    case 'punch':
+      html = `
+        <div class="punch-line1">${s.line1}</div>
+        <div class="punch-line2">${s.line2}</div>
+      `;
+      break;
+    case 'action':
+      html = `
+        <div class="action-number">${s.number}</div>
+        <div class="action-title">${s.title}</div>
+        ${s.subtitle ? `<div class="action-subtitle">${s.subtitle}</div>` : ''}
+      `;
+      break;
+    case 'key-phrase':
+      html = `
+        <div class="keyphrase-decor"></div>
+        <div class="keyphrase-text">${s.text}</div>
+      `;
+      break;
+  }
+  el.innerHTML = html;
+  return el;
+}
+
+function ensureCanvas() {
+  if (!stageCanvas) {
+    const stage = document.getElementById('stage');
+    stage.innerHTML = '';
+    stageCanvas = document.createElement('div');
+    stageCanvas.className = 'slide-canvas';
+    stage.appendChild(stageCanvas);
+  }
+  return stageCanvas;
+}
+
+function showSlide(idx, withTransition) {
+  const canvas = ensureCanvas();
+  const data = SLIDES[idx];
+  if (!data) return;
+  const next = renderSlide(data);
+
+  if (withTransition === false) {
+    canvas.innerHTML = '';
+    next.classList.add('active');
+    canvas.appendChild(next);
+    return;
+  }
+
+  const old = canvas.querySelector('.slide.active');
+  canvas.appendChild(next);
+  // force reflow
+  void next.offsetHeight;
+  next.classList.add('active');
+  if (old) {
+    old.classList.remove('active');
+    setTimeout(() => { if (old.parentNode) old.parentNode.removeChild(old); }, 280);
+  }
+}
+
+function renderPreview(container, idx) {
+  // Clear iframe-frame children but keep label
+  const existing = container.querySelector('.slide-canvas');
+  if (existing) existing.remove();
+  const empty = container.querySelector('.preview-empty');
+  if (empty) empty.remove();
+
+  if (idx == null || idx < 0 || idx >= SLIDES.length) {
+    const e = document.createElement('div');
+    e.className = 'preview-empty';
+    e.textContent = '— Última lámina —';
+    container.appendChild(e);
+    return;
+  }
+
+  const canvas = document.createElement('div');
+  canvas.className = 'slide-canvas mini';
+  const slide = renderSlide(SLIDES[idx]);
+  slide.classList.add('active');
+  canvas.appendChild(slide);
+  container.appendChild(canvas);
+}
+
+// ============== MQTT INTEGRATION ==============
+function setStatus(cls, text) {
+  const dot = document.getElementById('statusDot');
+  const txt = document.getElementById('statusText');
+  if (dot) dot.className = 'status-dot ' + cls;
+  if (txt) txt.textContent = text;
+  const screenDot = document.getElementById('screenStatusDot');
+  if (screenDot) screenDot.className = 'screen-status-dot ' + cls;
+}
+
+function publishState() {
+  if (!mqtt || suppressPublish) return;
+  mqtt.publish(TOPIC, JSON.stringify({
+    type: 'state',
+    slide: state.slide,
+    blackout: state.blackout,
+    src: CLIENT_ID,
+    ts: state.ts
+  }));
+}
+
+function applyState(newState) {
+  const slideChanged = newState.slide !== state.slide;
+  state.slide = Math.max(0, Math.min(SLIDES.length - 1, newState.slide || 0));
+  state.blackout = !!newState.blackout;
+  state.ts = newState.ts || Date.now();
+  applyToView(slideChanged);
+}
+
+function applyToView(slideChanged) {
+  if (mode === 'screen' || mode === 'standalone' || mode === 'preview') {
+    showSlide(state.slide, slideChanged !== false);
+    const bo = document.getElementById('blackout');
+    if (bo) bo.classList.toggle('on', state.blackout);
+  } else if (mode === 'control') {
+    updatePulpit();
+  }
+}
+
+function changeSlide(delta) {
+  const newIdx = Math.max(0, Math.min(SLIDES.length - 1, state.slide + delta));
+  if (newIdx !== state.slide) {
+    state.slide = newIdx;
+    state.ts = Date.now();
+    applyToView(true);
+    publishState();
+  }
+}
+
+function gotoSlide(idx) {
+  idx = Math.max(0, Math.min(SLIDES.length - 1, idx));
+  if (idx !== state.slide) {
+    state.slide = idx;
+    state.ts = Date.now();
+    applyToView(true);
+    publishState();
+  }
+}
+
+function toggleBlackout() {
+  state.blackout = !state.blackout;
+  state.ts = Date.now();
+  applyToView(false);
+  publishState();
+}
+
+// ============== PULPIT ==============
+function updatePulpit() {
+  const cur = state.slide;
+  const total = SLIDES.length;
+  document.getElementById('counterCurrent').textContent = cur + 1;
+  document.getElementById('counterTotal').textContent = total;
+
+  renderPreview(document.getElementById('previewCurrent'), cur);
+  renderPreview(document.getElementById('previewNext'), cur + 1 < total ? cur + 1 : null);
+
+  document.getElementById('notesContent').textContent = SLIDES[cur].notes || '';
+
+  const bb = document.getElementById('btnBlackout');
+  bb.classList.toggle('active', state.blackout);
+  bb.textContent = state.blackout ? 'Restaurar pantalla (B)' : 'Pantalla negra (B)';
+}
+
+// ============== TIMER ==============
+let timerStart = null;
+let timerPaused = 0;
+let timerPauseAt = null;
+let timerInterval = null;
+
+function startTimer() {
+  if (!timerStart) timerStart = Date.now();
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(updateTimer, 500);
+  updateTimer();
+}
+
+function updateTimer() {
+  const el = document.getElementById('timer');
+  if (!el || !timerStart) return;
+  const elapsed = Math.floor((Date.now() - timerStart - timerPaused) / 1000);
+  const m = Math.floor(elapsed / 60);
+  const s = elapsed % 60;
+  el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  el.classList.remove('good', 'warn', 'danger');
+  if (elapsed > TIMER_ORANGE_UNTIL_SECS) el.classList.add('danger');
+  else if (elapsed > TIMER_GREEN_UNTIL_SECS) el.classList.add('warn');
+  else el.classList.add('good');
+}
+
+// ============== INIT MQTT ==============
+function initMQTT() {
+  setStatus('connecting', 'Conectando al broker…');
+  mqtt = new MiniMQTT(BROKER_URL, { clientId: CLIENT_ID, keepalive: 60 });
+
+  mqtt.on('connect', () => {
+    setStatus('connected', 'Conectado · ' + (mode === 'control' ? 'control' : 'pantalla'));
+    mqtt.subscribe(TOPIC);
+    setTimeout(() => {
+      mqtt.publish(TOPIC, JSON.stringify({ type: 'sync', src: CLIENT_ID, ts: Date.now() }));
+      publishState();
+    }, 250);
+  });
+
+  mqtt.on('close', () => setStatus('disconnected', 'Desconectado · reintentando…'));
+  mqtt.on('error', () => setStatus('disconnected', 'Error · reintentando…'));
+
+  mqtt.on('message', (topic, payload) => {
+    try {
+      const msg = JSON.parse(payload);
+      if (msg.src === CLIENT_ID) return;
+      if (msg.type === 'state') {
+        if (msg.ts > state.ts) {
+          applyState(msg);
+        }
+      } else if (msg.type === 'sync') {
+        publishState();
+      }
+    } catch (_) {}
+  });
+
+  mqtt.connect();
+}
+
+// ============== KEYBOARD ==============
+document.addEventListener('keydown', (e) => {
+  if (mode === 'preview') return;
+  if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+
+  switch (e.key) {
+    case 'ArrowRight':
+    case 'PageDown':
+    case ' ':
+      e.preventDefault();
+      changeSlide(1);
+      break;
+    case 'ArrowLeft':
+    case 'PageUp':
+      e.preventDefault();
+      changeSlide(-1);
+      break;
+    case 'Home':
+      e.preventDefault();
+      gotoSlide(0);
+      break;
+    case 'End':
+      e.preventDefault();
+      gotoSlide(SLIDES.length - 1);
+      break;
+    case 'b':
+    case 'B':
+      e.preventDefault();
+      toggleBlackout();
+      break;
+    case 'Escape':
+      if (state.blackout) {
+        e.preventDefault();
+        toggleBlackout();
+      } else if (document.fullscreenElement) {
+        document.exitFullscreen();
+      }
+      break;
+    case 'f':
+    case 'F':
+      e.preventDefault();
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+      break;
+  }
+});
+
+// Click navigation in screen/standalone
+function attachClickNav() {
+  document.getElementById('stage').addEventListener('click', (e) => {
+    const w = window.innerWidth;
+    if (e.clientX > w / 2) changeSlide(1);
+    else changeSlide(-1);
+  });
+}
+
+// ============== INIT ==============
+function wireSelector() {
+  const buttons = document.querySelectorAll('.opt[data-mode]');
+  buttons.forEach(b => {
+    b.addEventListener('click', () => {
+      const target = b.getAttribute('data-mode');
+      const url = new URL(window.location.href);
+      url.searchParams.set('mode', target);
+      window.location.href = url.toString();
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.classList.add('mode-' + mode);
+
+  if (mode === 'select') {
+    wireSelector();
+    return;
+  }
+
+  if (mode === 'control') {
+    document.getElementById('counterTotal').textContent = SLIDES.length;
+    updatePulpit();
+    startTimer();
+
+    document.getElementById('btnPrev').onclick = () => changeSlide(-1);
+    document.getElementById('btnNext').onclick = () => changeSlide(1);
+    document.getElementById('btnBlackout').onclick = () => toggleBlackout();
+
+    document.getElementById('btnTimerToggle').onclick = function(e) {
+      const btn = e.currentTarget;
+      const tEl = document.getElementById('timer');
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        tEl.classList.add('paused');
+        btn.textContent = '▶ Reanudar';
+        timerPauseAt = Date.now();
+      } else {
+        if (timerPauseAt) timerPaused += Date.now() - timerPauseAt;
+        timerPauseAt = null;
+        startTimer();
+        tEl.classList.remove('paused');
+        btn.textContent = '⏸ Pausar';
+      }
+    };
+
+    document.getElementById('btnTimerReset').onclick = () => {
+      timerStart = Date.now();
+      timerPaused = 0;
+      timerPauseAt = null;
+      const tEl = document.getElementById('timer');
+      tEl.classList.remove('paused');
+      document.getElementById('btnTimerToggle').textContent = '⏸ Pausar';
+      if (!timerInterval) startTimer();
+      else updateTimer();
+    };
+
+    document.getElementById('btnResync').onclick = () => {
+      if (mqtt) {
+        mqtt.publish(TOPIC, JSON.stringify({ type: 'sync', src: CLIENT_ID, ts: Date.now() }));
+        setTimeout(publishState, 100);
+      }
+    };
+
+    initMQTT();
+
+  } else if (mode === 'screen') {
+    showSlide(0, false);
+    attachClickNav();
+    initMQTT();
+
+  } else if (mode === 'preview') {
+    const idx = parseInt(params.get('slide') || '0', 10);
+    state.slide = idx;
+    showSlide(idx, false);
+    document.body.style.cursor = 'none';
+
+  } else if (mode === 'print') {
+    renderPrintMode();
+
+  } else {
+    // Standalone
+    showSlide(0, false);
+    attachClickNav();
+    const hint = document.getElementById('standaloneHint');
+    if (hint) hint.textContent = '← →  ·  espacio  ·  B (negro)  ·  F (pantalla completa)';
+  }
+});
+
+// ============== PRINT MODE ==============
+const PRINT_META = {
+  title:     'Jesús sana, sin importar las etiquetas',
+  passage:   'Marcos 5:21–43 (NTV)',
+  preacher:  'Jonathan Ricardo Proaño Alcívar',
+  at:        'Iglesia Alianza República',
+  date:      '03 de mayo, 2026',
+  org_url:   'https://github.com/AlianzaRepublica',
+  org_label: 'github.com/AlianzaRepublica'
+};
+
+function renderPrintMode() {
+  const pages = document.getElementById('printPages');
+  if (!pages) return;
+
+  SLIDES.forEach((s, idx) => {
+    const el = document.createElement('article');
+    el.className = 'print-slide theme-' + (s.theme || 'dark');
+    let body = '';
+
+    switch (s.type) {
+      case 'cover':
+        body = `<h1 class="cover">${s.title || ''}</h1>
+                <div class="cover-meta">
+                  ${s.church ? '<div>' + s.church + '</div>' : ''}
+                  ${s.date ? '<div>' + s.date + '</div>' : ''}
+                  ${s.speaker ? '<div style="margin-top:14px;font-size:10pt;color:#888">' + s.speaker + '</div>' : ''}
+                </div>`;
+        break;
+      case 'hook':
+        body = `<p class="hook-text">${s.text || ''}</p>`;
+        break;
+      case 'punch':
+        body = `<p class="punch-text">${s.title || s.text || s.notes || ''}</p>`;
+        break;
+      case 'transition':
+        body = `<p class="hook-text">${s.left || ''}<br><br>${s.right || ''}</p>`;
+        break;
+      case 'key-phrase':
+        body = `<p class="key-phrase-text">${s.text || ''}</p>`;
+        break;
+      case 'section':
+        body = `<h2 class="section-num">${s.numeral || ''}</h2>
+                <h2 class="section-title">${s.title || ''}</h2>`;
+        break;
+      case 'verse':
+      case 'passage':
+        body = `<div class="verse-ref">${s.reference || ''}</div>
+                <blockquote class="verse-text">${s.text || s.note || ''}</blockquote>`;
+        if (s.emphasis) body += `<p style="margin-top:14px;font-size:13pt;color:#6B1209;font-family:-apple-system,sans-serif">${s.emphasis}</p>`;
+        break;
+      case 'two-col':
+        body = `<div class="twocol-grid">
+                  <div>
+                    <h3>${s.leftLabel || ''}</h3>
+                    <p>${s.leftValue || ''}</p>
+                  </div>
+                  <div class="alt">
+                    <h3>${s.rightLabel || ''}</h3>
+                    <p>${s.rightValue || ''}</p>
+                  </div>
+                </div>`;
+        break;
+      case 'paired':
+        body = `<div class="twocol-grid">
+                  <div><p>${s.left || ''}</p></div>
+                  <div class="alt"><p>${s.right || ''}</p></div>
+                </div>`;
+        break;
+      case 'contrast':
+        body = '<div class="twocol-grid" style="grid-template-columns:1fr">';
+        (s.items || []).forEach(it => {
+          body += `<div><p>${typeof it === 'string' ? it : (it.text || JSON.stringify(it))}</p></div>`;
+        });
+        body += '</div>';
+        break;
+      case 'action':
+        body = `<div class="action-num">Aplicación ${s.number || ''}</div>
+                <h2 class="action-title">${s.title || ''}</h2>
+                ${s.subtitle ? '<p class="action-subtitle">' + s.subtitle + '</p>' : ''}`;
+        break;
+      default:
+        body = `<p style="font-family:monospace;font-size:10pt;color:#888">${s.type} — ${(s.title || s.text || s.notes || '').toString().slice(0, 200)}</p>`;
+    }
+
+    el.innerHTML = `
+      <div class="print-slide-meta">
+        <span>${s.type}</span>
+        <span>Lámina ${idx + 1} de ${SLIDES.length}</span>
+      </div>
+      ${body}
+    `;
+    pages.appendChild(el);
+  });
+
+  // Info block
+  const info = document.createElement('section');
+  info.className = 'print-license-block';
+  info.innerHTML = `
+    <h2>Información de la presentación</h2>
+    <table>
+      <tbody>
+        <tr><th>Sermón</th>     <td>${PRINT_META.title}</td></tr>
+        <tr><th>Pasaje</th>     <td>${PRINT_META.passage}</td></tr>
+        <tr><th>Predicador</th> <td>${PRINT_META.preacher}</td></tr>
+        <tr><th>Lugar</th>      <td>${PRINT_META.at}</td></tr>
+        <tr><th>Fecha</th>      <td>${PRINT_META.date}</td></tr>
+      </tbody>
+    </table>
+    <p class="attribution">
+      Programa (SPA) creado por <strong>Jonathan Ricardo Proaño Alcívar</strong>
+      en base al bosquejo de <strong>${PRINT_META.preacher}</strong>,
+      con asistencia de IA Claude (Anthropic).
+      Disponible en <a href="${PRINT_META.org_url}">${PRINT_META.org_label}</a>.
+    </p>
+    <p class="license">
+      <strong>Licencia:</strong> AGPL-3.0-or-later
+      (<a href="https://www.gnu.org/licenses/agpl-3.0.html">texto completo</a>).
+      Software libre. Se permite su uso, modificación y redistribución bajo los términos
+      de la GNU Affero General Public License versión 3 o posterior. Si se sirve a través
+      de una red, su código fuente debe estar disponible para los usuarios bajo la misma licencia.
+    </p>
+  `;
+  pages.appendChild(info);
+
+  // Wire print button
+  const btnPrint = document.getElementById('btnPrint');
+  if (btnPrint) btnPrint.onclick = () => window.print();
+}
+</script>
+</body>
+</html>
