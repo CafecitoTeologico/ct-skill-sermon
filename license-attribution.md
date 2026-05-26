@@ -51,6 +51,12 @@ Este bloque va al inicio del archivo HTML, justo después del `<!DOCTYPE html>` 
     Asistencia: Codificación asistida con IA Claude (Anthropic)
     Disponible en: {ORG_GITHUB_URL}
 
+  Skill generador
+    /sermon — generador de presentaciones homiléticas
+    Provisto por: Cafecito Teológico (ministerio)
+    Repositorio:  https://github.com/CafecitoTeologico/ct-skill-sermon
+    Licencia:     AGPL-3.0-or-later
+
   Licencia del programa
     AGPL-3.0-or-later (GNU Affero General Public License v3.0 o posterior)
     https://www.gnu.org/licenses/agpl-3.0.html
@@ -89,14 +95,27 @@ Texto pequeño, gris (`#666` sobre fondo oscuro), centrado, al pie del menú:
     <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0-or-later</a>
     — software libre con código abierto al servirse en red.
   </p>
+  <p class="skill-attribution">
+    Generado con el skill
+    <a href="https://github.com/CafecitoTeologico/ct-skill-sermon">/sermon</a>
+    provisto por Cafecito Teológico.
+  </p>
 </div>
 ```
+
+**Estilo del bloque `.skill-attribution`:** una sola línea, tipografía aún más pequeña que el bloque principal (~0.85em del párrafo anterior, o `font-size: 11px`), `opacity: 0.6`, color heredado, margen superior pequeño (~6px). Es colofón discreto del programa, no protagónico — no debe competir visualmente con el bloque del SPA_AUTHOR.
 
 > **Nota:** la formulación "en base al bosquejo de {PREACHER}" se mantiene
 > incluso cuando el predicador coincide con el `user` del config (autor del programa).
 > Es redundante intencional: separa explícitamente la autoría del programa
 > (siempre el `user` del config-local.md) de la autoría del contenido del sermón
 > (el predicador real, que puede o no ser el mismo `user`).
+>
+> Análogamente, la línea `.skill-attribution` separa la autoría del programa
+> (siempre el `user` del config-local.md) de la herramienta usada para generarlo
+> (el skill `/sermon`, provisto por Cafecito Teológico). El verbo es "generado con",
+> no "creado por" — el skill es herramienta, no autor. Mismo patrón que "Asistido
+> con IA Claude (Anthropic)" en la línea anterior.
 
 ## 3. HTML SPA — Bloque info del modo print (AGPL-3.0)
 
@@ -119,6 +138,8 @@ Al final del flujo print-friendly, antes del cierre, sirve como **colofón discr
     en base al bosquejo de <strong>{PREACHER}</strong>,
     con asistencia de IA Claude (Anthropic).
     Disponible en <a href="{ORG_GITHUB_URL}">{ORG_GITHUB_URL}</a>.
+    Generado con el skill <a href="https://github.com/CafecitoTeologico/ct-skill-sermon">/sermon</a>
+    provisto por Cafecito Teológico.
   </p>
   <p class="license">
     <strong>Licencia:</strong> AGPL-3.0-or-later
@@ -198,6 +219,7 @@ Los documentos de este skill son texto creativo que se publica bajo **CC BY-SA 4
    - Tomar `entity.github_org_url` de la entidad correspondiente al repo destino.
 4. **Cuando un sermón va a 2 repos (caso `user_also_publishes_to_primary: true`)**, cada copia tiene el `{ORG_GITHUB_URL}` correspondiente a su repo. Las copias NO son idénticas — el bloque de atribución y el topic MQTT cambian.
 5. **NUNCA inventes handles ni URLs**. Si un campo no está poblado en el config, detener y preguntar al usuario.
+6. **La atribución del skill `/sermon` es obligatoria** en los 3 bloques (HTML header comment, footer del menú selector, print license block). El URL del repo (`https://github.com/CafecitoTeologico/ct-skill-sermon`) es constante del skill — no es variable de runtime. NUNCA omitirla. La AGPL-3.0 lo exige legalmente, y el estilo está diseñado para ser discreto (clase `.skill-attribution` en footer, frase añadida al párrafo en print) — no es opcional ni "estorba", coexiste con el crédito del `{SPA_AUTHOR}` como herramienta complementaria, no como autoría compartida.
 
 ---
 
