@@ -5,7 +5,13 @@
 [![Claude Code skill](https://img.shields.io/badge/Claude%20Code-skill-7857FF.svg)](https://claude.com/claude-code)
 [![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-yellow.svg)](#)
 
-> Convierte un bosquejo de sermón en una presentación SPA autocontenida con sincronización MQTT (cabina ↔ predicador), un bosquejo limpio en markdown y vista print-friendly para PDF — en un solo comando: **`/sermon`**.
+<h1 align="center">⏳ Para que tu tiempo lo dediques a lo más importante.</h1>
+
+Orar, ayunar, sumergirte en la Palabra, sensibilizarte al Espíritu Santo, escuchar a tu comunidad, afinar tu bosquejo, prepararte para predicar. **Deja que `/sermon` arme la presentación: lista para proyectar, compartir e imprimir.**
+
+> 💡 Recuerda: este skill es software libre bajo licencia AGPLv3. En corto: **úsalo como lo necesites, conserva los créditos del autor, y si lo modificas comparte tus cambios bajo la misma licencia.**
+
+<p align="center"><em>"¡Den tan gratuitamente como han recibido!"</em> — Mateo 10:8 (NTV)</p>
 
 ---
 
@@ -130,10 +136,7 @@ Software libre. Si modificas el skill o lo sirves a través de una red, debes li
 
 Skill creado por **Jonathan Ricardo Proaño Alcívar** ([@parlox](https://github.com/parlox)) con asistencia de IA **Claude** (Anthropic).
 
-Inspirado por la necesidad pastoral del equipo de predicación de [Iglesia Alianza República](https://github.com/AlianzaRepublica) y la marca teológica de [Cafecito Teológico](https://github.com/CafecitoTeologico).
-
-> *"Cristo no te llama por la etiqueta que otros te pusieron; te llama por la identidad que Él vino a restaurar."*
-> — Frase clave de [`reference-example.html`](./reference-example.html)
+Inspirado por la gestión documental del ministerio [Cafecito Teológico](https://github.com/CafecitoTeologico) y la necesidad pastoral del equipo de predicación de [Iglesia Alianza República](https://github.com/AlianzaRepublica).
 
 ---
 
