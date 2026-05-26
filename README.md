@@ -19,7 +19,7 @@ Orar, ayunar, sumergirte en la Palabra, sensibilizarte al Espíritu Santo, escuc
 
 - 📝 **Recibe un bosquejo** en cualquier formato: `.md`, `.docx`, `.pdf`, `.odt`, `.txt` o texto pegado.
 - 🧠 **Extrae datos** automáticamente: título, predicador, lugar, fecha, pasaje, tema, propósito, cuerpo, aplicación, frase clave.
-- 🎨 **Aplica una paleta visual** según el tema del sermón — 8 paletas predefinidas (gracia, esperanza, juicio, misión, pasión, pentecostés, sabiduría, default).
+- 🎨 **Aplica una paleta visual** según el tema del sermón — 19 paletas base (gracia, esperanza, juicio, misión, pasión, pentecostés, sabiduría, lamento, gozo, pacto, reino, oración, creación, profética, encarnación, resurrección, discipulado, sufrimiento, default) más 8 variantes intra-paleta para diferenciar cultos cercanos.
 - 🖼 **Detecta identidad institucional** (logos, colores) desde una carpeta de assets local.
 - 📤 **Genera 2 archivos por entidad destino:**
   - `bosquejo.md` limpio con frontmatter + licencia **CC BY-SA 4.0**.
@@ -91,7 +91,7 @@ Adjuntas o pegas tu bosquejo. El skill:
 | [`SKILL.md`](./SKILL.md) | Punto de entrada del skill — instrucciones para Claude. |
 | [`doctrine.md`](./doctrine.md) | Las 24 reglas no negociables de diseño visual homilético. |
 | [`parser-guidelines.md`](./parser-guidelines.md) | Cómo extraer estructura del bosquejo (canónica + heurística). |
-| [`theme-mapping.md`](./theme-mapping.md) | Las 8 paletas temáticas + lógica de selección. |
+| [`theme-mapping.md`](./theme-mapping.md) | Las 19 paletas temáticas + 8 variantes intra-paleta + lógica de selección. |
 | [`identity-discovery.md`](./identity-discovery.md) | Cómo encontrar logos/paletas institucionales en assets. |
 | [`license-attribution.md`](./license-attribution.md) | Templates de bloques de atribución (placeholders dinámicos). |
 | [`reference-example.html`](./reference-example.html) | Output validado real (sermón "Jesús sana, sin importar las etiquetas"). |

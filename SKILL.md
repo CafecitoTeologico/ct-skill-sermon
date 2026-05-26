@@ -118,7 +118,8 @@ Aplicar `identity-discovery.md`:
 Aplicar `theme-mapping.md`:
 - Analizar `theme` y `purpose` del bosquejo.
 - Identificar palabras clave.
-- Proponer paleta predefinida (`grace`, `hope`, `judgment`, `mission`, `passion`, `pentecost`, `wisdom`, o `default`).
+- Proponer paleta predefinida entre las 19 base: `grace`, `hope`, `judgment`, `mission`, `passion`, `pentecost`, `wisdom`, `lament`, `joy`, `covenant`, `kingdom`, `prayer`, `creation`, `prophetic`, `incarnation`, `resurrection`, `discipleship`, `suffering`, o `default`.
+- Si el usuario quiere una variante intra-paleta (p. ej. dos cultos del mismo domingo con tema cercano), permitir `grace-jewel`, `grace-dawn`, `hope-twilight`, `hope-ocean`, `default-stone`, `default-ember`, `mission-sage`, `wisdom-slate`.
 - Reportar la elección al usuario antes de generar.
 
 ### 6. Generación de filename
