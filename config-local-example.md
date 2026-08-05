@@ -22,11 +22,33 @@ Ejemplo de estructura esperada bajo `resources_root`:
 
 ```
 ~/sermon-resources/
-├── assets/                    ← logos y paletas institucionales
-├── bosquejos/                 ← outputs .md (puede tener subdirs por entidad)
-├── presentaciones/            ← outputs .html (puede tener subdirs por entidad)
-└── recursos/                  ← plantillas, ensayos, materiales
+├── assets/                        ← logos y paletas institucionales
+│   └── imagenes-sermones/         ← imágenes de sermones (plano, local)
+│       └── credits.json           ← procedencia de cada una
+├── bosquejos/                     ← repo git: solo .md
+├── presentaciones/                ← repo git: solo .html
+└── recursos/                      ← plantillas, ensayos, materiales
 ```
+
+Los repos de bosquejos y presentaciones contienen **solo el entregable**. Las
+imágenes no van ahí: los inflaría sin necesidad, y la SPA ya las lleva embebidas,
+así que no las necesita en runtime.
+
+Hay **dos** usos de `assets/` y cumplen roles distintos:
+
+- `<resources_root>/assets/` — identidad institucional: `logo-{slug}.svg`,
+  `paleta-{slug}.json`. Se comparte entre todos los sermones de la entidad.
+- `<resources_root>/assets/imagenes-sermones/` — las imágenes de los sermones
+  (fondos, fotos de las láminas), planas, con su `credits.json`. **Directorio
+  local**: no va a ningún repo git, su respaldo corre por cuenta del usuario.
+
+**Si estos directorios no existen**, el skill te lo dirá y te ofrecerá crear el
+esqueleto antes de escribir nada. Nunca inventa una ruta alternativa ni escribe
+en el directorio actual. Igual que con este archivo, no crea nada sin que
+confirmes.
+
+Las rutas son tuyas: el skill solo lee lo que declares aquí. No busca carpetas
+por nombre ni asume la estructura de nadie más.
 
 ---
 

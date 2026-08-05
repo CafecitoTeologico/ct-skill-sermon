@@ -94,9 +94,13 @@ Adjuntas o pegas tu bosquejo. El skill:
 | [`theme-mapping.md`](./theme-mapping.md) | Las 19 paletas temáticas + 8 variantes intra-paleta + lógica de selección. |
 | [`identity-discovery.md`](./identity-discovery.md) | Cómo encontrar logos/paletas institucionales en assets. |
 | [`license-attribution.md`](./license-attribution.md) | Templates de bloques de atribución (placeholders dinámicos). |
+| [`image-pipeline.md`](./image-pipeline.md) | Imágenes: dónde guardarlas, optimización a WebP, inyección y créditos. |
 | [`reference-example.html`](./reference-example.html) | Output validado real (sermón "Jesús sana, sin importar las etiquetas"). |
+| [`scripts/`](./scripts) | `optimize-image.py` (optimizar e inyectar imágenes) y `recover-embedded-images.py`. |
 | [`config-local-example.md`](./config-local-example.md) | Template público de configuración. |
 | `config-local.md` | Tu configuración local (gitignored, no en este repo). |
+| [`CHANGELOG.md`](./CHANGELOG.md) | Historial de versiones. |
+| [`ROADMAP.md`](./ROADMAP.md) | Mejoras pendientes. |
 | [`licenses/`](./licenses) | Textos canónicos AGPL-3.0 y CC BY-SA 4.0 listos para vincular en repos hijos. |
 
 ## 🎓 Doctrina visual
@@ -125,6 +129,10 @@ Software libre. Si modificas el skill o lo sirves a través de una red, debes li
 
 ## 🛣 Roadmap
 
+Detalle completo en [`ROADMAP.md`](./ROADMAP.md). En resumen:
+
+- 🖼 Láminas con imagen al frente (`split`) además del fondo atmosférico actual.
+- 🧩 Motor de la SPA extraído a plantilla, con vocabulario de láminas cerrado.
 - 📱 Compatibilidad móvil para los modos `presentation` y `print`.
 - 📋 Plantilla v5 de bosquejo (refinada tras uso real en sermones).
 - 🎓 Skill hermano `/clase-biblica` (presentaciones para enseñanza didáctica).

@@ -37,6 +37,7 @@ No procesar ningún bosquejo sin config válido. Toda referencia a rutas, entida
 | `theme-mapping.md` | Cómo elegir la paleta de colores según el tema del bosquejo |
 | `identity-discovery.md` | Cómo encontrar logos y paletas institucionales en assets/ |
 | `license-attribution.md` | Templates de los bloques de atribución y licencia |
+| `image-pipeline.md` | Imágenes: dónde guardarlas, cómo optimizarlas e inyectarlas. **Leer solo si el sermón usa imágenes.** |
 | `reference-example.html` | Ejemplo de output validado (sermón "Jesús sana", 2026-05-03) |
 | `licenses/CC-BY-SA-4.0.txt` | Texto canónico de CC BY-SA 4.0 para repos de bosquejos y recursos (contenido textual) |
 | `licenses/AGPL-3.0.txt` | Texto canónico de AGPL-3.0 para repos de presentaciones (programas SPA) y este skill |
@@ -81,7 +82,9 @@ El usuario invoca `/sermon` adjuntando:
 
 **El archivo `.md` resultante en el repo de bosquejos siempre se licencia bajo CC BY-SA 4.0**, sin importar el formato de entrada. La licencia AGPL-3.0 aplica solo al programa SPA generado, no al bosquejo.
 
-Si hay imágenes embebidas en el bosquejo entrante, extraerlas a `<resources_root>/<entity.bosquejos_dir>/assets/{slug}/` (donde `<resources_root>` y `<entity.bosquejos_dir>` vienen del config-local.md) y referenciarlas con paths relativos en el md.
+Si hay imágenes embebidas en el bosquejo entrante, extraerlas a `<resources_root>/assets/imagenes-sermones/` (donde `<resources_root>` viene del config-local.md) para poder usarlas en la SPA. **El `.md` generado no las referencia**: el bosquejo queda como texto. Si la imagen traía pie o texto alternativo, conservarlo como nota en el cuerpo, sin el enlace.
+
+**Las imágenes NO van a los repos.** Los repos de bosquejos y presentaciones contienen solo el entregable (`.md` / `.html`). Toda imagen que termine en la SPA debe existir primero como archivo bajo `<resources_root>/assets/imagenes-sermones/`, un directorio **local** fuera de todo repo, con nombre `{YYYYMMDD}-{slug-corto}-{clave}.webp`. **Nunca dejar el original solo en `/tmp`**: es efímero, y si la única copia queda como base64 dentro del HTML, la imagen se vuelve irrecuperable. El respaldo de ese directorio corre por cuenta del usuario. Ver `image-pipeline.md`.
 
 ### 2. Parsing y extracción de datos
 
@@ -138,7 +141,7 @@ Producir un `.md` que:
 - Tenga **frontmatter YAML** al inicio (entre `---`) con campos de licencia + metadata canónica del sermón. Ver `license-attribution.md` § 4 para los campos.
 - Mantenga el **contenido original del bosquejo** sin cambios de fondo, solo limpieza estructural mínima.
 - Termine con el **bloque CC BY-SA 4.0** (ver `license-attribution.md` § 4).
-- Si vino con imágenes embebidas, las referencie con paths relativos a `assets/{slug}/`.
+- **No contenga imágenes ni referencias a imágenes.** El repo de bosquejos guarda solo texto; las imágenes viven en `<resources_root>/assets/imagenes-sermones/` y van embebidas en la SPA.
 
 #### Manejo del frontmatter — regla de merge
 
@@ -192,6 +195,30 @@ Producir el `.html` siguiendo:
 - Mode selector con footer de licencia (`license-attribution.md` § 2).
 - Modo print con bloque info al final (`license-attribution.md` § 3).
 - **No copiar el bosquejo literalmente** — diseñar como recurso memorístico (regla principal).
+
+#### Imágenes (si el sermón las usa)
+
+**Nunca escribir un string base64 como parte de mi salida.** Una imagen de 90 KB son ~123.000 caracteres: es desperdicio y es imposible transcribirlo sin corromper el archivo.
+
+En el HTML escribo un placeholder, y un script hace la inyección vía Bash:
+
+```js
+const IMAGES = {
+  portada: '{{IMG:portada}}',
+};
+```
+
+```bash
+python3 scripts/optimize-image.py FUENTE.jpg --mode bg \
+  --out $IMGS/$N-portada.webp --credit "generada con IA"
+python3 scripts/optimize-image.py --inject SALIDA.html --key portada \
+  --image $IMGS/$N-portada.webp
+python3 scripts/optimize-image.py --check SALIDA.html
+```
+
+Perfiles: `bg` (fondo bajo scrim, ~32 KB), `fg-half` y `fg-third` (imagen al frente, ~55/30 KB). **Correr siempre `--check` antes de reportar al usuario**: un placeholder sin inyectar deja la lámina sin imagen.
+
+Registrar la procedencia de cada imagen con `--credit` y llevarla al bloque de atribución (`license-attribution.md` § 6). Detalle completo en `image-pipeline.md`.
 
 #### Rendering de la aplicación (estructura v4: 1 frase guía + 3 expresiones)
 
@@ -302,34 +329,9 @@ Razón de los umbrales: el `user` del config típicamente apunta a 30 min; predi
 5. **NO usar `?mode=print` en auto-print**. El usuario debe poder revisar primero.
 6. **NO mezclar identidades**. Cuando un sermón se publica en dos entidades, cada copia tiene SU footer y SU URL — la del repo donde físicamente se aloja.
 
-## Roadmap del skill (mejoras futuras)
+## Roadmap del skill
 
-Mejoras pendientes, ordenadas por prioridad estimada:
-
-### Compatibilidad móvil para `presentation` y `print`
-
-Actualmente la SPA solo funciona correctamente en PC con orientación landscape. En móvil portrait, los modos `presentation` y `print` fallan por:
-- Aspect ratio 16:9 forzado (regla 17 de doctrine.md).
-- Container queries con `cqh`/`cqw` que producen escalado roto en portrait.
-- Falta de breakpoint para portrait.
-
-**Plan cuando se implemente:**
-- Agregar `@media (orientation: portrait)` o `@media (max-width: 768px)` que reescale slides al viewport, no a 16:9.
-- Agregar swipe táctil además del click para navegación móvil.
-- Deshabilitar modos `screen` y `control` en móvil con tooltip "Solo PC" — su flujo no traduce a celular.
-- Actualizar regla 17 de `doctrine.md`: "16:9 lógico canon en PC; móvil-portrait fallback de revisión, NO flujo de presentación."
-- Mantener PC-landscape como **flujo principal y prioridad de diseño**.
-
-**Estado:** roadmap. Implementar cuando aparezca un caso de uso real recurrente (alguien queriendo revisar la presentación en móvil).
-
-### Otros pendientes
-
-- **v5 de la plantilla de bosquejo:** consolidar v4 + iteraciones de campo, con la frase clave del sermón obligatoria y la aplicación con eje contextual probadas en sermones reales.
-- **Skills hermanos:** `/clase-biblica` y `/reunion-ministerial` (sermones para enseñanza didáctica y reuniones ejecutivas), reutilizando el motor visual + MQTT del `/sermon`.
-- **Skill `/bosquejo`:** ayudar a redactar bosquejos siguiendo la plantilla v4/v5. Diferente a `/sermon` que parte de bosquejo terminado.
-- **Validación de simetría más rica:** además de contar ideas secundarias, comparar longitud de cada punto en palabras/oraciones para detectar desequilibrio temporal.
-- **Detección de pasaje y autoaviso de versión bíblica:** si el bosquejo cita versículos sin traducción explícita, comparar con APIs públicas (RV60, NTV) y sugerir cuál coincide.
-- **Cronómetro adaptativo:** umbrales (verde/naranja/rojo) configurables por predicador en el frontmatter del bosquejo (`target_minutes: 35`).
+Las mejoras pendientes viven en [`ROADMAP.md`](./ROADMAP.md); lo ya entregado, en [`CHANGELOG.md`](./CHANGELOG.md). No hace falta leerlos para generar un sermón.
 
 ## Lo que SÍ debo hacer
 
@@ -356,6 +358,6 @@ Modo fallback adaptativo:
 **Licencia del skill:** AGPL-3.0-or-later (todo el skill — documentos y código que genera).
 **Licencia del bosquejo .md generado:** CC BY-SA 4.0 (contenido es obra del predicador, no del skill).
 **Licencia de la SPA HTML generada:** AGPL-3.0-or-later (programa ejecutable).
-**Repo:** [pendiente — aún no publicado]
+**Repo:** https://github.com/CafecitoTeologico/ct-skill-sermon
 
 </small>

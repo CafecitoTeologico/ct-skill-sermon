@@ -194,7 +194,19 @@ Uso libre con atribución y bajo la misma licencia.
 
 ## 5. Documentos del skill (este archivo y los demás)
 
-Los documentos de este skill son texto creativo que se publica bajo **CC BY-SA 4.0** cuando el skill se publique como repo independiente. Cada documento debe terminar con:
+Los documentos de este skill (`SKILL.md`, `doctrine.md`, `parser-guidelines.md`, etc.) son **parte del skill** y se publican bajo **AGPL-3.0-or-later**, igual que su código.
+
+No confundir con el `.md` que el skill **genera**: ese es el bosquejo del predicador y va bajo **CC BY-SA 4.0** (§ 4). La distinción es entre *documentos del skill* (AGPL, son la herramienta) y *documento generado por el skill* (CC BY-SA, es obra del predicador).
+
+Resumen de las tres licencias en juego:
+
+| Qué | Licencia | Por qué |
+|---|---|---|
+| El skill: documentos y scripts | AGPL-3.0-or-later | Es la herramienta |
+| La SPA HTML generada | AGPL-3.0-or-later | Es un programa ejecutable derivado del skill |
+| El bosquejo `.md` generado | CC BY-SA 4.0 | El contenido es obra del predicador, no del skill |
+
+Cada documento del skill debe terminar con:
 
 ```markdown
 ---
@@ -206,10 +218,68 @@ Los documentos de este skill son texto creativo que se publica bajo **CC BY-SA 4
 **Licencia del skill:** AGPL-3.0-or-later (todo el skill — documentos y código que genera).
 **Licencia del bosquejo .md generado:** CC BY-SA 4.0 (contenido es obra del predicador, no del skill).
 **Licencia de la SPA HTML generada:** AGPL-3.0-or-later (programa ejecutable).
-**Repo:** [pendiente — aún no publicado]
+**Repo:** https://github.com/CafecitoTeologico/ct-skill-sermon
 
 </small>
 ```
+
+## 6. Imágenes de terceros (bancos de imágenes, material ajeno)
+
+Los bloques 1-3 cubren la autoría del **programa** y la licencia AGPL. **No cubren las imágenes.** Cada imagen de la SPA cae en uno de tres casos, y cada uno pide algo distinto:
+
+| Origen | Qué hace falta | Por qué |
+|---|---|---|
+| **Generada con IA** | **Declararlo.** No hay autor que acreditar. | Es divulgación, no atribución: en un contexto de enseñanza, nadie debe confundir una imagen sintética con evidencia documental. |
+| **Banco de imágenes** | Autor + URL | Atribución al autor real, y camino de vuelta al master. |
+| **Propia o aportada en el bosquejo** | Autor conocido, o verificar con quien la aportó | No asumir que quien la entregó tiene los derechos. |
+
+La procedencia se registra al optimizar (`optimize-image.py --credit`) y queda en `<resources_root>/assets/imagenes-sermones/credits.json`. De ahí se lleva a dos lugares:
+
+**a) Frontmatter del bosquejo `.md`** — campo adicional a los de § 4, solo si hay imágenes:
+
+```yaml
+image_credits:
+  - file: 20260601-gracia-restaura-portada.webp
+    origen: generada con IA
+  - file: 20260601-gracia-restaura-manos.webp
+    origen: banco de imágenes
+    autor: "Unsplash · Jane Doe"
+    url: https://unsplash.com/photos/xyz
+```
+
+**b) Bloque de créditos de la SPA** — línea adicional dentro de `.selector-credits`, después de la licencia:
+
+```html
+<span class="sep">·</span>
+Imágenes generadas con IA.
+```
+
+La línea depende de **quién puso las imágenes**. Son tres escenarios, y el skill debe detectar cuál aplica:
+
+| Escenario | Línea en la SPA |
+|---|---|
+| **1. Solo generadas con IA** (el skill las produjo) | `Imágenes generadas con IA.` |
+| **2. Mixtas** (IA + provistas por el predicador) | `Imágenes provistas por {PREACHER}, salvo las generadas con IA.` |
+| **3. Solo provistas por el predicador** | `Imágenes provistas por {PREACHER}.` |
+
+Si además hay imágenes de banco, agregar los autores: `Imágenes: {AUTOR_1}, {AUTOR_2}.` Con más de tres, resumir por fuente (`Imágenes: Unsplash y Pexels`) y dejar el listado completo en el frontmatter del `.md`.
+
+**Qué hacer cuando el predicador aporta imágenes:**
+
+1. **Preguntar el origen antes de usarlas.** "¿Es tuya, o la sacaste de algún lado?" No es burocracia: si viene de internet, el crédito y la licencia son de otro, y el repo de presentaciones es público.
+2. Si es **propia del predicador** → `origen: propia`, y se acredita a su nombre solo si él lo pide.
+3. Si el predicador **no sabe de dónde salió** → `origen: por verificar`. Se puede usar en la presentación del culto, pero **avisar al usuario** antes de publicarla en el repo.
+4. **No mezclar sin distinguir.** En el escenario 2, el `credits.json` debe dejar claro cuál es cuál — si mañana hay que quitar una imagen por licencia, tiene que saberse cuál.
+
+En los escenarios 2 y 3 la línea **no puede decir solo "generadas con IA"**: sería falso sobre las imágenes del predicador.
+
+**Reglas:**
+
+1. **Las imágenes generadas con IA se declaran, no se acreditan.** No hay autor. La línea de la SPA debe decirlo con claridad: en material de enseñanza, una imagen sintética no puede pasar por documental. Si se conoce el modelo usado, registrarlo en `credits.json`; en la SPA basta "generadas con IA".
+2. **Nunca presentar una imagen de IA como registro de un hecho real.** Si el sermón ilustra un evento histórico, un lugar concreto o una persona real, usar fotografía real o no usar imagen. Este es un criterio de honestidad, no de licencia.
+3. **Para banco de imágenes**, preferir licencia permisiva (Unsplash, Pexels, Pixabay) y registrar autor y URL siempre, aunque la licencia no lo exija: es lo que permite verificar o reemplazar la imagen después.
+4. **Si una imagen no tiene procedencia conocida, preguntar al usuario antes de usarla.** No embeber material de origen incierto en un repo público. Que alguien la haya aportado en el bosquejo no significa que tenga los derechos.
+5. Las imágenes propias del usuario o del predicador no necesitan crédito público, pero sí quedan registradas en `credits.json` con `origen: propia`.
 
 ## Notas importantes para mí (Claude) al aplicar el skill
 
@@ -220,6 +290,7 @@ Los documentos de este skill son texto creativo que se publica bajo **CC BY-SA 4
 4. **Cuando un sermón va a 2 repos (caso `user_also_publishes_to_primary: true`)**, cada copia tiene el `{ORG_GITHUB_URL}` correspondiente a su repo. Las copias NO son idénticas — el bloque de atribución y el topic MQTT cambian.
 5. **NUNCA inventes handles ni URLs**. Si un campo no está poblado en el config, detener y preguntar al usuario.
 6. **La atribución del skill `/sermon` es obligatoria** en los 3 bloques (HTML header comment, footer del menú selector, print license block). El URL del repo (`https://github.com/CafecitoTeologico/ct-skill-sermon`) es constante del skill — no es variable de runtime. NUNCA omitirla. La AGPL-3.0 lo exige legalmente, y el estilo está diseñado para ser discreto (clase `.skill-attribution` en footer, frase añadida al párrafo en print) — no es opcional ni "estorba", coexiste con el crédito del `{SPA_AUTHOR}` como herramienta complementaria, no como autoría compartida.
+7. **Las imágenes de banco se acreditan** (§ 6). El bloque de licencia AGPL cubre el programa, no las fotos. Si el sermón usa imágenes de terceros y no hay procedencia registrada, detener y preguntar antes de embeberlas.
 
 ---
 
@@ -230,6 +301,6 @@ Los documentos de este skill son texto creativo que se publica bajo **CC BY-SA 4
 **Licencia del skill:** AGPL-3.0-or-later (todo el skill — documentos y código que genera).
 **Licencia del bosquejo .md generado:** CC BY-SA 4.0 (contenido es obra del predicador, no del skill).
 **Licencia de la SPA HTML generada:** AGPL-3.0-or-later (programa ejecutable).
-**Repo:** [pendiente — aún no publicado]
+**Repo:** https://github.com/CafecitoTeologico/ct-skill-sermon
 
 </small>

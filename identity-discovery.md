@@ -170,6 +170,6 @@ La identidad visual del cuerpo (paleta + logo grande en cover) es la del **lugar
 **Licencia del skill:** AGPL-3.0-or-later (todo el skill — documentos y código que genera).
 **Licencia del bosquejo .md generado:** CC BY-SA 4.0 (contenido es obra del predicador, no del skill).
 **Licencia de la SPA HTML generada:** AGPL-3.0-or-later (programa ejecutable).
-**Repo:** [pendiente — aún no publicado]
+**Repo:** https://github.com/CafecitoTeologico/ct-skill-sermon
 
 </small>

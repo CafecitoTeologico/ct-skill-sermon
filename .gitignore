@@ -10,6 +10,10 @@ desktop.ini
 *.swo
 *~
 
+# Python
+__pycache__/
+*.pyc
+
 # Local artifacts
 /local-test/
 *.log
@@ -19,3 +23,7 @@ desktop.ini
 # Cada usuario crea su propio config-local.md basado en config-local-example.md.
 # Este archivo NUNCA debe llegar al repo público.
 config-local.md
+
+# Private — notas internas, hallazgos de auditoría, datos del corpus real.
+# Nada bajo _local/ debe llegar al repo público.
+_local/
