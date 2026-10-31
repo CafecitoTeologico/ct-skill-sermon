@@ -28,12 +28,16 @@ Orar, ayunar, sumergirte en la Palabra, sensibilizarte al Espíritu Santo, escuc
 
 ## 🖥 Modos de la presentación SPA
 
+Al abrir el archivo aparece un menú para elegir el modo. También se puede indicar al final de la dirección: `sermon.html#control` (o `sermon.html?mode=control`).
+
 | Modo | Para qué sirve |
 |---|---|
-| 📺 `?mode=presentation` | Vista standalone, sin red. Para revisar o compartir. |
-| 🎬 `?mode=screen` | Pantalla de cabina. Recibe comandos vía MQTT, proyecta. |
-| 🎛 `?mode=control` | Control del predicador. Notas, cronómetro, próxima slide. |
-| 🖨 `?mode=print` | Vista lineal para imprimir o exportar PDF nativo. |
+| 📺 `presentation` | Vista standalone, sin red. Para revisar o compartir. |
+| 🎬 `screen` | Pantalla de cabina. Recibe comandos vía MQTT y proyecta. Siempre desde una PC. |
+| 🎛 `control` | Control del predicador: notas, cronómetro, próxima slide. Desde la misma PC, otra PC o el teléfono. |
+| 🖨 `print` | Vista lineal para imprimir o exportar PDF nativo. |
+
+En Android, si abres el archivo desde WhatsApp o Descargas, elige el modo en el menú o usa `#control`: `?mode=` no funciona ahí. Para volver al menú, usa el botón «‹ Modos» (en Control e Imprimir) o el botón Atrás del navegador.
 
 Sin frameworks, sin librerías. Cliente MQTT 3.1.1 escrito a mano sobre WebSocket Secure (broker público HiveMQ por defecto).
 

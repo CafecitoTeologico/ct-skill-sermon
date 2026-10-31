@@ -12,6 +12,7 @@ Hoy el motor de la SPA — cliente MQTT, lógica de modos, cronómetro, shell HT
 
 **Plan:**
 
+- Partir del motor de las presentaciones más recientes, no de `reference-example.html`: el reference es de mayo de 2026 y quedó atrás (no tiene fragmentos por lámina ni el selector de 3 botones). Primer paso: reemplazarlo por una SPA reciente propia, ya usada en un culto, recortada si hace falta para no inflar el contexto.
 - Extraer a plantilla mantenida lo que es invariante: cliente MQTT, lógica de modos, cronómetro, shell HTML/meta y los tres bloques de licencia. Sustitución de variables + el array `SLIDES` serializado.
 - **Dejar fuera de la plantilla** el `renderSlide` y el CSS por tipo de lámina: el vocabulario visual todavía está evolucionando, y congelarlo en plantilla la dejaría obsoleta enseguida.
 - Cerrar el vocabulario canónico de tipos de lámina en `reference-example.html` + `doctrine.md`, para que dejen de aparecer variantes nuevas por sermón. **Este es el cambio que justifica el MAJOR**: el skill pierde una libertad que hoy tiene.
@@ -44,7 +45,7 @@ Revisar cuáles son realmente obligatorios y marcar el resto como lectura bajo c
 
 ## Compatibilidad móvil para `presentation` y `print`
 
-Actualmente la SPA solo funciona correctamente en PC con orientación landscape. En móvil portrait, los modos `presentation` y `print` fallan por:
+Los modos `presentation` y `print` solo funcionan bien en PC con orientación landscape. En móvil portrait fallan por:
 
 - Aspect ratio 16:9 forzado (regla 17 de `doctrine.md`).
 - Container queries con `cqh`/`cqw` que producen escalado roto en portrait.
@@ -54,7 +55,7 @@ Actualmente la SPA solo funciona correctamente en PC con orientación landscape.
 
 - Agregar `@media (orientation: portrait)` o `@media (max-width: 768px)` que reescale slides al viewport, no a 16:9.
 - Agregar swipe táctil además del click para navegación móvil.
-- Deshabilitar modos `screen` y `control` en móvil con tooltip "Solo PC" — su flujo no traduce a celular.
+- `control` ya funciona en móvil: el selector dejó de recargar la página. `screen` sigue siendo solo PC, porque la proyección siempre sale de una PC.
 - Actualizar regla 17 de `doctrine.md`: "16:9 lógico canon en PC; móvil-portrait fallback de revisión, NO flujo de presentación."
 - Mantener PC-landscape como **flujo principal y prioridad de diseño**.
 
@@ -82,6 +83,7 @@ Dependen del motor canónico: mientras la SPA se reconstruya en cada generación
 
 - **Validación de simetría más rica:** además de contar ideas secundarias, comparar longitud de cada punto en palabras/oraciones para detectar desequilibrio temporal.
 - **Detección de pasaje y autoaviso de versión bíblica:** si el bosquejo cita versículos sin traducción explícita, comparar con APIs públicas y sugerir cuál coincide.
+- **Memoria del control tras una recarga:** si el teléfono recarga la pestaña, la lámina se recupera de la cabina por MQTT, pero el cronómetro vuelve a cero. Guardar lámina y cronómetro en `localStorage`, dentro de `try/catch`, lo resolvería.
 - **Cronómetro adaptativo:** umbrales (verde/naranja/rojo) configurables por predicador en el frontmatter del bosquejo (`target_minutes: 35`).
 - **Entropía real en el topic MQTT:** el segmento `random10` debe generarse con una fuente de aleatoriedad real, no aproximado por el modelo.
 

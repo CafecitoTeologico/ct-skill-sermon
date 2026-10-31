@@ -29,14 +29,16 @@
     Broker: HiveMQ público (broker.hivemq.com:8884/mqtt)
     Topic:  alianzarepublica/sermon/2026-05-03/dhaftbwhv0/control
 
-  Modos (vía query param)
-    ?mode=standalone   → vista personal, sin red
-    ?mode=screen       → cabina, recibe el control
-    ?mode=control      → control del predicador, notas y cronómetro
-    ?mode=print        → vista print-friendly + bloque info para PDF/papel
-    (sin parámetro)    → menú selector de modo
+  Modos (#modo al final de la URL, o ?mode=modo; si hay ambos, gana ?mode=)
+    #presentation  → vista personal, sin red (alias: standalone)
+    #screen        → cabina: la PC que proyecta, recibe el control
+    #control       → controla la presentación y ve notas/cronómetro (PC o móvil)
+    #print         → vista print-friendly + bloque info para PDF/papel
+    (sin modo)     → menú selector de modo; se vuelve con «‹ Modos» o Atrás
+  En Android (archivo abierto desde WhatsApp o Descargas) usar el menú o #modo:
+  ?mode= no funciona ahí.
 
-  Generado con el skill /sermon (v0.1.0).
+  Generado con el skill /sermon (v0.1.0); selección de modo actualizada en la v1.3.0.
   ============================================================================
 -->
 <html lang="es">
@@ -487,6 +489,12 @@ body.mode-control .blackout { display: none; }
   font-size: 13px;
   color: #999;
 }
+/* «‹ Modos»: vuelve al selector. Sobrio, lejos de Anterior/Siguiente. */
+.btn-modes {
+  background: none; border: 1px solid #2A2A30; border-radius: 6px;
+  color: #999; font: inherit; font-size: 12px; padding: 3px 10px; cursor: pointer;
+}
+.btn-modes:hover { color: #FFF; border-color: #555; }
 .status-dot {
   width: 11px;
   height: 11px;
@@ -692,7 +700,7 @@ body.mode-screen .screen-status-dot { display: block; }
 .screen-status-dot.connecting { background: #FBBF24; box-shadow: 0 0 5px rgba(251, 191, 36, 0.6); animation: pulse 1.5s infinite; }
 .screen-status-dot.disconnected { background: #EF4444; box-shadow: 0 0 5px rgba(239, 68, 68, 0.6); }
 
-/* ===== MODE SELECTOR (when opened without ?mode=) ===== */
+/* ===== MODE SELECTOR (when opened without a mode) ===== */
 .selector {
   display: none;
   position: fixed;
@@ -845,6 +853,12 @@ body.mode-print .print-view { display: block; }
   font: inherit; font-weight: 600; font-size: 13px; cursor: pointer;
 }
 .print-toolbar button:hover { background: #333; }
+.print-toolbar .btn-modes {
+  background: none; color: #666; border: 1px solid #D0D0D0;
+  font-weight: 500; padding: 8px 14px; margin-right: 14px;
+}
+.print-toolbar .btn-modes:hover { background: none; color: #1a1a1a; border-color: #999; }
+.print-toolbar .pt-title { margin-right: auto; }
 
 .print-pages { padding: 30px 24px; max-width: 980px; margin: 0 auto; }
 .print-slide {
@@ -942,7 +956,7 @@ body.mode-print .print-view { display: block; }
   <div class="selector-sub">Iglesia Alianza República · 3 de mayo, 2026</div>
 
   <div class="selector-options">
-    <button class="opt primary" data-mode="standalone">
+    <button class="opt primary" data-mode="presentation">
       <div class="opt-icon">👤</div>
       <div class="opt-body">
         <div class="opt-name">Ver presentación</div>
@@ -992,6 +1006,7 @@ body.mode-print .print-view { display: block; }
 
 <div class="print-view" id="printView">
   <div class="print-toolbar">
+    <button class="btn-modes" id="btnModesPrint" type="button" title="Volver al selector de modo">‹ Modos</button>
     <div class="pt-title">Jesús sana, sin importar las etiquetas — Vista de impresión</div>
     <button id="btnPrint" type="button">Imprimir / Guardar PDF</button>
   </div>
@@ -1001,6 +1016,7 @@ body.mode-print .print-view { display: block; }
 <div class="control" id="control">
   <div class="control-header">
     <div class="control-status">
+      <button class="btn-modes" id="btnModes" type="button" title="Volver al selector de modo">‹ Modos</button>
       <span class="status-dot disabled" id="statusDot"></span>
       <span id="statusText">Inicializando…</span>
     </div>
@@ -1363,9 +1379,21 @@ const SLIDES = [
 ];
 
 // ============== STATE ==============
+// El modo viene de ?mode= o de #modo (gana ?mode=). En una recarga sin ninguno
+// de los dos, se recupera de history.state. Ver SKILL.md § "Selección de modo".
+const MODES = ['presentation', 'screen', 'control', 'print', 'preview'];
 const params = new URLSearchParams(window.location.search);
-const mode = params.get('mode') || 'select';
-const CLIENT_ID = 'sermon-' + mode + '-' + Math.random().toString(36).slice(2, 8);
+function resolveMode() {
+  const alias = m => (m === 'standalone' ? 'presentation' : m);
+  const fromQuery = alias(params.get('mode'));
+  if (MODES.includes(fromQuery)) return fromQuery;
+  const fromHash = alias(location.hash.slice(1));
+  if (MODES.includes(fromHash)) return fromHash;
+  const saved = history.state && history.state.sermonMode;
+  return MODES.includes(saved) ? saved : 'select';
+}
+let mode = resolveMode();
+let CLIENT_ID = '';
 
 let state = {
   slide: 0,
@@ -1572,7 +1600,7 @@ function applyState(newState) {
 }
 
 function applyToView(slideChanged) {
-  if (mode === 'screen' || mode === 'standalone' || mode === 'preview') {
+  if (mode === 'screen' || mode === 'presentation' || mode === 'preview') {
     showSlide(state.slide, slideChanged !== false);
     const bo = document.getElementById('blackout');
     if (bo) bo.classList.toggle('on', state.blackout);
@@ -1581,11 +1609,16 @@ function applyToView(slideChanged) {
   }
 }
 
+// Reloj lógico: cada cambio local queda por delante del último estado conocido,
+// aunque el reloj de este equipo vaya atrasado respecto al otro (p. ej. un
+// teléfono como control y la PC de cabina).
+function nextTs() { return Math.max(Date.now(), state.ts + 1); }
+
 function changeSlide(delta) {
   const newIdx = Math.max(0, Math.min(SLIDES.length - 1, state.slide + delta));
   if (newIdx !== state.slide) {
     state.slide = newIdx;
-    state.ts = Date.now();
+    state.ts = nextTs();
     applyToView(true);
     publishState();
   }
@@ -1595,7 +1628,7 @@ function gotoSlide(idx) {
   idx = Math.max(0, Math.min(SLIDES.length - 1, idx));
   if (idx !== state.slide) {
     state.slide = idx;
-    state.ts = Date.now();
+    state.ts = nextTs();
     applyToView(true);
     publishState();
   }
@@ -1603,7 +1636,7 @@ function gotoSlide(idx) {
 
 function toggleBlackout() {
   state.blackout = !state.blackout;
-  state.ts = Date.now();
+  state.ts = nextTs();
   applyToView(false);
   publishState();
 }
@@ -1687,7 +1720,7 @@ function initMQTT() {
 
 // ============== KEYBOARD ==============
 document.addEventListener('keydown', (e) => {
-  if (mode === 'preview') return;
+  if (mode === 'preview' || mode === 'select' || mode === 'print') return;
   if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
 
   switch (e.key) {
@@ -1732,7 +1765,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Click navigation in screen/standalone
+// Click navigation in screen/presentation
 function attachClickNav() {
   document.getElementById('stage').addEventListener('click', (e) => {
     const w = window.innerWidth;
@@ -1742,19 +1775,54 @@ function attachClickNav() {
 }
 
 // ============== INIT ==============
+// El selector arranca el modo en la misma página, sin navegar: en Android el
+// HTML llega como content:// y cualquier carga nueva con ?… o #… agregado
+// falla. Ver SKILL.md § "Selección de modo".
 function wireSelector() {
-  const buttons = document.querySelectorAll('.opt[data-mode]');
-  buttons.forEach(b => {
+  document.querySelectorAll('.opt[data-mode]').forEach(b => {
     b.addEventListener('click', () => {
       const target = b.getAttribute('data-mode');
-      const url = new URL(window.location.href);
-      url.searchParams.set('mode', target);
-      window.location.href = url.toString();
+      rememberMode(target);
+      startMode(target);
     });
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+// Anota el modo como entrada nueva del historial: la recarga lo conserva y
+// Atrás vuelve al selector. En content:// no se toca la URL: recargar con un #
+// agregado sería otra carga nueva de las que fallan.
+function rememberMode(m) {
+  try {
+    if (location.protocol === 'content:') history.pushState({ sermonMode: m }, '');
+    else history.pushState({ sermonMode: m }, '', '#' + m);
+  } catch (_) { /* sin historial, una recarga vuelve al selector */ }
+}
+
+// «‹ Modos»: vuelve al selector cargando la URL original, sin nada agregado.
+// Si el modo se eligió en el selector, basta con ir Atrás.
+function backToSelector() {
+  if (history.state && history.state.sermonMode) { history.back(); return; }
+  const url = new URL(location.href);
+  url.hash = '';
+  if (url.searchParams.has('mode')) {
+    // Solo pasa en PC: con ?mode= en la URL, en Android la SPA ni siquiera abre.
+    url.searchParams.delete('mode');
+    location.replace(url.href);
+    return;
+  }
+  history.replaceState(null, '', url.href);
+  location.reload();
+}
+
+// Atrás o Adelante entre el selector y un modo: se recarga la entrada de
+// llegada. La del selector tiene la URL original, así que en content:// es la
+// misma URI que abrió el usuario.
+window.addEventListener('popstate', () => { if (resolveMode() !== mode) location.reload(); });
+
+function startMode(m) {
+  mode = m;
+  CLIENT_ID = 'sermon-' + mode + '-' + Math.random().toString(36).slice(2, 8);
+  document.body.classList.remove('mode-select');
   document.body.classList.add('mode-' + mode);
 
   if (mode === 'select') {
@@ -1824,12 +1892,17 @@ document.addEventListener('DOMContentLoaded', () => {
     renderPrintMode();
 
   } else {
-    // Standalone
+    // Presentation
     showSlide(0, false);
     attachClickNav();
     const hint = document.getElementById('standaloneHint');
     if (hint) hint.textContent = '← →  ·  espacio  ·  B (negro)  ·  F (pantalla completa)';
   }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.btn-modes').forEach(b => b.addEventListener('click', backToSelector));
+  startMode(mode);
 });
 
 // ============== PRINT MODE ==============

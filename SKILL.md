@@ -190,8 +190,8 @@ Producir el `.html` siguiendo:
 - Las 24 reglas de doctrine.md.
 - Paleta del paso 5.
 - Identidad visual del paso 4.
-- 4 modos: presentation (default), screen, control, print.
-- Cliente MQTT mínimo escrito a mano para sync screen↔control.
+- 4 modos: presentation, screen, control, print, con la selección de modo de § "Modos de la SPA generada": el selector arranca el modo sin navegar ni recargar.
+- Cliente MQTT mínimo escrito a mano para sync screen↔control, con reloj lógico (mismo §).
 - Mode selector con footer de licencia (`license-attribution.md` § 2).
 - Modo print con bloque info al final (`license-attribution.md` § 3).
 - **No copiar el bosquejo literalmente** — diseñar como recurso memorístico (regla principal).
@@ -295,19 +295,39 @@ Las copias del bosquejo entre las dos entidades son **idénticas en contenido**,
 
 ## Modos de la SPA generada
 
-Vía query param `?mode=`:
+La proyección siempre sale de una PC en modo `screen` (cabina). El `control` tiene que funcionar desde esa misma PC, desde otra PC o desde un teléfono o tablet. En Android, el HTML abierto desde WhatsApp o Descargas llega como `content://`.
+
+El modo se indica con `#modo` al final de la URL (`sermon.html#control`) o con `?mode=modo`. Si vienen ambos, gana `?mode=`.
 
 | Modo | Comportamiento |
 |---|---|
-| (sin param) | Menú selector con los 4 modos + footer de licencia |
-| `?mode=presentation` | Vista standalone, sin red. Para revisar o compartir |
-| `?mode=screen` | Cabina. Recibe comandos de control vía MQTT, pantalla limpia para proyección |
-| `?mode=control` | Control. Envía comandos al screen, ve notas/cronómetro/preview de siguiente slide |
-| `?mode=print` | Vista print-friendly: todas las slides en flujo + bloque info al final + botón "Imprimir / Guardar PDF" (NO auto-print). El usuario revisa antes de invocar `window.print()` |
+| (sin modo) | Menú selector + footer de licencia |
+| `presentation` | Vista standalone, sin red. Para revisar o compartir. Alias: `standalone` |
+| `screen` | Cabina. Recibe comandos de control vía MQTT, pantalla limpia para proyección. Solo PC |
+| `control` | Control. Envía comandos al screen, ve notas/cronómetro/preview de siguiente slide. PC o móvil |
+| `print` | Vista print-friendly: todas las slides en flujo + bloque info al final + botón "Imprimir / Guardar PDF" (NO auto-print). El usuario revisa antes de invocar `window.print()` |
+
+### Selección de modo
+
+Toda SPA cumple estas reglas, venga su motor de `reference-example.html` o de una presentación anterior:
+
+1. **Al cargar**, el modo sale de `?mode=` si es válido; si no, de `#modo`; si no, de `history.state.sermonMode`. Sin ninguno, se muestra el selector.
+2. **El selector arranca el modo en la misma página.** Nunca `location.search = …`, `location.href = …` ni `location.hash = …`. En Android, Chrome le pasa al proveedor de contenido la URL completa, con `?` y `#`, y el permiso que dan WhatsApp o el gestor de archivos cubre solo la URI exacta: cualquier carga nueva con algo agregado termina en «archivo no encontrado».
+3. **Al elegir, el modo se anota como entrada nueva del historial** (`history.pushState`): en `file:` y `http(s):`, con `#modo` en la URL; en `content:`, sin tocar la URL, solo en el estado. Así la recarga conserva el modo y Atrás vuelve al selector.
+4. **Volver al selector:** botón sobrio «‹ Modos» en `control` y en la barra de `print` (no en `screen` ni en `presentation`, que se proyectan limpios), además de Atrás. Los dos cargan la URL original, sin nada agregado: si el modo vino del selector, `history.back()`; si no, se quita `#modo` (o `?mode=`, que solo se usa en PC) y se recarga. Es la única recarga permitida: en `content://` es la misma URI que abrió el usuario.
+5. **Sincronización con reloj lógico:** cada cambio local usa `ts = Math.max(Date.now(), ts + 1)`, y un estado entrante se aplica solo si su `ts` es mayor. Así un teléfono con el reloj atrasado respecto a la PC no queda ignorado.
+6. **`localStorage` y `sessionStorage`**, si se usan, siempre dentro de `try/catch`: en `content://` pueden no estar disponibles.
+7. **Los atajos de depuración** (`?mode=preview&slide=N&step=M`) quedan solo por query: son para herramientas de escritorio.
+
+Antes de reportar, este grep sobre la SPA generada debe salir vacío:
+
+```bash
+grep -nE "location\.(search|href|hash)\s*=[^=]|searchParams\.set\(\s*['\"]mode" SALIDA.html
+```
 
 ## Cronómetro del modo control — política
 
-El cronómetro en `?mode=control` cambia de color según el tiempo transcurrido:
+El cronómetro del modo `control` cambia de color según el tiempo transcurrido:
 
 | Tramo | Color | CSS class |
 |---|---|---|
@@ -326,8 +346,9 @@ Razón de los umbrales: el `user` del config típicamente apunta a 30 min; predi
    - Agregar frontmatter y bloque de licencia.
 3. **NO inventar datos faltantes**. Si el predicador, fecha, lugar o pasaje no están claros, preguntar.
 4. **NO copiar el bosquejo en la SPA literalmente**. La SPA es recurso memorístico, no documento.
-5. **NO usar `?mode=print` en auto-print**. El usuario debe poder revisar primero.
+5. **NO hacer auto-print en el modo `print`**. El usuario debe poder revisar primero.
 6. **NO mezclar identidades**. Cuando un sermón se publica en dos entidades, cada copia tiene SU footer y SU URL — la del repo donde físicamente se aloja.
+7. **NO cambiar de modo navegando a una URL con algo agregado** (`?mode=`, `#modo`). El selector arranca el modo en la misma página (§ "Selección de modo"); si navega, en Android la SPA no pasa del selector.
 
 ## Roadmap del skill
 

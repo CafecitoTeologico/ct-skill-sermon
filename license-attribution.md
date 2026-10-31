@@ -69,12 +69,14 @@ Este bloque va al inicio del archivo HTML, justo después del `<!DOCTYPE html>` 
     Broker: HiveMQ público (broker.hivemq.com:8884/mqtt)
     Topic:  {TOPIC}
 
-  Modos (vía query param)
-    ?mode=presentation  → vista personal, sin red (default)
-    ?mode=screen        → cabina, recibe el control
-    ?mode=control       → controla la presentación, ve notas/cronómetro
-    ?mode=print         → vista print-friendly + bloque info para PDF/papel
-    (sin parámetro)     → menú selector de modo
+  Modos (#modo al final de la URL, o ?mode=modo; si hay ambos, gana ?mode=)
+    #presentation  → vista personal, sin red (alias: standalone)
+    #screen        → cabina: la PC que proyecta, recibe el control
+    #control       → controla la presentación y ve notas/cronómetro (PC o móvil)
+    #print         → vista print-friendly + bloque info para PDF/papel
+    (sin modo)     → menú selector de modo; se vuelve con «‹ Modos» o Atrás
+  En Android (archivo abierto desde WhatsApp o Descargas) usar el menú o #modo:
+  ?mode= no funciona ahí.
   ============================================================================
 -->
 ```

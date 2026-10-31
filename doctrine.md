@@ -30,7 +30,7 @@ Estas reglas definen los constraints que debe cumplir cualquier presentación ge
 | 20 | **One Focus Rule** | Cada slide tiene **un solo foco visual**. Si hay 2 cosas importantes, son 2 slides. |
 | **21** | **Glifos del español** | Toda fuente seleccionada debe incluir glifos completos: ñ, á, é, í, ó, ú, ü, ¿, ¡. Verificar en `display=swap` que la fuente cargue Latin Extended. |
 | **22** | **Indicación de traducción** | Cada cita bíblica indica discretamente la traducción (NTV, RV60, LBLA, etc.) en línea de pie 50% más pequeña, en `text-muted`. Nunca embebido en el cuerpo del texto. |
-| **23** | **Print-safe colors** | El stylesheet `?mode=print` mapea colores oscuros a impresión amigable. Sin gradientes pesados, sin imágenes de fondo a sangre, sin texto blanco sobre negro pleno (consume tinta). |
+| **23** | **Print-safe colors** | El stylesheet del modo `print` mapea colores oscuros a impresión amigable. Sin gradientes pesados, sin imágenes de fondo a sangre, sin texto blanco sobre negro pleno (consume tinta). |
 | **24** | **Versículos largos en disclosure progresivo** | Pasajes de >3 líneas se fragmentan en porciones, controladas por modo control vía MQTT. Permite leer junto con la audiencia, no leer en voz lo que ya está completo en pantalla. |
 
 ## Tres ajustes a la versión Gemini original
@@ -50,7 +50,7 @@ Gemini propuso reglas más estrictas en estos 3 puntos. Las flexibilizamos así:
 
 - **Regla 21** (glifos): el español tiene caracteres que muchas fuentes "minimalistas" recortan. Validación obligatoria.
 - **Regla 22** (traducción): respeto al lector y a la diversidad de versiones. Discreta pero presente.
-- **Regla 23** (print-safe): el modo `?mode=print` debe ser usable e imprimible sin consumir cartuchos.
+- **Regla 23** (print-safe): el modo `print` debe ser usable e imprimible sin consumir cartuchos.
 - **Regla 24** (disclosure de versículos): controla el ritmo de lectura conjunta predicador-audiencia.
 
 ## Anti-patterns explícitamente prohibidos

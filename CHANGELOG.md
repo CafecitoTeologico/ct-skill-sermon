@@ -5,6 +5,36 @@ Todos los cambios notables de este skill se documentan aquí.
 El formato sigue [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 El versionado es semántico: `MAJOR.MINOR.PATCH`.
 
+## [1.3.0] — el control funciona desde el teléfono
+
+En Android, las SPA no pasaban del selector de modo: al tocar una opción, Chrome mostraba un error. El selector navegaba con `?mode=`, y un HTML abierto desde WhatsApp o Descargas llega como `content://`. Chrome le pasa la URL completa al proveedor de contenido, y el permiso que da la app cubre solo la URI exacta: cualquier carga nueva con algo agregado a la URL falla. En la PC nunca se notó, porque `file://` ignora el query.
+
+La proyección sigue saliendo de una PC en modo Cabina. El Control ahora funciona desde esa PC, desde otra o desde el teléfono.
+
+### Fixed
+- **El selector arranca el modo en la misma página**, sin navegar a otra URL.
+- **Reloj lógico en `reference-example.html`** (`nextTs()`): un control con el reloj atrasado respecto a la PC de cabina ya no queda ignorado. Las presentaciones recientes ya lo tenían; el reference, no.
+
+### Added
+- **Modo por `#modo`** (`sermon.html#control`), además de `?mode=`. Si vienen ambos, gana `?mode=`.
+- **La recarga conserva el modo:** por `#modo` en `file://` y `https://`; en `content://`, por `history.state`, sin tocar la URL.
+- **Atrás vuelve al selector** y Adelante, al modo, como cuando el selector navegaba: cada modo elegido es una entrada nueva del historial (`history.pushState`).
+- **Botón «‹ Modos»** en el encabezado del Control y en la barra de Imprimir, para volver al selector con un clic. No aparece en Cabina ni en Presentación, que se proyectan limpias, ni en el PDF.
+- **`SKILL.md` § "Selección de modo"**: las reglas que cumple cualquier SPA, venga su motor del reference o de una presentación anterior, con un grep de verificación.
+
+### Changed
+- `standalone` pasa a llamarse `presentation` en `reference-example.html`, como en el resto de los documentos. `standalone` sigue como alias.
+- Roles explícitos en `SKILL.md`, README y la cabecera AGPL: la Cabina (`screen`), siempre desde una PC; el Control, desde la misma PC, otra PC o el móvil.
+- `ROADMAP.md`: ya no propone deshabilitar `control` en móvil, y el motor canónico parte de las presentaciones recientes, no del reference de mayo.
+- `doctrine.md`, regla 23: habla del modo `print`, sin `?mode=`.
+
+### Verified
+- **En escritorio**, con Chrome headless y CDP: 40 pruebas sobre `reference-example.html` y 39 sobre una presentación reciente con el mismo cambio, todas en verde. Cubren selección por botón, `#modo` y `?mode=`; recarga; Atrás, Adelante y «‹ Modos»; sincronización por MQTT en los dos sentidos, incluido un control con el reloj 60 s atrasado; PDF de impresión con contenido y sin el botón; y el Control en pantallas de teléfono y tablet.
+- **En un teléfono Android con Chrome**, con la Cabina en la PC: abierto desde Descargas (`content://media/...`) y desde WhatsApp, el Control entra, pasa láminas, vuelve al selector con Atrás y con «‹ Modos», y al recargar sigue en Control y recupera la lámina desde la Cabina.
+
+### Notes
+Las presentaciones ya generadas no cambian. En la PC siguen funcionando con `?mode=`; en Android necesitan el mismo cambio, aplicado aparte. Tras una recarga, el cronómetro del Control vuelve a cero (pendiente en el ROADMAP).
+
 ## [1.2.0] — pipeline de imágenes: persistir, optimizar, atribuir
 
 El skill no especificaba cómo manejar imágenes: ni dónde guardarlas, ni con qué compresión, ni cómo acreditarlas. Esta versión define el pipeline completo.
