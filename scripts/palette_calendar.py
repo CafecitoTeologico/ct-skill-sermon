@@ -16,6 +16,7 @@ palette_calendar.py — fechas conmemorativas para las paletas de /sermon.
 Reglas (texto, para que config-local.md pueda sobrescribirlas):
   fija:MM-DD            fecha fija, p. ej. fija:10-31
   domingo:N:MM          N-ésimo domingo del mes, p. ej. domingo:2:05
+  ultimo-domingo:MM     último domingo del mes, p. ej. ultimo-domingo:10
   pascua:±D             días desde Pascua, p. ej. pascua:-7 (Ramos)
   adviento              del 1.er domingo de Adviento al 25 de diciembre
   rango:MM-DD:MM-DD     rango fijo; puede cruzar el año
@@ -47,6 +48,12 @@ def domingo_n(anio, mes, n):
     return primero + dt.timedelta(weeks=n - 1)
 
 
+def ultimo_domingo(anio, mes):
+    siguiente = dt.date(anio + (mes == 12), mes % 12 + 1, 1)
+    ultimo = siguiente - dt.timedelta(days=1)
+    return ultimo - dt.timedelta(days=(ultimo.weekday() + 1) % 7)
+
+
 def inicio_adviento(anio):
     """Primer domingo de Adviento: cuatro domingos antes de Navidad."""
     navidad = dt.date(anio, 12, 25)
@@ -71,6 +78,8 @@ def rango(regla, anio, ventana):
     elif tipo == 'domingo':
         n, mes = map(int, arg.split(':'))
         centro = domingo_n(anio, mes, n)
+    elif tipo == 'ultimo-domingo':
+        centro = ultimo_domingo(anio, int(arg))
     elif tipo == 'pascua':
         centro = pascua(anio) + dt.timedelta(days=int(arg))
     else:

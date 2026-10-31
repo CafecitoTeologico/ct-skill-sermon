@@ -298,12 +298,17 @@ def elegir(cat, fecha, predicador, temas, usos, paleta=None, excluir=(), extra_r
         return _resultado(por_id[paleta], 'pedida explícitamente', 0, [])
 
     semana = [u for u in usos if abs((u['fecha'] - fecha).days) <= MISMA_SEMANA_DIAS]
+    # Si dos conmemoraciones coinciden (p. ej. Pastor y Reforma a fin de octubre),
+    # gana la que toca el tema más importante del sermón.
+    candidatas = []
     for cid in cal.activas(fecha, reglas_conmemoracion(cat, extra_reglas)):
-        c = cat['conmemoraciones'][cid]
-        if set(temas) & set(c['temas']):
-            p = next((p for p in cat['paletas'] if p['conmemoracion'] == cid), None)
-            if p and p['id'] not in excluir and p['id'] not in {u['id'] for u in semana}:
-                return _resultado(p, f'conmemoración: {c["nombre"]}', 0, [])
+        posiciones = [i for i, t in enumerate(temas) if t in cat['conmemoraciones'][cid]['temas']]
+        if posiciones:
+            candidatas.append((posiciones[0], cid))
+    for _, cid in sorted(candidatas):
+        p = next((p for p in cat['paletas'] if p['conmemoracion'] == cid), None)
+        if p and p['id'] not in excluir and p['id'] not in {u['id'] for u in semana}:
+            return _resultado(p, f'conmemoración: {cat["conmemoraciones"][cid]["nombre"]}', 0, [])
 
     matices_semana = [pc.hex_a_oklch(u['acento'])[2] for u in semana if u['acento']]
     ultimo = {}

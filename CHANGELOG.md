@@ -5,6 +5,15 @@ Todos los cambios notables de este skill se documentan aquí.
 El formato sigue [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 El versionado es semántico: `MAJOR.MINOR.PATCH`.
 
+## [1.4.1] — Día del Pastor: último domingo de octubre
+
+### Fixed
+- **El Día del Pastor ya tiene fecha:** el último domingo de octubre, que es cuando las iglesias de Ecuador celebran a sus pastores. Antes no tenía fecha por defecto, y su paleta solo salía si se pedía.
+- **Si dos conmemoraciones coinciden, gana la del tema principal del sermón.** A fin de octubre el Día del Pastor y el de la Reforma pueden caer en la misma ventana: en 2027, los dos el 31. Antes ganaba la primera de la lista.
+
+### Added
+- **Regla `ultimo-domingo:MM`** para las fechas conmemorativas.
+
 ## [1.4.0] — 60 paletas que rotan solas, sin café
 
 El skill caía una y otra vez en paletas café: 22 de las 27 paletas originales tenían fondo espresso o acentos tostados (`#D4A574`, `#B89878`), y el modelo, cuando dudaba, iba ahí. Además preguntaba la paleta en cada sermón. Ahora la elige un script: rota entre 60 paletas sin repetir, respeta las fechas conmemorativas y no usa café salvo que se pida.

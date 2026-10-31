@@ -82,11 +82,12 @@ Distinguir:
 | Día del Niño | 1 de junio | `dia-del-nino` |
 | Amor y Amistad | 14 de febrero | `amor-y-amistad` |
 | Día de la Reforma | 31 de octubre | `rosa-de-lutero` |
-| Día del Pastor | sin fecha por defecto (varía por país) | `buen-pastor` |
+| Día del Pastor | último domingo de octubre | `buen-pastor` |
 
 - Las fechas puntuales valen ±3 días (el domingo cercano); Viernes Santo, ±1.
+- Si dos coinciden, gana la del tema principal del sermón. A fin de octubre pasa con el Día del Pastor y el de la Reforma (en 2027, los dos el 31).
 - **Se usan solas** si el sermón cae en la fecha **y** trata de ella (los temas incluyen el de la fecha). En la fecha, con otro tema, va la rotación. Fuera de fecha, solo si se pide o el tema es inequívoco: pasar `--paleta`.
-- Otro país, o la fecha del Día del Pastor: sección `conmemoraciones` de `config-local.md`, que se pasa con `--regla id=REGLA`. Formatos: `fija:MM-DD`, `domingo:N:MM`, `pascua:±D`, `rango:MM-DD:MM-DD`. Para ver las fechas de un año: `palettes.py fechas --anio 2027`.
+- Otro país (el Día del Pastor, por ejemplo, cambia según el país): sección `conmemoraciones` de `config-local.md`, que se pasa con `--regla id=REGLA`. Formatos: `fija:MM-DD`, `domingo:N:MM`, `ultimo-domingo:MM`, `pascua:±D`, `rango:MM-DD:MM-DD`. Para ver las fechas de un año: `palettes.py fechas --anio 2027`.
 
 ## Nada de café
 

@@ -96,6 +96,12 @@ class TestCalendario(unittest.TestCase):
         self.assertEqual(cal.activas(dt.date(2026, 11, 1), reglas), ['reforma'])
         self.assertEqual(cal.activas(dt.date(2026, 7, 12), reglas), [])
 
+    def test_ultimo_domingo(self):
+        self.assertEqual(cal.ultimo_domingo(2026, 10), dt.date(2026, 10, 25))
+        self.assertEqual(cal.ultimo_domingo(2027, 10), dt.date(2027, 10, 31))   # cae justo el 31
+        self.assertEqual(cal.ultimo_domingo(2026, 12), dt.date(2026, 12, 27))
+        self.assertEqual(cal.activas(dt.date(2026, 10, 25), {'pastor': ('ultimo-domingo:10', 3)}), ['pastor'])
+
     def test_regla_sin_fecha(self):
         self.assertIsNone(cal.rango(None, 2026, 3))
         self.assertEqual(cal.activas(dt.date(2026, 10, 11), {'pastor': (None, 3)}), [])
@@ -190,6 +196,17 @@ class TestCatalogo(unittest.TestCase):
 class TestCatalogoReal(unittest.TestCase):
     def test_catalogo_real_valido(self):
         self.assertEqual(P.validar(P.cargar()), [])
+
+    def test_dia_del_pastor_ecuador(self):
+        # En Ecuador las iglesias celebran a sus pastores el último domingo de octubre.
+        r = P.elegir(P.cargar(), dt.date(2026, 10, 25), 'Ana Paz', ['pastor', 'servicio'], [])
+        self.assertEqual(r['id'], 'buen-pastor')
+
+    def test_conmemoracion_por_tema_principal(self):
+        # En 2027 el último domingo de octubre es el 31: Pastor y Reforma a la vez.
+        cat, fecha = P.cargar(), dt.date(2027, 10, 31)
+        self.assertEqual(P.elegir(cat, fecha, 'Ana Paz', ['pastor', 'reforma'], [])['id'], 'buen-pastor')
+        self.assertEqual(P.elegir(cat, fecha, 'Ana Paz', ['reforma', 'pastor'], [])['id'], 'rosa-de-lutero')
 
 
 FECHA = dt.date(2026, 11, 1)

@@ -153,7 +153,7 @@
     },
     "pastor": {
       "nombre": "Día del Pastor",
-      "regla": null,
+      "regla": "ultimo-domingo:10",
       "ventana": 3,
       "temas": [
         "pastor"

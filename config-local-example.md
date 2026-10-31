@@ -178,17 +178,17 @@ entities:
 
 ## Conmemoraciones (opcional)
 
-Las fechas conmemorativas de las paletas (ver `theme-mapping.md`) vienen con las reglas de Ecuador. Si predicas en otro país, o quieres que el Día del Pastor tenga fecha (no tiene una por defecto), sobrescríbelas aquí. El skill se las pasa a `scripts/palettes.py` con `--regla id=REGLA`.
+Las fechas conmemorativas de las paletas (ver `theme-mapping.md`) vienen con las reglas de Ecuador. Si predicas en otro país, sobrescribe aquí las que cambien. El skill se las pasa a `scripts/palettes.py` con `--regla id=REGLA`.
 
 ```yaml
 conmemoraciones:
-  # pastor: "domingo:2:10"   # p. ej. 2.º domingo de octubre
+  # pastor: "ultimo-domingo:10"   # por defecto: último domingo de octubre
   # madre: "domingo:2:05"    # por defecto: 2.º domingo de mayo
   # padre: "domingo:3:06"    # por defecto: 3.er domingo de junio
   # nino: "fija:06-01"       # por defecto: 1 de junio
 ```
 
-Formatos: `fija:MM-DD`, `domingo:N:MM`, `pascua:±D`, `rango:MM-DD:MM-DD`. Para ver cómo quedan las fechas de un año: `python3 scripts/palettes.py fechas --anio 2027 --regla pastor=domingo:2:10`.
+Formatos: `fija:MM-DD`, `domingo:N:MM`, `ultimo-domingo:MM`, `pascua:±D`, `rango:MM-DD:MM-DD`. Para ver cómo quedan las fechas de un año: `python3 scripts/palettes.py fechas --anio 2027`.
 
 ---
 
