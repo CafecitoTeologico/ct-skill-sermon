@@ -34,7 +34,7 @@ No procesar ningún bosquejo sin config válido. Toda referencia a rutas, entida
 |---|---|
 | `doctrine.md` | Las 24 reglas no negociables del diseño visual |
 | `parser-guidelines.md` | Cómo extraer datos del bosquejo (estructurado o no) |
-| `theme-mapping.md` | Cómo elegir la paleta de colores según el tema del bosquejo |
+| `theme-mapping.md` | Cómo se elige la paleta: vocabulario de temas, conmemoraciones, reglas anti-café y uso de `scripts/palettes.py` |
 | `identity-discovery.md` | Cómo encontrar logos y paletas institucionales en assets/ |
 | `license-attribution.md` | Templates de los bloques de atribución y licencia |
 | `image-pipeline.md` | Imágenes: dónde guardarlas, cómo optimizarlas e inyectarlas. **Leer solo si el sermón usa imágenes.** |
@@ -116,14 +116,20 @@ Aplicar `identity-discovery.md`:
 - Si encontrado, aplicar override; si no, modo neutro.
 - Reportar al usuario qué assets se encontraron.
 
-### 5. Selección de paleta temática
+### 5. Selección de paleta
 
-Aplicar `theme-mapping.md`:
-- Analizar `theme` y `purpose` del bosquejo.
-- Identificar palabras clave.
-- Proponer paleta predefinida entre las 19 base: `grace`, `hope`, `judgment`, `mission`, `passion`, `pentecost`, `wisdom`, `lament`, `joy`, `covenant`, `kingdom`, `prayer`, `creation`, `prophetic`, `incarnation`, `resurrection`, `discipleship`, `suffering`, o `default`.
-- Si el usuario quiere una variante intra-paleta (p. ej. dos cultos del mismo domingo con tema cercano), permitir `grace-jewel`, `grace-dawn`, `hope-twilight`, `hope-ocean`, `default-stone`, `default-ember`, `mission-sage`, `wisdom-slate`.
-- Reportar la elección al usuario antes de generar.
+La paleta la elige `scripts/palettes.py`, no el criterio visual del modelo (ver `theme-mapping.md`). Hay 60 paletas en rotación, 12 conmemorativas y las café o claras solo a pedido.
+
+1. Traducir el sermón a **temas del vocabulario** de `theme-mapping.md`, el principal primero, a partir del tema, el propósito, el título y el pasaje.
+2. Correr:
+   ```bash
+   python3 scripts/palettes.py pick --fecha YYYY-MM-DD --predicador "Nombre Apellido" \
+     --temas tema1,tema2 --dirs <resources_root>/<presentaciones_dir de cada entidad> [--regla id=REGLA]
+   ```
+   `--regla` sale de la sección `conmemoraciones` de `config-local.md`, si existe. El script no repite paletas de las últimas 13 semanas, diferencia las de la misma semana, aplica las fechas conmemorativas y nunca elige café.
+3. **Usar la paleta sin preguntar.** Solo si el usuario quiere elegir, mostrarle la elegida y sus dos alternativas, o usar `--paleta id` con la que pida (incluye café, claras y conmemorativas).
+4. Si se generan dos SPA a la vez, pasar `--excluir` con el id de la primera.
+5. Reportar la paleta y su porqué en el resumen del paso 10.
 
 ### 6. Generación de filename
 
@@ -188,7 +194,10 @@ repo: {REPO_GITHUB_URL}
 Producir el `.html` siguiendo:
 - Header con comentario AGPL-3.0 (`license-attribution.md` § 1).
 - Las 24 reglas de doctrine.md.
-- Paleta del paso 5.
+- Paleta del paso 5:
+  - el bloque `:root` de `palettes.py pick --css`;
+  - `<meta name="sermon-palette" content="{id}">` en el `<head>`, para que la próxima elección sepa que ya se usó;
+  - las `reglas` de la paleta.
 - Identidad visual del paso 4.
 - 4 modos: presentation, screen, control, print, con la selección de modo de § "Modos de la SPA generada": el selector arranca el modo sin navegar ni recargar.
 - Cliente MQTT mínimo escrito a mano para sync screen↔control, con reloj lógico (mismo §).
@@ -263,7 +272,7 @@ Si el sermón se duplica entre dos entidades (caso `user_also_publishes_to_prima
 Antes de **cualquier** acción de git:
 - Mostrar al usuario un resumen completo:
   - Datos extraídos del bosquejo.
-  - Decisiones tomadas (paleta, identidad, topic, filename).
+  - Decisiones tomadas: paleta y su porqué (la razón que devuelve `palettes.py`), identidad, topic, filename.
   - Rutas donde se generaron los archivos.
 - Pedir confirmación explícita: "¿Procedemos a commit y push, o quieres revisar/ajustar?"
 
@@ -349,6 +358,8 @@ Razón de los umbrales: el `user` del config típicamente apunta a 30 min; predi
 5. **NO hacer auto-print en el modo `print`**. El usuario debe poder revisar primero.
 6. **NO mezclar identidades**. Cuando un sermón se publica en dos entidades, cada copia tiene SU footer y SU URL — la del repo donde físicamente se aloja.
 7. **NO cambiar de modo navegando a una URL con algo agregado** (`?mode=`, `#modo`). El selector arranca el modo en la misma página (§ "Selección de modo"); si navega, en Android la SPA no pasa del selector.
+8. **NO elegir la paleta a ojo ni preguntarla.** La elige `palettes.py pick`. Solo se pregunta si el usuario quiere elegir.
+9. **NO usar paletas café** (fondos espresso, acentos tostados, arena o terracota) salvo que el usuario las pida.
 
 ## Roadmap del skill
 
@@ -357,7 +368,7 @@ Las mejoras pendientes viven en [`ROADMAP.md`](./ROADMAP.md); lo ya entregado, e
 ## Lo que SÍ debo hacer
 
 1. Aplicar las 24 reglas de doctrine.md sin excepciones (salvo flag al usuario).
-2. Verificar contraste real de la paleta resultante.
+2. Usar la paleta tal como la entrega `palettes.py`, que ya validó contraste y anti-café. Una paleta hecha a mano pasa antes por `palettes.py derivar` y `check`.
 3. Validar que las fuentes seleccionadas tengan glifos completos del español.
 4. Reportar todas las decisiones al usuario con transparencia.
 5. Estar dispuesto a iterar — el usuario puede pedir cambios visuales o estructurales antes del commit.
@@ -366,7 +377,7 @@ Las mejoras pendientes viven en [`ROADMAP.md`](./ROADMAP.md); lo ya entregado, e
 ## Si la entidad no se reconoce
 
 Modo fallback adaptativo:
-- Generar con `default` (paleta neutra, sin logo).
+- Generar con la paleta de `palettes.py pick`, sin logo ni override institucional.
 - En el reporte: ofrecer registrar la entidad para futuros sermones.
 - No detener el flujo.
 

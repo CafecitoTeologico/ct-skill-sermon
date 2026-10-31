@@ -1,0 +1,3384 @@
+{
+  "version": 1,
+  "temas": [
+    "gracia",
+    "perdon",
+    "identidad",
+    "esperanza",
+    "fe",
+    "juicio",
+    "santidad",
+    "mision",
+    "evangelio",
+    "cruz",
+    "espiritu",
+    "sabiduria",
+    "palabra",
+    "lamento",
+    "consuelo",
+    "gozo",
+    "gratitud",
+    "alabanza",
+    "pacto",
+    "fidelidad",
+    "reino",
+    "oracion",
+    "creacion",
+    "providencia",
+    "profecia",
+    "encarnacion",
+    "resurreccion",
+    "victoria",
+    "discipulado",
+    "sufrimiento",
+    "perseverancia",
+    "familia",
+    "matrimonio",
+    "amor",
+    "paternidad",
+    "maternidad",
+    "ninez",
+    "juventud",
+    "vejez",
+    "iglesia",
+    "servicio",
+    "liderazgo",
+    "transformacion",
+    "paz",
+    "reconciliacion",
+    "arrepentimiento",
+    "humildad",
+    "generosidad",
+    "navidad",
+    "ano-nuevo",
+    "ramos",
+    "viernes-santo",
+    "pentecostes",
+    "reforma",
+    "pastor",
+    "amistad"
+  ],
+  "conmemoraciones": {
+    "navidad": {
+      "nombre": "Navidad",
+      "regla": "adviento",
+      "ventana": 0,
+      "temas": [
+        "navidad",
+        "encarnacion"
+      ]
+    },
+    "fin-de-ano": {
+      "nombre": "Fin de año y Año nuevo",
+      "regla": "rango:12-26:01-07",
+      "ventana": 0,
+      "temas": [
+        "ano-nuevo"
+      ]
+    },
+    "ramos": {
+      "nombre": "Domingo de Ramos",
+      "regla": "pascua:-7",
+      "ventana": 3,
+      "temas": [
+        "ramos"
+      ]
+    },
+    "viernes-santo": {
+      "nombre": "Viernes Santo",
+      "regla": "pascua:-2",
+      "ventana": 1,
+      "temas": [
+        "viernes-santo",
+        "cruz"
+      ]
+    },
+    "resurreccion": {
+      "nombre": "Domingo de Resurrección",
+      "regla": "pascua:0",
+      "ventana": 3,
+      "temas": [
+        "resurreccion"
+      ]
+    },
+    "pentecostes": {
+      "nombre": "Pentecostés",
+      "regla": "pascua:+49",
+      "ventana": 3,
+      "temas": [
+        "pentecostes",
+        "espiritu"
+      ]
+    },
+    "madre": {
+      "nombre": "Día de la Madre",
+      "regla": "domingo:2:05",
+      "ventana": 3,
+      "temas": [
+        "maternidad"
+      ]
+    },
+    "padre": {
+      "nombre": "Día del Padre",
+      "regla": "domingo:3:06",
+      "ventana": 3,
+      "temas": [
+        "paternidad"
+      ]
+    },
+    "nino": {
+      "nombre": "Día del Niño",
+      "regla": "fija:06-01",
+      "ventana": 3,
+      "temas": [
+        "ninez"
+      ]
+    },
+    "amor-amistad": {
+      "nombre": "Día del Amor y la Amistad",
+      "regla": "fija:02-14",
+      "ventana": 3,
+      "temas": [
+        "amor",
+        "amistad"
+      ]
+    },
+    "reforma": {
+      "nombre": "Día de la Reforma",
+      "regla": "fija:10-31",
+      "ventana": 3,
+      "temas": [
+        "reforma"
+      ]
+    },
+    "pastor": {
+      "nombre": "Día del Pastor",
+      "regla": null,
+      "ventana": 3,
+      "temas": [
+        "pastor"
+      ]
+    }
+  },
+  "paletas": [
+    {
+      "id": "default",
+      "nombre": "Sobria reverente",
+      "familia": "default",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "palabra"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#0F1419",
+        "bg_2": "#1A1F26",
+        "text": "#E8E5E0",
+        "text_muted": "#8B8680",
+        "accent": "#D4A574",
+        "accent_bright": "#E6BC85",
+        "accent_em": "#F4D7A8",
+        "paper": "#ECF1F5",
+        "paper_2": "#E1E7ED",
+        "ink": "#0F1419",
+        "ink_soft": "#33393E",
+        "muted_ink": "#555C62",
+        "accent_ink": null,
+        "print_ink": "#12171C",
+        "print_ink_soft": "#484E54",
+        "print_rule": "#484E54"
+      },
+      "reglas": []
+    },
+    {
+      "id": "grace",
+      "nombre": "Gracia",
+      "familia": "grace",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "gracia",
+        "perdon",
+        "identidad"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#1A0F0A",
+        "bg_2": "#241712",
+        "text": "#F5EDE0",
+        "text_muted": "#A89478",
+        "accent": "#D4A574",
+        "accent_bright": "#E6BC85",
+        "accent_em": "#FFE1B0",
+        "paper": "#F5EFEC",
+        "paper_2": "#ECE4E1",
+        "ink": "#1A0F0A",
+        "ink_soft": "#42352F",
+        "muted_ink": "#665751",
+        "accent_ink": null,
+        "print_ink": "#1E130E",
+        "print_ink_soft": "#574A44",
+        "print_rule": "#574A44"
+      },
+      "reglas": []
+    },
+    {
+      "id": "hope",
+      "nombre": "Esperanza",
+      "familia": "hope",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "esperanza",
+        "fe"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#0A1428",
+        "bg_2": "#15203D",
+        "text": "#F0F4FA",
+        "text_muted": "#94A3B8",
+        "accent": "#D4AF37",
+        "accent_bright": "#FFD75A",
+        "accent_em": "#FFF2B0",
+        "paper": "#EDF0F6",
+        "paper_2": "#E3E6ED",
+        "ink": "#0A1428",
+        "ink_soft": "#2C384F",
+        "muted_ink": "#4F5B72",
+        "accent_ink": null,
+        "print_ink": "#11161F",
+        "print_ink_soft": "#474D58",
+        "print_rule": "#474D58"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "judgment",
+      "nombre": "Juicio",
+      "familia": "judgment",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "juicio",
+        "santidad"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0). Acento aclarado para cumplir el contraste mínimo.",
+      "tokens": {
+        "bg": "#100A0A",
+        "bg_2": "#1F1414",
+        "text": "#EAE0DC",
+        "text_muted": "#8B7E78",
+        "accent": "#994645",
+        "accent_bright": "#BB6160",
+        "accent_em": "#D4A574",
+        "paper": "#F5EEEE",
+        "paper_2": "#EDE4E4",
+        "ink": "#100A0A",
+        "ink_soft": "#3D3636",
+        "muted_ink": "#615958",
+        "accent_ink": "#8B3A3A",
+        "print_ink": "#1B1414",
+        "print_ink_soft": "#534B4B",
+        "print_rule": "#8B3A3A"
+      },
+      "reglas": []
+    },
+    {
+      "id": "mission",
+      "nombre": "Misión",
+      "familia": "mission",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "mision",
+        "evangelio"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#0A1F1A",
+        "bg_2": "#142B26",
+        "text": "#E8F0EB",
+        "text_muted": "#7A9588",
+        "accent": "#D4A574",
+        "accent_bright": "#E8C896",
+        "accent_em": "#A8D4B5",
+        "paper": "#EBF2F0",
+        "paper_2": "#E0E8E6",
+        "ink": "#0A1F1A",
+        "ink_soft": "#283D37",
+        "muted_ink": "#4A605A",
+        "accent_ink": null,
+        "print_ink": "#0C1916",
+        "print_ink_soft": "#42514D",
+        "print_rule": "#42514D"
+      },
+      "reglas": []
+    },
+    {
+      "id": "passion",
+      "nombre": "Pasión",
+      "familia": "passion",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "cruz",
+        "sufrimiento"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0). Segundo tono del fondo llevado al rojo para que no lea café.",
+      "tokens": {
+        "bg": "#0E0808",
+        "bg_2": "#1C0F11",
+        "text": "#EAE0DC",
+        "text_muted": "#8B7E78",
+        "accent": "#A04545",
+        "accent_bright": "#C26060",
+        "accent_em": "#E8D4A8",
+        "paper": "#F5EEEE",
+        "paper_2": "#EDE4E3",
+        "ink": "#0E0808",
+        "ink_soft": "#3E3636",
+        "muted_ink": "#615858",
+        "accent_ink": "#9C4142",
+        "print_ink": "#1B1414",
+        "print_ink_soft": "#534B4B",
+        "print_rule": "#A04545"
+      },
+      "reglas": []
+    },
+    {
+      "id": "pentecost",
+      "nombre": "Pentecostés (original)",
+      "familia": "pentecost",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "espiritu"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0). Fondo neutralizado para que no lea café; el naranja fuego es el original.",
+      "tokens": {
+        "bg": "#15110E",
+        "bg_2": "#201B18",
+        "text": "#F5EAE0",
+        "text_muted": "#B89878",
+        "accent": "#E08B3D",
+        "accent_bright": "#F0A858",
+        "accent_em": "#FFD08A",
+        "paper": "#F4EFEB",
+        "paper_2": "#ECE5E0",
+        "ink": "#15110E",
+        "ink_soft": "#3C3733",
+        "muted_ink": "#5F5A56",
+        "accent_ink": null,
+        "print_ink": "#191512",
+        "print_ink_soft": "#514C48",
+        "print_rule": "#514C48"
+      },
+      "reglas": []
+    },
+    {
+      "id": "wisdom",
+      "nombre": "Sabiduría",
+      "familia": "wisdom",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "sabiduria",
+        "palabra"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#0A1A1F",
+        "bg_2": "#152A30",
+        "text": "#E8EFF2",
+        "text_muted": "#8AA3AB",
+        "accent": "#D4A574",
+        "accent_bright": "#E6BC85",
+        "accent_em": "#A8D4D0",
+        "paper": "#EBF1F4",
+        "paper_2": "#DFE8EB",
+        "ink": "#0A1A1F",
+        "ink_soft": "#2A3B41",
+        "muted_ink": "#4C5E64",
+        "accent_ink": null,
+        "print_ink": "#0B181C",
+        "print_ink_soft": "#415055",
+        "print_rule": "#415055"
+      },
+      "reglas": []
+    },
+    {
+      "id": "lament",
+      "nombre": "Lamento",
+      "familia": "lament",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "lamento",
+        "consuelo"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#0B1320",
+        "bg_2": "#15203A",
+        "text": "#EDE8DC",
+        "text_muted": "#8A95AC",
+        "accent": "#B89878",
+        "accent_bright": "#D4B89A",
+        "accent_em": "#F0E0BC",
+        "paper": "#EDF0F6",
+        "paper_2": "#E2E6ED",
+        "ink": "#0B1320",
+        "ink_soft": "#2F3847",
+        "muted_ink": "#515B6C",
+        "accent_ink": null,
+        "print_ink": "#11161F",
+        "print_ink_soft": "#474D58",
+        "print_rule": "#474D58"
+      },
+      "reglas": []
+    },
+    {
+      "id": "joy",
+      "nombre": "Gozo",
+      "familia": "joy",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "gozo",
+        "gratitud",
+        "alabanza"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#15110A",
+        "bg_2": "#251D10",
+        "text": "#F8F0DD",
+        "text_muted": "#B89F76",
+        "accent": "#E8B842",
+        "accent_bright": "#F5CE6B",
+        "accent_em": "#FFE89A",
+        "paper": "#F3F0EA",
+        "paper_2": "#EAE6DF",
+        "ink": "#15110A",
+        "ink_soft": "#3C372F",
+        "muted_ink": "#5F5A51",
+        "accent_ink": null,
+        "print_ink": "#1A150E",
+        "print_ink_soft": "#514C44",
+        "print_rule": "#514C44"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "covenant",
+      "nombre": "Pacto",
+      "familia": "covenant",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "pacto",
+        "fidelidad"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#160E0A",
+        "bg_2": "#261A12",
+        "text": "#F0E6D8",
+        "text_muted": "#A89078",
+        "accent": "#A85838",
+        "accent_bright": "#C47550",
+        "accent_em": "#DEA776",
+        "paper": "#F5EFEC",
+        "paper_2": "#ECE4E1",
+        "ink": "#160E0A",
+        "ink_soft": "#3F3631",
+        "muted_ink": "#635853",
+        "accent_ink": null,
+        "print_ink": "#1C1410",
+        "print_ink_soft": "#554B46",
+        "print_rule": "#554B46"
+      },
+      "reglas": []
+    },
+    {
+      "id": "kingdom",
+      "nombre": "Reino",
+      "familia": "kingdom",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "reino",
+        "liderazgo"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#150B1F",
+        "bg_2": "#221538",
+        "text": "#EFE6F4",
+        "text_muted": "#9A8AAB",
+        "accent": "#C9A14D",
+        "accent_bright": "#E0BC6F",
+        "accent_em": "#F5D898",
+        "paper": "#F1EFF4",
+        "paper_2": "#E8E5EC",
+        "ink": "#150B1F",
+        "ink_soft": "#3D3249",
+        "muted_ink": "#60556D",
+        "accent_ink": null,
+        "print_ink": "#18141D",
+        "print_ink_soft": "#504A56",
+        "print_rule": "#504A56"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "prayer",
+      "nombre": "Oración",
+      "familia": "prayer",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "oracion"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#0F0D1F",
+        "bg_2": "#1B1832",
+        "text": "#EBE8F0",
+        "text_muted": "#9590AB",
+        "accent": "#B0A4C8",
+        "accent_bright": "#C9BFD9",
+        "accent_em": "#E8DFEC",
+        "paper": "#EFEFF5",
+        "paper_2": "#E5E5ED",
+        "ink": "#0F0D1F",
+        "ink_soft": "#36354A",
+        "muted_ink": "#59586F",
+        "accent_ink": "#64597A",
+        "print_ink": "#15151F",
+        "print_ink_soft": "#4C4C58",
+        "print_rule": "#8B7FA2"
+      },
+      "reglas": []
+    },
+    {
+      "id": "creation",
+      "nombre": "Creación",
+      "familia": "creation",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "creacion",
+        "providencia"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#0A1810",
+        "bg_2": "#142A1F",
+        "text": "#E6F0E5",
+        "text_muted": "#82A089",
+        "accent": "#C8A858",
+        "accent_bright": "#E0C476",
+        "accent_em": "#B4D49E",
+        "paper": "#ECF2EE",
+        "paper_2": "#E1E8E4",
+        "ink": "#0A1810",
+        "ink_soft": "#2D3C33",
+        "muted_ink": "#4F5F55",
+        "accent_ink": null,
+        "print_ink": "#0E1913",
+        "print_ink_soft": "#445149",
+        "print_rule": "#445149"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "prophetic",
+      "nombre": "Profecía",
+      "familia": "prophetic",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "profecia",
+        "juicio"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#14100B",
+        "bg_2": "#221B12",
+        "text": "#ECE2D2",
+        "text_muted": "#9A8870",
+        "accent": "#C9743A",
+        "accent_bright": "#DC8E58",
+        "accent_em": "#F0B070",
+        "paper": "#F3EFEA",
+        "paper_2": "#EAE5DF",
+        "ink": "#14100B",
+        "ink_soft": "#3C3731",
+        "muted_ink": "#5F5A54",
+        "accent_ink": null,
+        "print_ink": "#191510",
+        "print_ink_soft": "#514C46",
+        "print_rule": "#514C46"
+      },
+      "reglas": []
+    },
+    {
+      "id": "incarnation",
+      "nombre": "Encarnación",
+      "familia": "incarnation",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "encarnacion"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#1A0A10",
+        "bg_2": "#2A1420",
+        "text": "#F0E5E8",
+        "text_muted": "#A88090",
+        "accent": "#6B8E5F",
+        "accent_bright": "#92AD86",
+        "accent_em": "#E8D4A0",
+        "paper": "#F5EEF0",
+        "paper_2": "#ECE4E6",
+        "ink": "#1A0A10",
+        "ink_soft": "#453238",
+        "muted_ink": "#69545B",
+        "accent_ink": "#46673A",
+        "print_ink": "#1E1216",
+        "print_ink_soft": "#57494D",
+        "print_rule": "#6B8E5F"
+      },
+      "reglas": []
+    },
+    {
+      "id": "resurrection",
+      "nombre": "Resurrección (original)",
+      "familia": "resurrection",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "resurreccion",
+        "victoria"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#160E14",
+        "bg_2": "#281C28",
+        "text": "#F5EDE0",
+        "text_muted": "#B8A5A0",
+        "accent": "#E8A050",
+        "accent_bright": "#F5C078",
+        "accent_em": "#FFE0A0",
+        "paper": "#F4EEF2",
+        "paper_2": "#EBE4E9",
+        "ink": "#160E14",
+        "ink_soft": "#3E353C",
+        "muted_ink": "#62575F",
+        "accent_ink": null,
+        "print_ink": "#1B1319",
+        "print_ink_soft": "#544A51",
+        "print_rule": "#544A51"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "discipleship",
+      "nombre": "Discipulado",
+      "familia": "discipleship",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "discipulado",
+        "servicio"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#14110A",
+        "bg_2": "#251F12",
+        "text": "#E8E0CC",
+        "text_muted": "#9A8868",
+        "accent": "#9A6D3D",
+        "accent_bright": "#BC8B52",
+        "accent_em": "#D4A574",
+        "paper": "#F2F0EA",
+        "paper_2": "#E9E6DF",
+        "ink": "#14110A",
+        "ink_soft": "#3B3830",
+        "muted_ink": "#5E5A52",
+        "accent_ink": null,
+        "print_ink": "#19160F",
+        "print_ink_soft": "#504D44",
+        "print_rule": "#504D44"
+      },
+      "reglas": []
+    },
+    {
+      "id": "suffering",
+      "nombre": "Sufrimiento",
+      "familia": "suffering",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "sufrimiento",
+        "perseverancia"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#0E1418",
+        "bg_2": "#1A2228",
+        "text": "#E5E8EA",
+        "text_muted": "#7A8A92",
+        "accent": "#A87858",
+        "accent_bright": "#C49678",
+        "accent_em": "#E8D8C0",
+        "paper": "#EBF1F5",
+        "paper_2": "#E0E7EC",
+        "ink": "#0E1418",
+        "ink_soft": "#32393E",
+        "muted_ink": "#555C61",
+        "accent_ink": null,
+        "print_ink": "#11171B",
+        "print_ink_soft": "#474E53",
+        "print_rule": "#474E53"
+      },
+      "reglas": []
+    },
+    {
+      "id": "grace-jewel",
+      "nombre": "Gracia joya",
+      "familia": "grace",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "gracia",
+        "perdon"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#1A0F0A",
+        "bg_2": "#241712",
+        "text": "#F5EDE0",
+        "text_muted": "#A89478",
+        "accent": "#B8763D",
+        "accent_bright": "#D4925A",
+        "accent_em": "#F5C788",
+        "paper": "#F5EFEC",
+        "paper_2": "#ECE4E1",
+        "ink": "#1A0F0A",
+        "ink_soft": "#42352F",
+        "muted_ink": "#665751",
+        "accent_ink": null,
+        "print_ink": "#1E130E",
+        "print_ink_soft": "#574A44",
+        "print_rule": "#574A44"
+      },
+      "reglas": []
+    },
+    {
+      "id": "grace-dawn",
+      "nombre": "Gracia alba",
+      "familia": "grace",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "gracia",
+        "perdon"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#1A100E",
+        "bg_2": "#251812",
+        "text": "#F8EDE5",
+        "text_muted": "#B89A85",
+        "accent": "#E8A878",
+        "accent_bright": "#F5C49A",
+        "accent_em": "#FFDDB5",
+        "paper": "#F5EEED",
+        "paper_2": "#EDE4E2",
+        "ink": "#1A100E",
+        "ink_soft": "#413532",
+        "muted_ink": "#645755",
+        "accent_ink": null,
+        "print_ink": "#1D1311",
+        "print_ink_soft": "#564A47",
+        "print_rule": "#564A47"
+      },
+      "reglas": []
+    },
+    {
+      "id": "hope-twilight",
+      "nombre": "Esperanza al crepúsculo",
+      "familia": "hope",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "esperanza",
+        "oracion"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#14102A",
+        "bg_2": "#1F1A40",
+        "text": "#EFEAF5",
+        "text_muted": "#998AAB",
+        "accent": "#D4AF37",
+        "accent_bright": "#E8C766",
+        "accent_em": "#F8E0A8",
+        "paper": "#F0EFF5",
+        "paper_2": "#E5E5ED",
+        "ink": "#14102A",
+        "ink_soft": "#363451",
+        "muted_ink": "#595870",
+        "accent_ink": null,
+        "print_ink": "#15151F",
+        "print_ink_soft": "#4C4C58",
+        "print_rule": "#4C4C58"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "hope-ocean",
+      "nombre": "Esperanza océano",
+      "familia": "hope",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "esperanza",
+        "providencia"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#08182A",
+        "bg_2": "#122638",
+        "text": "#EAF2F8",
+        "text_muted": "#8FA8B8",
+        "accent": "#D4AF37",
+        "accent_bright": "#F0C95E",
+        "accent_em": "#FFE9A8",
+        "paper": "#ECF1F5",
+        "paper_2": "#E2E7ED",
+        "ink": "#08182A",
+        "ink_soft": "#28394D",
+        "muted_ink": "#4B5C71",
+        "accent_ink": null,
+        "print_ink": "#10171F",
+        "print_ink_soft": "#454E58",
+        "print_rule": "#454E58"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "default-stone",
+      "nombre": "Sobria piedra",
+      "familia": "default",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "palabra"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#15171A",
+        "bg_2": "#21242A",
+        "text": "#E5E5E2",
+        "text_muted": "#8A8A86",
+        "accent": "#B89878",
+        "accent_bright": "#CFB298",
+        "accent_em": "#E8D6B8",
+        "paper": "#EDF0F6",
+        "paper_2": "#E2E6ED",
+        "ink": "#15171A",
+        "ink_soft": "#36383B",
+        "muted_ink": "#585B5F",
+        "accent_ink": null,
+        "print_ink": "#141619",
+        "print_ink_soft": "#4B4D51",
+        "print_rule": "#4B4D51"
+      },
+      "reglas": []
+    },
+    {
+      "id": "default-ember",
+      "nombre": "Sobria brasa",
+      "familia": "default",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "palabra"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#120F0E",
+        "bg_2": "#1F1A18",
+        "text": "#E8E2DC",
+        "text_muted": "#8A8278",
+        "accent": "#B86838",
+        "accent_bright": "#D08658",
+        "accent_em": "#E8B080",
+        "paper": "#F5EEEC",
+        "paper_2": "#EDE4E1",
+        "ink": "#120F0E",
+        "ink_soft": "#3B3736",
+        "muted_ink": "#5E5A58",
+        "accent_ink": null,
+        "print_ink": "#181514",
+        "print_ink_soft": "#504C4B",
+        "print_rule": "#504C4B"
+      },
+      "reglas": []
+    },
+    {
+      "id": "mission-sage",
+      "nombre": "Misión salvia",
+      "familia": "mission",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "mision",
+        "discipulado"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#101A14",
+        "bg_2": "#1C281F",
+        "text": "#E5ECE5",
+        "text_muted": "#8A9A88",
+        "accent": "#B89878",
+        "accent_bright": "#D0B898",
+        "accent_em": "#B8C8A8",
+        "paper": "#ECF2EE",
+        "paper_2": "#E1E8E4",
+        "ink": "#101A14",
+        "ink_soft": "#303B34",
+        "muted_ink": "#525E57",
+        "accent_ink": null,
+        "print_ink": "#0F1913",
+        "print_ink_soft": "#455049",
+        "print_rule": "#455049"
+      },
+      "reglas": []
+    },
+    {
+      "id": "wisdom-slate",
+      "nombre": "Sabiduría pizarra",
+      "familia": "wisdom",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "sabiduria",
+        "palabra"
+      ],
+      "ancla": null,
+      "inspiracion": "Paleta original del skill (v1.0).",
+      "tokens": {
+        "bg": "#0E1418",
+        "bg_2": "#1A2128",
+        "text": "#E5EAEF",
+        "text_muted": "#889098",
+        "accent": "#B89878",
+        "accent_bright": "#D0B898",
+        "accent_em": "#A8B8C8",
+        "paper": "#EBF1F5",
+        "paper_2": "#E0E7EC",
+        "ink": "#0E1418",
+        "ink_soft": "#32393E",
+        "muted_ink": "#555C61",
+        "accent_ink": null,
+        "print_ink": "#11171B",
+        "print_ink_soft": "#474E53",
+        "print_rule": "#474E53"
+      },
+      "reglas": []
+    },
+    {
+      "id": "kemet-oro",
+      "nombre": "Kemet y oro",
+      "familia": "kemet-oro",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "providencia",
+        "identidad",
+        "esperanza"
+      ],
+      "ancla": "Gn 41:42",
+      "inspiracion": "Kemet, la tierra negra, y el oro que Faraón puso en el cuello de José.",
+      "tokens": {
+        "bg": "#0C0E14",
+        "bg_2": "#171A23",
+        "text": "#F1EEE6",
+        "text_muted": "#9196A3",
+        "accent": "#E2B13C",
+        "accent_bright": "#F3CE6A",
+        "accent_em": "#FCE7B0",
+        "paper": "#EEEDE9",
+        "paper_2": "#E5E3DD",
+        "ink": "#0C0E14",
+        "ink_soft": "#2B2E37",
+        "muted_ink": "#4A4D58",
+        "accent_ink": null,
+        "print_ink": "#14161C",
+        "print_ink_soft": "#3F424C",
+        "print_rule": "#D4A72C"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el negro: oro al 10-15 % sobre negro da marrón.",
+        "Los resplandores son de lino neutro (rgba(241,238,230,.06)) con un toque frío (rgba(110,130,180,.07)).",
+        "En láminas claras no hay tinta dorada que no sea bronce: el énfasis va en tinta negra y peso 700; el oro, solo en filetes.",
+        "En el selector y el modo control, rellenos neutros con borde dorado; nada de fondos dorados."
+      ]
+    },
+    {
+      "id": "obsidiana-acero",
+      "nombre": "Obsidiana y acero",
+      "familia": "obsidiana-acero",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "fe",
+        "victoria",
+        "perseverancia"
+      ],
+      "ancla": null,
+      "inspiracion": "Filo de acero sobre obsidiana: luz fría, firme y sin adornos.",
+      "tokens": {
+        "bg": "#0B1117",
+        "bg_2": "#151E28",
+        "text": "#E6EDF3",
+        "text_muted": "#8296A6",
+        "accent": "#5C89AB",
+        "accent_bright": "#A9C8DE",
+        "accent_em": "#DCE9F2",
+        "paper": "#ECF1F5",
+        "paper_2": "#E1E7ED",
+        "ink": "#0B1117",
+        "ink_soft": "#323940",
+        "muted_ink": "#545C63",
+        "accent_ink": "#24536F",
+        "print_ink": "#11171D",
+        "print_ink_soft": "#474E55",
+        "print_rule": "#5C89AB"
+      },
+      "reglas": [
+        "Sin oro, ámbar ni tostado en ningún valor.",
+        "Acompaña bien un motivo de «filo»: dos planos de luz fría en diagonal con una línea dura entre ellos."
+      ]
+    },
+    {
+      "id": "tormenta-violeta",
+      "nombre": "Tormenta violeta",
+      "familia": "indigo-frio",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "transformacion",
+        "amor",
+        "identidad"
+      ],
+      "ancla": "Mc 3:17",
+      "inspiracion": "Índigo de tormenta y violeta eléctrico: del trueno a la luz serena.",
+      "tokens": {
+        "bg": "#0C0F1D",
+        "bg_2": "#161A30",
+        "text": "#ECEDF7",
+        "text_muted": "#8E93B2",
+        "accent": "#8577F2",
+        "accent_bright": "#BDB5FF",
+        "accent_em": "#E7E3FF",
+        "paper": "#EEF0F6",
+        "paper_2": "#E4E6ED",
+        "ink": "#0C0F1D",
+        "ink_soft": "#333748",
+        "muted_ink": "#555A6C",
+        "accent_ink": "#3B2FA0",
+        "print_ink": "#13151F",
+        "print_ink_soft": "#494D58",
+        "print_rule": "#7F70EB"
+      },
+      "reglas": []
+    },
+    {
+      "id": "dynamis-azur",
+      "nombre": "Dynamis azur",
+      "familia": "dynamis-azur",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "evangelio",
+        "transformacion",
+        "fe"
+      ],
+      "ancla": "Ro 1:16",
+      "inspiracion": "Azur eléctrico sobre negro azulado: el poder (dýnamis) del evangelio.",
+      "tokens": {
+        "bg": "#070B12",
+        "bg_2": "#0F1520",
+        "text": "#EAF2F8",
+        "text_muted": "#8E9BAE",
+        "accent": "#2FB2F0",
+        "accent_bright": "#7ED3FA",
+        "accent_em": "#D3F0FE",
+        "paper": "#EDF1F4",
+        "paper_2": "#E2E8ED",
+        "ink": "#0A111B",
+        "ink_soft": "#22303F",
+        "muted_ink": "#4A5767",
+        "accent_ink": "#0B4778",
+        "print_ink": "#12161E",
+        "print_ink_soft": "#484D56",
+        "print_rule": "#1691C7"
+      },
+      "reglas": []
+    },
+    {
+      "id": "brote-lima",
+      "nombre": "Brote de lima",
+      "familia": "brote-lima",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "familia",
+        "providencia",
+        "esperanza"
+      ],
+      "ancla": "Ec 3:1",
+      "inspiracion": "Lima de brote sobre petróleo profundo: un tiempo para cada cosa.",
+      "tokens": {
+        "bg": "#091417",
+        "bg_2": "#12212A",
+        "text": "#EEF2EA",
+        "text_muted": "#8F9EA3",
+        "accent": "#B4D455",
+        "accent_bright": "#D3EC86",
+        "accent_em": "#EEF8CF",
+        "paper": "#EEF1EC",
+        "paper_2": "#E3E8E2",
+        "ink": "#0B1416",
+        "ink_soft": "#1E2B2E",
+        "muted_ink": "#4A585B",
+        "accent_ink": "#2B5418",
+        "print_ink": "#0D181B",
+        "print_ink_soft": "#435053",
+        "print_rule": "#435053"
+      },
+      "reglas": [
+        "Lima tenue sobre petróleo da oliva: el lima va solo en trazos y texto, y los resplandores son de lino."
+      ]
+    },
+    {
+      "id": "aguamarina-mansa",
+      "nombre": "Aguamarina mansa",
+      "familia": "aguamarina-mansa",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "matrimonio",
+        "paz",
+        "reconciliacion"
+      ],
+      "ancla": "Pr 15:1",
+      "inspiracion": "Aguamarina sobre carbón neutro: la blanda respuesta que quita la ira.",
+      "tokens": {
+        "bg": "#0E1113",
+        "bg_2": "#181C1F",
+        "text": "#EDF1EF",
+        "text_muted": "#9AA4A3",
+        "accent": "#4FD1BE",
+        "accent_bright": "#8FE5D7",
+        "accent_em": "#D2F5EF",
+        "paper": "#EEF2F1",
+        "paper_2": "#E3E9E8",
+        "ink": "#0C1214",
+        "ink_soft": "#1C2729",
+        "muted_ink": "#4A5759",
+        "accent_ink": "#0A4F47",
+        "print_ink": "#131719",
+        "print_ink_soft": "#4A4E50",
+        "print_rule": "#029B8B"
+      },
+      "reglas": []
+    },
+    {
+      "id": "grace-garnet",
+      "nombre": "Pizarra y granate",
+      "familia": "grace-garnet",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "reconciliacion",
+        "gracia",
+        "familia"
+      ],
+      "ancla": null,
+      "inspiracion": "Pizarra fría por la distancia; granate-rosa por la herida que la gracia sana.",
+      "tokens": {
+        "bg": "#12141B",
+        "bg_2": "#1D1E29",
+        "text": "#ECE7EA",
+        "text_muted": "#948FA0",
+        "accent": "#B33A5E",
+        "accent_bright": "#DA6B87",
+        "accent_em": "#F5C3D0",
+        "paper": "#EEF0F6",
+        "paper_2": "#E4E6ED",
+        "ink": "#12141B",
+        "ink_soft": "#353840",
+        "muted_ink": "#585A63",
+        "accent_ink": "#A82F55",
+        "print_ink": "#14161D",
+        "print_ink_soft": "#4A4D55",
+        "print_rule": "#B33A5E"
+      },
+      "reglas": [
+        "El granate base es para trazos y titulares grandes; el texto de acento va en #DA6B87."
+      ]
+    },
+    {
+      "id": "grace-ciruela",
+      "nombre": "Ciruela y teal",
+      "familia": "grace-ciruela",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "amor",
+        "familia",
+        "gracia"
+      ],
+      "ancla": null,
+      "inspiracion": "Ciruela profunda con un teal que respira: el amor que se cultiva.",
+      "tokens": {
+        "bg": "#17091A",
+        "bg_2": "#240F28",
+        "text": "#F3E8F0",
+        "text_muted": "#A88CA0",
+        "accent": "#4FAE8C",
+        "accent_bright": "#6FC3A6",
+        "accent_em": "#9EDCC3",
+        "paper": "#F7F0F2",
+        "paper_2": "#EFE3E7",
+        "ink": "#241119",
+        "ink_soft": "#413145",
+        "muted_ink": "#6B4A5C",
+        "accent_ink": "#7A3B63",
+        "print_ink": "#1A131C",
+        "print_ink_soft": "#524A54",
+        "print_rule": "#399A79"
+      },
+      "reglas": []
+    },
+    {
+      "id": "lament-glass",
+      "nombre": "Vidrio de lamento",
+      "familia": "lament-glass",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "lamento",
+        "consuelo",
+        "esperanza"
+      ],
+      "ancla": null,
+      "inspiracion": "Azul vidrio: mirar a través del dolor sin negarlo.",
+      "tokens": {
+        "bg": "#0B1620",
+        "bg_2": "#142633",
+        "text": "#E6EFF2",
+        "text_muted": "#8497A3",
+        "accent": "#4E97A8",
+        "accent_bright": "#79C0CE",
+        "accent_em": "#C6E8ED",
+        "paper": "#ECF1F5",
+        "paper_2": "#E1E7ED",
+        "ink": "#0B1620",
+        "ink_soft": "#2D3945",
+        "muted_ink": "#4F5C69",
+        "accent_ink": "#1F5261",
+        "print_ink": "#0F171F",
+        "print_ink_soft": "#454E58",
+        "print_rule": "#4992A3"
+      },
+      "reglas": []
+    },
+    {
+      "id": "creation-jade",
+      "nombre": "Bosque y jade",
+      "familia": "creation-jade",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "vejez",
+        "familia",
+        "providencia"
+      ],
+      "ancla": "Sal 92:14",
+      "inspiracion": "Verde que no envejece: aun en la vejez fructificarán, vigorosos y verdes.",
+      "tokens": {
+        "bg": "#0B1A12",
+        "bg_2": "#142E20",
+        "text": "#EAF1E6",
+        "text_muted": "#8DA894",
+        "accent": "#6FC79A",
+        "accent_bright": "#95DCB6",
+        "accent_em": "#C6EBD3",
+        "paper": "#ECF2EE",
+        "paper_2": "#E1E8E4",
+        "ink": "#0B1A12",
+        "ink_soft": "#2C3C33",
+        "muted_ink": "#4E6056",
+        "accent_ink": "#0C6C47",
+        "print_ink": "#0E1913",
+        "print_ink_soft": "#445149",
+        "print_rule": "#419A6F"
+      },
+      "reglas": [
+        "Sin oro ni tostado en ningún valor."
+      ]
+    },
+    {
+      "id": "glaciar",
+      "nombre": "Glaciar sobre índigo",
+      "familia": "indigo-frio",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "lamento",
+        "consuelo",
+        "esperanza"
+      ],
+      "ancla": null,
+      "inspiracion": "Celeste de glaciar sobre índigo: el consuelo que llega en voz baja.",
+      "tokens": {
+        "bg": "#141026",
+        "bg_2": "#221C42",
+        "text": "#EDEBF5",
+        "text_muted": "#9A96B8",
+        "accent": "#7FB6DC",
+        "accent_bright": "#A5CDE8",
+        "accent_em": "#D8C9F0",
+        "paper": "#F0EFF7",
+        "paper_2": "#E2DFEE",
+        "ink": "#151229",
+        "ink_soft": "#37344D",
+        "muted_ink": "#4A4763",
+        "accent_ink": "#2B4E7A",
+        "print_ink": "#16151F",
+        "print_ink_soft": "#4D4B58",
+        "print_rule": "#578DB1"
+      },
+      "reglas": []
+    },
+    {
+      "id": "carmesi-real",
+      "nombre": "Carmesí real",
+      "familia": "carmesi-real",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "familia",
+        "discipulado",
+        "reino"
+      ],
+      "ancla": null,
+      "inspiracion": "Carmesí profundo con coral, oro y teal: vivo, de casa y de fiesta.",
+      "tokens": {
+        "bg": "#360A15",
+        "bg_2": "#4A0E1C",
+        "text": "#F8EFE6",
+        "text_muted": "#DDA8A6",
+        "accent": "#FF6F61",
+        "accent_bright": "#FF8E80",
+        "accent_em": "#FEE0DB",
+        "paper": "#F5EEEF",
+        "paper_2": "#EDE4E5",
+        "ink": "#360A15",
+        "ink_soft": "#562730",
+        "muted_ink": "#6F5256",
+        "accent_ink": "#AC312A",
+        "print_ink": "#1E1214",
+        "print_ink_soft": "#57494B",
+        "print_rule": "#DD5045"
+      },
+      "reglas": [
+        "Admite dos acentos de apoyo con moderación: oro #FFCF52 y teal #4FC2A0 (excepción a la regla 13, pedida para un sermón más colorido)."
+      ]
+    },
+    {
+      "id": "pizarra-jade-amatista",
+      "nombre": "Pizarra, jade y amatista",
+      "familia": "pizarra-jade-amatista",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "paternidad",
+        "familia"
+      ],
+      "ancla": null,
+      "inspiracion": "Pizarra fría con jade y un toque de amatista.",
+      "tokens": {
+        "bg": "#0E1620",
+        "bg_2": "#18222E",
+        "text": "#ECF1F5",
+        "text_muted": "#93A1AE",
+        "accent": "#5FB89A",
+        "accent_bright": "#86D2B6",
+        "accent_em": "#D3F0E4",
+        "paper": "#EDF0F6",
+        "paper_2": "#E2E7ED",
+        "ink": "#0E1620",
+        "ink_soft": "#303944",
+        "muted_ink": "#525C68",
+        "accent_ink": "#1B6B50",
+        "print_ink": "#10171F",
+        "print_ink_soft": "#464E58",
+        "print_rule": "#3E997C"
+      },
+      "reglas": [
+        "Acento de apoyo: amatista #B492D6, solo en detalles."
+      ]
+    },
+    {
+      "id": "alegria-coral",
+      "nombre": "Noche y coral",
+      "familia": "alegria-coral",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "familia",
+        "gozo"
+      ],
+      "ancla": "Pr 10:1",
+      "inspiracion": "Coral cálido sobre azul noche: el hijo sabio alegra a su padre.",
+      "tokens": {
+        "bg": "#0F1B2A",
+        "bg_2": "#16283C",
+        "text": "#E9E3D5",
+        "text_muted": "#8593A6",
+        "accent": "#E5764A",
+        "accent_bright": "#F0966A",
+        "accent_em": "#F4B58E",
+        "paper": "#EDF0F6",
+        "paper_2": "#E2E7ED",
+        "ink": "#0F1B2A",
+        "ink_soft": "#2C394A",
+        "muted_ink": "#4E5C6E",
+        "accent_ink": null,
+        "print_ink": "#10171F",
+        "print_ink_soft": "#464E58",
+        "print_rule": "#464E58"
+      },
+      "reglas": []
+    },
+    {
+      "id": "lino-y-vino",
+      "nombre": "Lino y vino",
+      "familia": "lino-y-vino",
+      "modo": "claro",
+      "auto": false,
+      "conmemoracion": null,
+      "temas": [
+        "servicio",
+        "fidelidad",
+        "sufrimiento"
+      ],
+      "ancla": "1 P 4:12-13",
+      "inspiracion": "Papel lino y vino: una paleta clara nacida del arte de un evento.",
+      "tokens": {
+        "bg": "#121116",
+        "bg_2": "#0B0A0D",
+        "text": "#ECE8E1",
+        "text_muted": "#9C98A3",
+        "accent": "#E9A0A6",
+        "accent_bright": "#FABABF",
+        "accent_em": "#FCE0E2",
+        "paper": "#F4F0E6",
+        "paper_2": "#EBE6DA",
+        "ink": "#111014",
+        "ink_soft": "#2A2830",
+        "muted_ink": "#55525C",
+        "accent_ink": "#7A1820",
+        "print_ink": "#16151A",
+        "print_ink_soft": "#4D4C52",
+        "print_rule": "#7A1820"
+      },
+      "reglas": [
+        "Paleta CLARA: las láminas van sobre papel lino; los tokens oscuros son solo para el selector y el control.",
+        "El vino #7A1820 es el único acento; el hilo dorado #C9A66B va solo en trazos, nunca en texto.",
+        "Franja vino→ámbar (#7A1820 → #A8221F → #D9482A → #EE8A2E → #F2B52E) solo en la portada y la frase clave.",
+        "Úsala cuando el evento trae su propio arte claro, o si se pide."
+      ]
+    },
+    {
+      "id": "grana-nieve",
+      "nombre": "Grana y nieve",
+      "familia": "grana-nieve",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "perdon",
+        "gracia",
+        "arrepentimiento"
+      ],
+      "ancla": "Is 1:18",
+      "inspiracion": "Grana que se vuelve nieve: el pecado lavado.",
+      "tokens": {
+        "bg": "#0E0F16",
+        "bg_2": "#1A1B23",
+        "text": "#ECEEF9",
+        "text_muted": "#90919B",
+        "accent": "#FF4F72",
+        "accent_bright": "#FE9FA9",
+        "accent_em": "#FEDFE1",
+        "paper": "#EFF0F6",
+        "paper_2": "#E4E6ED",
+        "ink": "#0E0F16",
+        "ink_soft": "#363740",
+        "muted_ink": "#595A63",
+        "accent_ink": "#AA2E48",
+        "print_ink": "#14151D",
+        "print_ink_soft": "#4B4C55",
+        "print_rule": "#E83860"
+      },
+      "reglas": []
+    },
+    {
+      "id": "escarlata-rahab",
+      "nombre": "Cordón de grana",
+      "familia": "escarlata-rahab",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "fe",
+        "gracia",
+        "familia"
+      ],
+      "ancla": "Jos 2:18",
+      "inspiracion": "El cordón de grana en la ventana: fe que salva una casa.",
+      "tokens": {
+        "bg": "#08171A",
+        "bg_2": "#152427",
+        "text": "#E4F1F4",
+        "text_muted": "#84969A",
+        "accent": "#FF6A4D",
+        "accent_bright": "#FC8870",
+        "accent_em": "#FFE0D9",
+        "paper": "#EAF2F3",
+        "paper_2": "#DFE8EA",
+        "ink": "#08171A",
+        "ink_soft": "#2B3B3E",
+        "muted_ink": "#4D5E62",
+        "accent_ink": "#AB331D",
+        "print_ink": "#0B181B",
+        "print_ink_soft": "#415053",
+        "print_rule": "#E04D31"
+      },
+      "reglas": []
+    },
+    {
+      "id": "rosa-saron",
+      "nombre": "Rosa de Sarón",
+      "familia": "rosa-saron",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "amor",
+        "matrimonio",
+        "gozo"
+      ],
+      "ancla": "Cnt 2:1",
+      "inspiracion": "Rosa sobre berenjena: el amor que se canta.",
+      "tokens": {
+        "bg": "#1A0B18",
+        "bg_2": "#271725",
+        "text": "#F5EBF3",
+        "text_muted": "#9E8C9B",
+        "accent": "#FF8FC2",
+        "accent_bright": "#FFB7D5",
+        "accent_em": "#FEDEEA",
+        "paper": "#F3EEF2",
+        "paper_2": "#EAE4E9",
+        "ink": "#1A0B18",
+        "ink_soft": "#433140",
+        "muted_ink": "#675464",
+        "accent_ink": "#9E376B",
+        "print_ink": "#1C131A",
+        "print_ink_soft": "#544952",
+        "print_rule": "#C65C8F"
+      },
+      "reglas": []
+    },
+    {
+      "id": "buganvilla",
+      "nombre": "Buganvilla",
+      "familia": "buganvilla",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "gozo",
+        "alabanza",
+        "juventud"
+      ],
+      "ancla": "Sal 96:1",
+      "inspiracion": "La flor de nuestros barrios: color sin pedir permiso.",
+      "tokens": {
+        "bg": "#12091C",
+        "bg_2": "#1E1529",
+        "text": "#F0ECF7",
+        "text_muted": "#968EA2",
+        "accent": "#F25CC0",
+        "accent_bright": "#FE96D6",
+        "accent_em": "#FEDDF0",
+        "paper": "#F1EFF5",
+        "paper_2": "#E7E5EC",
+        "ink": "#12091C",
+        "ink_soft": "#3C3349",
+        "muted_ink": "#60556D",
+        "accent_ink": "#9D337B",
+        "print_ink": "#18141D",
+        "print_ink_soft": "#4F4B56",
+        "print_rule": "#D640A7"
+      },
+      "reglas": []
+    },
+    {
+      "id": "orquidea-andina",
+      "nombre": "Orquídea andina",
+      "familia": "orquidea-andina",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "oracion",
+        "identidad",
+        "humildad"
+      ],
+      "ancla": "Mt 6:28-29",
+      "inspiracion": "Mirad los lirios del campo: belleza que no se afana.",
+      "tokens": {
+        "bg": "#0F1220",
+        "bg_2": "#1B1F2E",
+        "text": "#EBEEF9",
+        "text_muted": "#8C91A5",
+        "accent": "#D78BFF",
+        "accent_bright": "#E1B0FC",
+        "accent_em": "#F3E0FE",
+        "paper": "#EEF0F6",
+        "paper_2": "#E4E6ED",
+        "ink": "#0F1220",
+        "ink_soft": "#333747",
+        "muted_ink": "#555A6C",
+        "accent_ink": "#8240A3",
+        "print_ink": "#13151F",
+        "print_ink_soft": "#494C58",
+        "print_rule": "#AB60D0"
+      },
+      "reglas": []
+    },
+    {
+      "id": "turquesa-pozo",
+      "nombre": "Turquesa del pozo",
+      "familia": "turquesa-pozo",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "consuelo",
+        "espiritu",
+        "paz"
+      ],
+      "ancla": "Jn 4:14",
+      "inspiracion": "El agua que salta para vida eterna.",
+      "tokens": {
+        "bg": "#061A1F",
+        "bg_2": "#13272C",
+        "text": "#E4F1F5",
+        "text_muted": "#80979D",
+        "accent": "#33D6E8",
+        "accent_bright": "#73EAF9",
+        "accent_em": "#C6F1F7",
+        "paper": "#EAF2F4",
+        "paper_2": "#DFE8EA",
+        "ink": "#061A1F",
+        "ink_soft": "#273C41",
+        "muted_ink": "#495F65",
+        "accent_ink": "#046973",
+        "print_ink": "#0B181C",
+        "print_ink_soft": "#415054",
+        "print_rule": "#0B97A5"
+      },
+      "reglas": []
+    },
+    {
+      "id": "cosecha-dorada",
+      "nombre": "Cosecha",
+      "familia": "cosecha-dorada",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "mision",
+        "generosidad",
+        "gratitud"
+      ],
+      "ancla": "Jn 4:35",
+      "inspiracion": "Los campos ya están blancos para la siega.",
+      "tokens": {
+        "bg": "#082019",
+        "bg_2": "#162D26",
+        "text": "#E5F2ED",
+        "text_muted": "#829A91",
+        "accent": "#F7D94C",
+        "accent_bright": "#FCE475",
+        "accent_em": "#F2E9BF",
+        "paper": "#EBF2EF",
+        "paper_2": "#E0E8E5",
+        "ink": "#082019",
+        "ink_soft": "#263E36",
+        "muted_ink": "#486158",
+        "accent_ink": null,
+        "print_ink": "#0C1915",
+        "print_ink_soft": "#42514C",
+        "print_rule": "#42514C"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "faro-naranja",
+      "nombre": "Faro",
+      "familia": "faro-naranja",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "mision",
+        "evangelio",
+        "esperanza"
+      ],
+      "ancla": "Mt 5:14",
+      "inspiracion": "Una luz encendida sobre el mar de noche.",
+      "tokens": {
+        "bg": "#04191C",
+        "bg_2": "#102629",
+        "text": "#E4F2F4",
+        "text_muted": "#7F979B",
+        "accent": "#FF8F3A",
+        "accent_bright": "#FCA162",
+        "accent_em": "#FFE1CF",
+        "paper": "#EAF2F3",
+        "paper_2": "#DFE8EA",
+        "ink": "#04191C",
+        "ink_soft": "#263C3F",
+        "muted_ink": "#496063",
+        "accent_ink": null,
+        "print_ink": "#0B191B",
+        "print_ink_soft": "#415053",
+        "print_rule": "#415053"
+      },
+      "reglas": []
+    },
+    {
+      "id": "plata-noche",
+      "nombre": "Plata y noche",
+      "familia": "plata-noche",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "sabiduria",
+        "palabra",
+        "fidelidad"
+      ],
+      "ancla": "Sal 12:6",
+      "inspiracion": "Palabras limpias, como plata refinada siete veces.",
+      "tokens": {
+        "bg": "#0E1014",
+        "bg_2": "#1A1C21",
+        "text": "#EBEEF5",
+        "text_muted": "#8F9298",
+        "accent": "#C8D2E0",
+        "accent_bright": "#D3DCE8",
+        "accent_em": "#E5E8ED",
+        "paper": "#EDF0F6",
+        "paper_2": "#E3E6ED",
+        "ink": "#0E1014",
+        "ink_soft": "#36383D",
+        "muted_ink": "#585B60",
+        "accent_ink": "#575F6C",
+        "print_ink": "#14161A",
+        "print_ink_soft": "#4B4D52",
+        "print_rule": "#7E8794"
+      },
+      "reglas": []
+    },
+    {
+      "id": "aurora-verde",
+      "nombre": "Aurora",
+      "familia": "aurora-verde",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "esperanza",
+        "creacion",
+        "transformacion"
+      ],
+      "ancla": "Sal 19:1",
+      "inspiracion": "Los cielos cuentan la gloria de Dios.",
+      "tokens": {
+        "bg": "#0B0A1E",
+        "bg_2": "#17162C",
+        "text": "#EDEDF9",
+        "text_muted": "#8F90A5",
+        "accent": "#6BFF9E",
+        "accent_bright": "#A7FEBF",
+        "accent_em": "#C9F5D3",
+        "paper": "#EFEFF5",
+        "paper_2": "#E5E5ED",
+        "ink": "#0B0A1E",
+        "ink_soft": "#35354D",
+        "muted_ink": "#575871",
+        "accent_ink": "#0E6C37",
+        "print_ink": "#15151F",
+        "print_ink_soft": "#4B4C58",
+        "print_rule": "#12A053"
+      },
+      "reglas": []
+    },
+    {
+      "id": "ciruela-limon",
+      "nombre": "Ciruela y limón",
+      "familia": "ciruela-limon",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "gozo",
+        "alabanza",
+        "juventud"
+      ],
+      "ancla": "Is 61:3",
+      "inspiracion": "Óleo de gozo en lugar de luto.",
+      "tokens": {
+        "bg": "#1C0A1F",
+        "bg_2": "#29172D",
+        "text": "#F3EBF5",
+        "text_muted": "#9B8C9D",
+        "accent": "#E8F25A",
+        "accent_bright": "#F1FB81",
+        "accent_em": "#E8EDBF",
+        "paper": "#F3EEF3",
+        "paper_2": "#E9E4EA",
+        "ink": "#1C0A1F",
+        "ink_soft": "#442F47",
+        "muted_ink": "#665468",
+        "accent_ink": null,
+        "print_ink": "#1A131C",
+        "print_ink_soft": "#524A54",
+        "print_rule": "#524A54"
+      },
+      "reglas": []
+    },
+    {
+      "id": "bosque-lila",
+      "nombre": "Bosque y lila",
+      "familia": "bosque-lila",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "familia",
+        "reconciliacion",
+        "amor"
+      ],
+      "ancla": "Ec 4:12",
+      "inspiracion": "Cordón de tres dobleces no se rompe pronto.",
+      "tokens": {
+        "bg": "#0A1A14",
+        "bg_2": "#172721",
+        "text": "#E6F2EC",
+        "text_muted": "#84978F",
+        "accent": "#C9A7FF",
+        "accent_bright": "#DAC6FE",
+        "accent_em": "#ECE3FE",
+        "paper": "#EBF2EF",
+        "paper_2": "#E0E8E5",
+        "ink": "#0A1A14",
+        "ink_soft": "#2B3C35",
+        "muted_ink": "#4E6058",
+        "accent_ink": "#6F4E9E",
+        "print_ink": "#0D1914",
+        "print_ink_soft": "#43514B",
+        "print_rule": "#9472C6"
+      },
+      "reglas": []
+    },
+    {
+      "id": "petroleo-rosa",
+      "nombre": "Petróleo y rosa",
+      "familia": "petroleo-rosa",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "amor",
+        "consuelo",
+        "reconciliacion"
+      ],
+      "ancla": "Ro 12:10",
+      "inspiracion": "Amaos los unos a los otros con amor fraternal.",
+      "tokens": {
+        "bg": "#0B1A1E",
+        "bg_2": "#18272B",
+        "text": "#E4F1F5",
+        "text_muted": "#84969B",
+        "accent": "#FF8FB0",
+        "accent_bright": "#FEB6C9",
+        "accent_em": "#FFDEE6",
+        "paper": "#EAF2F4",
+        "paper_2": "#DFE8EA",
+        "ink": "#0B1A1E",
+        "ink_soft": "#2B3B3F",
+        "muted_ink": "#4D5E63",
+        "accent_ink": "#A0395D",
+        "print_ink": "#0B181C",
+        "print_ink_soft": "#415054",
+        "print_rule": "#C85E80"
+      },
+      "reglas": []
+    },
+    {
+      "id": "verde-pradera",
+      "nombre": "Verdes pastos",
+      "familia": "verde-pradera",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "providencia",
+        "paz",
+        "consuelo"
+      ],
+      "ancla": "Sal 23:2",
+      "inspiracion": "En lugares de delicados pastos me hará descansar.",
+      "tokens": {
+        "bg": "#0C1426",
+        "bg_2": "#182134",
+        "text": "#E9EFF9",
+        "text_muted": "#8992A5",
+        "accent": "#7CE38B",
+        "accent_bright": "#94E99F",
+        "accent_em": "#D1F2D3",
+        "paper": "#EDF0F6",
+        "paper_2": "#E3E6ED",
+        "ink": "#0C1426",
+        "ink_soft": "#2E384C",
+        "muted_ink": "#505B71",
+        "accent_ink": "#0B6D29",
+        "print_ink": "#12161F",
+        "print_ink_soft": "#484D58",
+        "print_rule": "#339E4A"
+      },
+      "reglas": []
+    },
+    {
+      "id": "vino-nuevo",
+      "nombre": "Vino nuevo",
+      "familia": "vino-nuevo",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "gozo",
+        "transformacion",
+        "gracia"
+      ],
+      "ancla": "Jn 2:10",
+      "inspiracion": "Has guardado el buen vino hasta ahora.",
+      "tokens": {
+        "bg": "#1E0912",
+        "bg_2": "#2C151F",
+        "text": "#F7EBEF",
+        "text_muted": "#A28B93",
+        "accent": "#FFC94D",
+        "accent_bright": "#FFD680",
+        "accent_em": "#F8E6C1",
+        "paper": "#F5EEF0",
+        "paper_2": "#ECE4E6",
+        "ink": "#1E0912",
+        "ink_soft": "#482F39",
+        "muted_ink": "#6D525C",
+        "accent_ink": null,
+        "print_ink": "#1D1216",
+        "print_ink_soft": "#56494E",
+        "print_rule": "#56494E"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "azul-real",
+      "nombre": "Azul real y oro",
+      "familia": "azul-real",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "reino",
+        "liderazgo",
+        "fidelidad"
+      ],
+      "ancla": "Sal 45:6",
+      "inspiracion": "Cetro de justicia: azul de realeza y oro.",
+      "tokens": {
+        "bg": "#0D1F5C",
+        "bg_2": "#2D2C75",
+        "text": "#EAEEF9",
+        "text_muted": "#959EB1",
+        "accent": "#FFC94A",
+        "accent_bright": "#FFD67E",
+        "accent_em": "#F8E6C0",
+        "paper": "#EDF0F6",
+        "paper_2": "#E3E6ED",
+        "ink": "#0D1F5C",
+        "ink_soft": "#1D3271",
+        "muted_ink": "#505B72",
+        "accent_ink": null,
+        "print_ink": "#12161F",
+        "print_ink_soft": "#484D58",
+        "print_rule": "#484D58"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "esmeralda-oro",
+      "nombre": "Esmeralda y oro",
+      "familia": "esmeralda-oro",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "sabiduria",
+        "creacion",
+        "providencia"
+      ],
+      "ancla": "Ap 4:3",
+      "inspiracion": "Un arco iris semejante a la esmeralda alrededor del trono.",
+      "tokens": {
+        "bg": "#06402F",
+        "bg_2": "#085449",
+        "text": "#FFFFFF",
+        "text_muted": "#A2BAAF",
+        "accent": "#FFD966",
+        "accent_bright": "#FEE59B",
+        "accent_em": "#F4E7C4",
+        "paper": "#EBF2EF",
+        "paper_2": "#E0E8E5",
+        "ink": "#06402F",
+        "ink_soft": "#094231",
+        "muted_ink": "#456256",
+        "accent_ink": null,
+        "print_ink": "#0D1914",
+        "print_ink_soft": "#43514B",
+        "print_rule": "#43514B"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "purpura-lidia",
+      "nombre": "Púrpura de Lidia",
+      "familia": "purpura-lidia",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "iglesia",
+        "servicio",
+        "generosidad"
+      ],
+      "ancla": "Hch 16:14",
+      "inspiracion": "La vendedora de púrpura que abrió su casa.",
+      "tokens": {
+        "bg": "#2A0E4A",
+        "bg_2": "#451B5B",
+        "text": "#F0ECF7",
+        "text_muted": "#9A94A8",
+        "accent": "#FFE066",
+        "accent_bright": "#FFEBA2",
+        "accent_em": "#F2E8C3",
+        "paper": "#F1EFF5",
+        "paper_2": "#E7E5EC",
+        "ink": "#2A0E4A",
+        "ink_soft": "#412865",
+        "muted_ink": "#5E566E",
+        "accent_ink": null,
+        "print_ink": "#17141E",
+        "print_ink_soft": "#4F4B57",
+        "print_rule": "#4F4B57"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "laguna-coral",
+      "nombre": "Laguna y coral",
+      "familia": "laguna-coral",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "gozo",
+        "creacion",
+        "familia"
+      ],
+      "ancla": "Sal 104:24-25",
+      "inspiracion": "El mar grande y anchuroso, lleno de vida.",
+      "tokens": {
+        "bg": "#00474F",
+        "bg_2": "#19596B",
+        "text": "#FFFFFF",
+        "text_muted": "#A9C4C8",
+        "accent": "#FF8A70",
+        "accent_bright": "#FC937B",
+        "accent_em": "#FEE0D9",
+        "paper": "#EAF2F3",
+        "paper_2": "#DFE8EA",
+        "ink": "#00474F",
+        "ink_soft": "#044047",
+        "muted_ink": "#3F6166",
+        "accent_ink": "#A63A23",
+        "print_ink": "#0B191B",
+        "print_ink_soft": "#415053",
+        "print_rule": "#CF5F47"
+      },
+      "reglas": []
+    },
+    {
+      "id": "carmin-oro",
+      "nombre": "Carmín y oro",
+      "familia": "carmin-oro",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "cruz",
+        "gracia",
+        "reino"
+      ],
+      "ancla": "Mt 27:28-29",
+      "inspiracion": "El manto escarlata y la corona: el Rey en la cruz.",
+      "tokens": {
+        "bg": "#4A0D1E",
+        "bg_2": "#601E3A",
+        "text": "#F8EBEC",
+        "text_muted": "#B0989B",
+        "accent": "#FFD166",
+        "accent_bright": "#FFDD94",
+        "accent_em": "#F6E6C5",
+        "paper": "#F5EEEF",
+        "paper_2": "#EDE4E5",
+        "ink": "#4A0D1E",
+        "ink_soft": "#5D1F2E",
+        "muted_ink": "#6F5256",
+        "accent_ink": null,
+        "print_ink": "#1E1214",
+        "print_ink_soft": "#57494B",
+        "print_rule": "#57494B"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "cobalto-mandarina",
+      "nombre": "Cobalto y mandarina",
+      "familia": "cobalto-mandarina",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "mision",
+        "juventud",
+        "gozo"
+      ],
+      "ancla": "Is 6:8",
+      "inspiracion": "Heme aquí, envíame a mí.",
+      "tokens": {
+        "bg": "#0B2A6B",
+        "bg_2": "#303786",
+        "text": "#F0F6FF",
+        "text_muted": "#9EA9BC",
+        "accent": "#FF9F45",
+        "accent_bright": "#FFB475",
+        "accent_em": "#FFE2CB",
+        "paper": "#EDF0F6",
+        "paper_2": "#E3E6ED",
+        "ink": "#0B2A6B",
+        "ink_soft": "#133374",
+        "muted_ink": "#4F5B72",
+        "accent_ink": null,
+        "print_ink": "#11161F",
+        "print_ink_soft": "#474D58",
+        "print_rule": "#474D58"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "vino-rosa",
+      "nombre": "Vino y rosa",
+      "familia": "vino-rosa",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "amor",
+        "matrimonio",
+        "amistad"
+      ],
+      "ancla": "Cnt 1:2",
+      "inspiracion": "Mejores son tus amores que el vino.",
+      "tokens": {
+        "bg": "#4A1030",
+        "bg_2": "#651F37",
+        "text": "#F7EBF0",
+        "text_muted": "#B09AA3",
+        "accent": "#FF9CC8",
+        "accent_bright": "#FFC2DB",
+        "accent_em": "#FFDDEB",
+        "paper": "#F5EEF1",
+        "paper_2": "#ECE4E7",
+        "ink": "#4A1030",
+        "ink_soft": "#5A1F3E",
+        "muted_ink": "#6D525E",
+        "accent_ink": "#983F6B",
+        "print_ink": "#1D1217",
+        "print_ink_soft": "#56494E",
+        "print_rule": "#BF638E"
+      },
+      "reglas": []
+    },
+    {
+      "id": "bosque-oro",
+      "nombre": "Bosque y oro",
+      "familia": "bosque-oro",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "creacion",
+        "providencia",
+        "vejez"
+      ],
+      "ancla": "Sal 92:12-14",
+      "inspiracion": "Como el cedro del Líbano: aun en la vejez fructificarán.",
+      "tokens": {
+        "bg": "#0E3B24",
+        "bg_2": "#0F4F3D",
+        "text": "#F7FFFA",
+        "text_muted": "#9FB3A6",
+        "accent": "#F2C94C",
+        "accent_bright": "#F7D471",
+        "accent_em": "#F5E7C2",
+        "paper": "#ECF2EE",
+        "paper_2": "#E1E8E3",
+        "ink": "#0E3B24",
+        "ink_soft": "#16422A",
+        "muted_ink": "#486252",
+        "accent_ink": null,
+        "print_ink": "#0E1912",
+        "print_ink_soft": "#445149",
+        "print_rule": "#445149"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "indigo-limon",
+      "nombre": "Índigo y limón",
+      "familia": "indigo-limon",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "gozo",
+        "juventud",
+        "esperanza"
+      ],
+      "ancla": "Hab 3:18",
+      "inspiracion": "Con todo, yo me alegraré en el Señor.",
+      "tokens": {
+        "bg": "#24125E",
+        "bg_2": "#411E73",
+        "text": "#EDEDF8",
+        "text_muted": "#9999AD",
+        "accent": "#F2F55A",
+        "accent_bright": "#FBFE83",
+        "accent_em": "#E9ECBE",
+        "paper": "#EFEFF5",
+        "paper_2": "#E5E5ED",
+        "ink": "#24125E",
+        "ink_soft": "#352874",
+        "muted_ink": "#585871",
+        "accent_ink": null,
+        "print_ink": "#15151F",
+        "print_ink_soft": "#4C4C58",
+        "print_rule": "#4C4C58"
+      },
+      "reglas": []
+    },
+    {
+      "id": "petroleo-salmon",
+      "nombre": "Petróleo y salmón",
+      "familia": "petroleo-salmon",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "familia",
+        "consuelo",
+        "paternidad"
+      ],
+      "ancla": "Sal 68:6",
+      "inspiracion": "Dios hace habitar en familia a los desamparados.",
+      "tokens": {
+        "bg": "#0B3A47",
+        "bg_2": "#224C61",
+        "text": "#FFFFFF",
+        "text_muted": "#9CB5BD",
+        "accent": "#FF9E80",
+        "accent_bright": "#FF9E80",
+        "accent_em": "#FEE0D7",
+        "paper": "#EBF1F4",
+        "paper_2": "#DFE8EB",
+        "ink": "#0B3A47",
+        "ink_soft": "#103E4B",
+        "muted_ink": "#41606B",
+        "accent_ink": "#9C4429",
+        "print_ink": "#0B181C",
+        "print_ink_soft": "#415055",
+        "print_rule": "#C4694D"
+      },
+      "reglas": []
+    },
+    {
+      "id": "berenjena-menta",
+      "nombre": "Berenjena y menta",
+      "familia": "berenjena-menta",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "paz",
+        "reconciliacion",
+        "perdon"
+      ],
+      "ancla": "Ef 2:14",
+      "inspiracion": "Él es nuestra paz: derribó la pared intermedia.",
+      "tokens": {
+        "bg": "#3A0E3A",
+        "bg_2": "#551B45",
+        "text": "#F4EBF4",
+        "text_muted": "#A595A4",
+        "accent": "#7DF2C6",
+        "accent_bright": "#99F8D2",
+        "accent_em": "#CDF2E2",
+        "paper": "#F3EEF3",
+        "paper_2": "#EAE4EA",
+        "ink": "#3A0E3A",
+        "ink_soft": "#502450",
+        "muted_ink": "#675366",
+        "accent_ink": "#016B4F",
+        "print_ink": "#1B131B",
+        "print_ink_soft": "#534953",
+        "print_rule": "#109D76"
+      },
+      "reglas": []
+    },
+    {
+      "id": "zafiro-plata",
+      "nombre": "Zafiro y plata",
+      "familia": "zafiro-plata",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "santidad",
+        "fidelidad",
+        "palabra"
+      ],
+      "ancla": "Ap 21:19",
+      "inspiracion": "Los cimientos de la ciudad, adornados de zafiro.",
+      "tokens": {
+        "bg": "#0B2453",
+        "bg_2": "#29326C",
+        "text": "#E9EFF9",
+        "text_muted": "#95A0B2",
+        "accent": "#DCE6F5",
+        "accent_bright": "#E7F0FD",
+        "accent_em": "#E5E8ED",
+        "paper": "#EDF0F6",
+        "paper_2": "#E2E6ED",
+        "ink": "#0B2453",
+        "ink_soft": "#1C3667",
+        "muted_ink": "#4E5B72",
+        "accent_ink": "#565F6C",
+        "print_ink": "#11161F",
+        "print_ink_soft": "#474D58",
+        "print_rule": "#7E8794"
+      },
+      "reglas": []
+    },
+    {
+      "id": "granate-plata",
+      "nombre": "Granate y plata",
+      "familia": "granate-plata",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "gracia",
+        "cruz",
+        "amor"
+      ],
+      "ancla": "Pr 25:11",
+      "inspiracion": "Manzana de oro con figuras de plata es la palabra dicha como conviene.",
+      "tokens": {
+        "bg": "#4A0F22",
+        "bg_2": "#5F203E",
+        "text": "#F8EBED",
+        "text_muted": "#B1989C",
+        "accent": "#E6E9F0",
+        "accent_bright": "#F0F3F9",
+        "accent_em": "#E7E8EA",
+        "paper": "#F5EEEF",
+        "paper_2": "#EDE4E5",
+        "ink": "#4A0F22",
+        "ink_soft": "#5C2031",
+        "muted_ink": "#6F5257",
+        "accent_ink": "#5C5E64",
+        "print_ink": "#1E1215",
+        "print_ink_soft": "#57494B",
+        "print_rule": "#83868C"
+      },
+      "reglas": []
+    },
+    {
+      "id": "turquesa-fucsia",
+      "nombre": "Turquesa y fucsia",
+      "familia": "turquesa-fucsia",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "gozo",
+        "alabanza",
+        "iglesia"
+      ],
+      "ancla": "Ex 28:18",
+      "inspiracion": "Las piedras del pectoral: un pueblo llevado sobre el corazón.",
+      "tokens": {
+        "bg": "#024A4F",
+        "bg_2": "#185C6B",
+        "text": "#FFFFFF",
+        "text_muted": "#ACC8CA",
+        "accent": "#FF6FD8",
+        "accent_bright": "#FED7F0",
+        "accent_em": "#FEDDF2",
+        "paper": "#EAF2F2",
+        "paper_2": "#DFE8E9",
+        "ink": "#024A4F",
+        "ink_soft": "#034045",
+        "muted_ink": "#3F6265",
+        "accent_ink": "#9A3580",
+        "print_ink": "#0A191A",
+        "print_ink_soft": "#415052",
+        "print_rule": "#D244AE"
+      },
+      "reglas": []
+    },
+    {
+      "id": "pino-rosa",
+      "nombre": "Pino y flor",
+      "familia": "pino-rosa",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "amor",
+        "gozo",
+        "creacion"
+      ],
+      "ancla": "Cnt 2:12",
+      "inspiracion": "Se han mostrado las flores en la tierra.",
+      "tokens": {
+        "bg": "#0A4434",
+        "bg_2": "#0E584E",
+        "text": "#FFFFFF",
+        "text_muted": "#A6BFB5",
+        "accent": "#FF9EC4",
+        "accent_bright": "#FFC9DC",
+        "accent_em": "#FFDEE9",
+        "paper": "#EBF2EF",
+        "paper_2": "#E0E8E5",
+        "ink": "#0A4434",
+        "ink_soft": "#074232",
+        "muted_ink": "#446257",
+        "accent_ink": "#974167",
+        "print_ink": "#0D1914",
+        "print_ink_soft": "#43514B",
+        "print_rule": "#BF648A"
+      },
+      "reglas": []
+    },
+    {
+      "id": "granada-cedro",
+      "nombre": "Granada y cedro",
+      "familia": "granada-cedro",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "santidad",
+        "alabanza",
+        "iglesia"
+      ],
+      "ancla": "Ex 28:33",
+      "inspiracion": "Granadas en el borde del manto del sacerdote, y el cedro del templo.",
+      "tokens": {
+        "bg": "#0B3326",
+        "bg_2": "#13463E",
+        "text": "#E8F5EF",
+        "text_muted": "#94ABA1",
+        "accent": "#FF4D5A",
+        "accent_bright": "#FFACA9",
+        "accent_em": "#FFDFDE",
+        "paper": "#EBF2EF",
+        "paper_2": "#E0E8E5",
+        "ink": "#0B3326",
+        "ink_soft": "#1A4033",
+        "muted_ink": "#456256",
+        "accent_ink": "#AC2F39",
+        "print_ink": "#0D1914",
+        "print_ink_soft": "#43514B",
+        "print_rule": "#EB384A"
+      },
+      "reglas": []
+    },
+    {
+      "id": "mar-lima",
+      "nombre": "Mar y lima",
+      "familia": "mar-lima",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "juventud",
+        "transformacion",
+        "esperanza"
+      ],
+      "ancla": "Is 40:31",
+      "inspiracion": "Levantarán alas como las águilas.",
+      "tokens": {
+        "bg": "#0E3A5C",
+        "bg_2": "#2C4A76",
+        "text": "#FFFFFF",
+        "text_muted": "#A4B6C6",
+        "accent": "#C8F25A",
+        "accent_bright": "#D5FA7F",
+        "accent_em": "#DFF0C1",
+        "paper": "#ECF1F5",
+        "paper_2": "#E1E7ED",
+        "ink": "#0E3A5C",
+        "ink_soft": "#0F3B5D",
+        "muted_ink": "#495D70",
+        "accent_ink": null,
+        "print_ink": "#0F171F",
+        "print_ink_soft": "#444E58",
+        "print_rule": "#444E58"
+      },
+      "reglas": []
+    },
+    {
+      "id": "rubi-crema",
+      "nombre": "Rubí y crema",
+      "familia": "rubi-crema",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "gracia",
+        "amor",
+        "gozo"
+      ],
+      "ancla": "Sal 45:13",
+      "inspiracion": "Toda gloriosa es la hija del rey.",
+      "tokens": {
+        "bg": "#5A0B2A",
+        "bg_2": "#701E49",
+        "text": "#FCEFF1",
+        "text_muted": "#B8A0A5",
+        "accent": "#FFE3A3",
+        "accent_bright": "#FFEEC9",
+        "accent_em": "#F1E7D2",
+        "paper": "#F5EEEF",
+        "paper_2": "#ECE4E5",
+        "ink": "#5A0B2A",
+        "ink_soft": "#631531",
+        "muted_ink": "#6F5258",
+        "accent_ink": null,
+        "print_ink": "#1E1215",
+        "print_ink_soft": "#57494C",
+        "print_rule": "#57494C"
+      },
+      "reglas": []
+    },
+    {
+      "id": "alba-rosada",
+      "nombre": "Alba rosada",
+      "familia": "alba-rosada",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "esperanza",
+        "consuelo"
+      ],
+      "ancla": "Lm 3:22-23",
+      "inspiracion": "Nuevas son cada mañana.",
+      "tokens": {
+        "bg": "#120E24",
+        "bg_2": "#1E1B32",
+        "text": "#EEEDF8",
+        "text_muted": "#918FA4",
+        "accent": "#FFB3C7",
+        "accent_bright": "#FEC3D2",
+        "accent_em": "#FCE0E6",
+        "paper": "#F0EFF5",
+        "paper_2": "#E6E5ED",
+        "ink": "#120E24",
+        "ink_soft": "#37344D",
+        "muted_ink": "#5A5770",
+        "accent_ink": "#8C4A5E",
+        "print_ink": "#16151F",
+        "print_ink_soft": "#4D4B58",
+        "print_rule": "#B46E82"
+      },
+      "reglas": []
+    },
+    {
+      "id": "cardenal",
+      "nombre": "Cardenal",
+      "familia": "cardenal",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "fe",
+        "victoria"
+      ],
+      "ancla": "2 Ti 1:7",
+      "inspiracion": "No nos ha dado Dios espíritu de cobardía.",
+      "tokens": {
+        "bg": "#0D1426",
+        "bg_2": "#192134",
+        "text": "#EAEEF9",
+        "text_muted": "#8A92A5",
+        "accent": "#FF5D5D",
+        "accent_bright": "#FEA19B",
+        "accent_em": "#FEE0DD",
+        "paper": "#EEF0F6",
+        "paper_2": "#E3E6ED",
+        "ink": "#0D1426",
+        "ink_soft": "#2F384C",
+        "muted_ink": "#515B71",
+        "accent_ink": "#AC3033",
+        "print_ink": "#12161F",
+        "print_ink_soft": "#484D58",
+        "print_rule": "#E54448"
+      },
+      "reglas": []
+    },
+    {
+      "id": "menta-pizarra",
+      "nombre": "Menta y pizarra",
+      "familia": "menta-pizarra",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "paz",
+        "consuelo"
+      ],
+      "ancla": "Fil 4:7",
+      "inspiracion": "La paz que sobrepasa todo entendimiento.",
+      "tokens": {
+        "bg": "#14181C",
+        "bg_2": "#212529",
+        "text": "#E9EFF5",
+        "text_muted": "#8E9398",
+        "accent": "#8CF2D2",
+        "accent_bright": "#A5F9DD",
+        "accent_em": "#D0F0E5",
+        "paper": "#ECF1F5",
+        "paper_2": "#E1E7ED",
+        "ink": "#14181C",
+        "ink_soft": "#34383D",
+        "muted_ink": "#575B60",
+        "accent_ink": "#026B55",
+        "print_ink": "#13171A",
+        "print_ink_soft": "#494E52",
+        "print_rule": "#2D9B7E"
+      },
+      "reglas": []
+    },
+    {
+      "id": "glicina",
+      "nombre": "Glicina",
+      "familia": "glicina",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "oracion",
+        "humildad"
+      ],
+      "ancla": "Sal 141:2",
+      "inspiracion": "Suba mi oración delante de ti como el incienso.",
+      "tokens": {
+        "bg": "#10101E",
+        "bg_2": "#1C1D2B",
+        "text": "#EDEDF9",
+        "text_muted": "#8F90A4",
+        "accent": "#B8A6FF",
+        "accent_bright": "#CDC3FE",
+        "accent_em": "#E8E4FF",
+        "paper": "#EFEFF5",
+        "paper_2": "#E5E5ED",
+        "ink": "#10101E",
+        "ink_soft": "#363647",
+        "muted_ink": "#58596B",
+        "accent_ink": "#6551A2",
+        "print_ink": "#15151F",
+        "print_ink_soft": "#4B4C58",
+        "print_rule": "#8976CB"
+      },
+      "reglas": []
+    },
+    {
+      "id": "coral-indigo",
+      "nombre": "Coral e índigo",
+      "familia": "coral-indigo",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "gozo",
+        "familia"
+      ],
+      "ancla": "Sal 133:1",
+      "inspiracion": "¡Mirad cuán bueno y cuán delicioso es habitar los hermanos juntos!",
+      "tokens": {
+        "bg": "#13123A",
+        "bg_2": "#2B204E",
+        "text": "#ECEEF9",
+        "text_muted": "#8E91A5",
+        "accent": "#FF8C7A",
+        "accent_bright": "#FD9E8E",
+        "accent_em": "#FFE0DA",
+        "paper": "#EFF0F6",
+        "paper_2": "#E4E6ED",
+        "ink": "#13123A",
+        "ink_soft": "#30335E",
+        "muted_ink": "#565971",
+        "accent_ink": "#A53B2E",
+        "print_ink": "#14151F",
+        "print_ink_soft": "#4A4C58",
+        "print_rule": "#CE6050"
+      },
+      "reglas": []
+    },
+    {
+      "id": "magenta-lima",
+      "nombre": "Magenta y lima",
+      "familia": "magenta-lima",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "gozo",
+        "juventud",
+        "alabanza"
+      ],
+      "ancla": "Sal 150:6",
+      "inspiracion": "Todo lo que respira alabe al Señor.",
+      "tokens": {
+        "bg": "#44093A",
+        "bg_2": "#601643",
+        "text": "#F5EBF2",
+        "text_muted": "#AA97A4",
+        "accent": "#C8F560",
+        "accent_bright": "#D5FD84",
+        "accent_em": "#DFF0C2",
+        "paper": "#F4EEF2",
+        "paper_2": "#EBE4E9",
+        "ink": "#44093A",
+        "ink_soft": "#581D4C",
+        "muted_ink": "#6A5263",
+        "accent_ink": null,
+        "print_ink": "#1C1319",
+        "print_ink_soft": "#544951",
+        "print_rule": "#544951"
+      },
+      "reglas": []
+    },
+    {
+      "id": "grafito-magenta",
+      "nombre": "Grafito y magenta",
+      "familia": "grafito-magenta",
+      "modo": "oscuro",
+      "auto": true,
+      "conmemoracion": null,
+      "temas": [
+        "juventud",
+        "gozo",
+        "transformacion"
+      ],
+      "ancla": "2 Co 5:17",
+      "inspiracion": "Nueva criatura: lo viejo pasó.",
+      "tokens": {
+        "bg": "#121316",
+        "bg_2": "#1F2023",
+        "text": "#EDEEF3",
+        "text_muted": "#919296",
+        "accent": "#FF5AD8",
+        "accent_bright": "#FE94E0",
+        "accent_em": "#FEDCF3",
+        "paper": "#EEF0F6",
+        "paper_2": "#E4E6ED",
+        "ink": "#121316",
+        "ink_soft": "#37383B",
+        "muted_ink": "#595B5E",
+        "accent_ink": "#9A3582",
+        "print_ink": "#151619",
+        "print_ink_soft": "#4C4D51",
+        "print_rule": "#D932B5"
+      },
+      "reglas": []
+    },
+    {
+      "id": "estrella-de-belen",
+      "nombre": "Estrella de Belén",
+      "familia": "estrella-de-belen",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": "navidad",
+      "temas": [
+        "navidad",
+        "encarnacion"
+      ],
+      "ancla": "Mt 2:10",
+      "inspiracion": "Noche de Belén y luz de estrella.",
+      "tokens": {
+        "bg": "#0A0F2C",
+        "bg_2": "#1F1D40",
+        "text": "#EBEEF9",
+        "text_muted": "#8B92A5",
+        "accent": "#FFE08A",
+        "accent_bright": "#FEEBB8",
+        "accent_em": "#F2E7CB",
+        "paper": "#EEF0F6",
+        "paper_2": "#E4E6ED",
+        "ink": "#0A0F2C",
+        "ink_soft": "#2D3656",
+        "muted_ink": "#535A72",
+        "accent_ink": null,
+        "print_ink": "#13161F",
+        "print_ink_soft": "#494D58",
+        "print_rule": "#494D58"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "todo-nuevo",
+      "nombre": "Todo nuevo",
+      "familia": "todo-nuevo",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": "fin-de-ano",
+      "temas": [
+        "ano-nuevo",
+        "esperanza"
+      ],
+      "ancla": "Ap 21:5",
+      "inspiracion": "Medianoche y luz fría de un comienzo.",
+      "tokens": {
+        "bg": "#0A0C1C",
+        "bg_2": "#161829",
+        "text": "#EBEEF9",
+        "text_muted": "#8D91A5",
+        "accent": "#8FF0FF",
+        "accent_bright": "#B8F4FE",
+        "accent_em": "#D0EFF3",
+        "paper": "#EEF0F6",
+        "paper_2": "#E4E6ED",
+        "ink": "#0A0C1C",
+        "ink_soft": "#33374A",
+        "muted_ink": "#56596E",
+        "accent_ink": "#056874",
+        "print_ink": "#14151F",
+        "print_ink_soft": "#4A4C58",
+        "print_rule": "#2E96A4"
+      },
+      "reglas": []
+    },
+    {
+      "id": "ramos-hosanna",
+      "nombre": "Hosanna",
+      "familia": "ramos-hosanna",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": "ramos",
+      "temas": [
+        "ramos",
+        "reino",
+        "alabanza"
+      ],
+      "ancla": "Mt 21:9",
+      "inspiracion": "Verde de palmas y oro de rey que entra humilde.",
+      "tokens": {
+        "bg": "#0B3B2A",
+        "bg_2": "#104F43",
+        "text": "#F8FFFB",
+        "text_muted": "#9CB4A8",
+        "accent": "#FFD34D",
+        "accent_bright": "#FFDF88",
+        "accent_em": "#F6E7C0",
+        "paper": "#EBF2EF",
+        "paper_2": "#E0E8E4",
+        "ink": "#0B3B2A",
+        "ink_soft": "#134130",
+        "muted_ink": "#466255",
+        "accent_ink": null,
+        "print_ink": "#0D1914",
+        "print_ink_soft": "#43514A",
+        "print_rule": "#43514A"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "viernes-santo",
+      "nombre": "Viernes Santo",
+      "familia": "viernes-santo",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": "viernes-santo",
+      "temas": [
+        "viernes-santo",
+        "cruz",
+        "sufrimiento"
+      ],
+      "ancla": "Is 53:5",
+      "inspiracion": "Negro de duelo y carmesí de la cruz.",
+      "tokens": {
+        "bg": "#0B0A0C",
+        "bg_2": "#171618",
+        "text": "#EFEEF1",
+        "text_muted": "#939194",
+        "accent": "#E0314B",
+        "accent_bright": "#FEA0A1",
+        "accent_em": "#FEDFDF",
+        "paper": "#F1EFF4",
+        "paper_2": "#E8E4EB",
+        "ink": "#0B0A0C",
+        "ink_soft": "#38373A",
+        "muted_ink": "#5B5A5D",
+        "accent_ink": "#AB2F3D",
+        "print_ink": "#171518",
+        "print_ink_soft": "#4E4C4F",
+        "print_rule": "#E0314B"
+      },
+      "reglas": [
+        "Sobria: sin fondos ni motivos festivos."
+      ]
+    },
+    {
+      "id": "alba-de-resurreccion",
+      "nombre": "Alba de resurrección",
+      "familia": "alba-de-resurreccion",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": "resurreccion",
+      "temas": [
+        "resurreccion",
+        "esperanza",
+        "victoria"
+      ],
+      "ancla": "Mt 28:1",
+      "inspiracion": "El primer día, al amanecer: violeta que se abre al sol.",
+      "tokens": {
+        "bg": "#141032",
+        "bg_2": "#2A1E45",
+        "text": "#EDEDF9",
+        "text_muted": "#9090A4",
+        "accent": "#FFB86B",
+        "accent_bright": "#FFB86B",
+        "accent_em": "#FDE3CA",
+        "paper": "#EFEFF5",
+        "paper_2": "#E5E5ED",
+        "ink": "#141032",
+        "ink_soft": "#343358",
+        "muted_ink": "#585871",
+        "accent_ink": null,
+        "print_ink": "#15151F",
+        "print_ink_soft": "#4B4C58",
+        "print_rule": "#4B4C58"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café."
+      ]
+    },
+    {
+      "id": "lenguas-de-fuego",
+      "nombre": "Lenguas de fuego",
+      "familia": "lenguas-de-fuego",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": "pentecostes",
+      "temas": [
+        "pentecostes",
+        "espiritu"
+      ],
+      "ancla": "Hch 2:3",
+      "inspiracion": "Fuego vivo sobre grafito, no brasas.",
+      "tokens": {
+        "bg": "#0F1014",
+        "bg_2": "#1B1C21",
+        "text": "#ECEEF4",
+        "text_muted": "#909297",
+        "accent": "#FF7433",
+        "accent_bright": "#FE8754",
+        "accent_em": "#FFE1D5",
+        "paper": "#EEF0F6",
+        "paper_2": "#E4E6ED",
+        "ink": "#0F1014",
+        "ink_soft": "#36383C",
+        "muted_ink": "#595B60",
+        "accent_ink": null,
+        "print_ink": "#15161A",
+        "print_ink_soft": "#4B4D52",
+        "print_rule": "#4B4D52"
+      },
+      "reglas": []
+    },
+    {
+      "id": "amor-de-madre",
+      "nombre": "Amor de madre",
+      "familia": "amor-de-madre",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": "madre",
+      "temas": [
+        "maternidad",
+        "familia",
+        "amor"
+      ],
+      "ancla": "Is 66:13",
+      "inspiracion": "Como aquel a quien consuela su madre.",
+      "tokens": {
+        "bg": "#1F0C1C",
+        "bg_2": "#2D1929",
+        "text": "#F5EBF3",
+        "text_muted": "#9E8C9A",
+        "accent": "#FF9EC7",
+        "accent_bright": "#FDC5DB",
+        "accent_em": "#FEDEEA",
+        "paper": "#F4EEF2",
+        "paper_2": "#EBE4E9",
+        "ink": "#1F0C1C",
+        "ink_soft": "#453041",
+        "muted_ink": "#695364",
+        "accent_ink": "#974069",
+        "print_ink": "#1C131A",
+        "print_ink_soft": "#544952",
+        "print_rule": "#BF648C"
+      },
+      "reglas": []
+    },
+    {
+      "id": "abrazo-del-padre",
+      "nombre": "Abrazo del Padre",
+      "familia": "abrazo-del-padre",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": "padre",
+      "temas": [
+        "paternidad",
+        "familia"
+      ],
+      "ancla": "Lc 15:20",
+      "inspiracion": "Lo vio de lejos, corrió y lo abrazó.",
+      "tokens": {
+        "bg": "#0B1A33",
+        "bg_2": "#212948",
+        "text": "#E9EFF9",
+        "text_muted": "#8994A7",
+        "accent": "#7FC8FF",
+        "accent_bright": "#B2DCFD",
+        "accent_em": "#D4EBFE",
+        "paper": "#EDF0F6",
+        "paper_2": "#E2E6ED",
+        "ink": "#0B1A33",
+        "ink_soft": "#273854",
+        "muted_ink": "#4E5B72",
+        "accent_ink": "#136395",
+        "print_ink": "#11161F",
+        "print_ink_soft": "#474D58",
+        "print_rule": "#448DC1"
+      },
+      "reglas": []
+    },
+    {
+      "id": "dia-del-nino",
+      "nombre": "Día del Niño",
+      "familia": "dia-del-nino",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": "nino",
+      "temas": [
+        "ninez",
+        "familia",
+        "gozo"
+      ],
+      "ancla": "Mc 10:14",
+      "inspiracion": "Dejad a los niños venir a mí: color y juego.",
+      "tokens": {
+        "bg": "#14123A",
+        "bg_2": "#2C204E",
+        "text": "#ECEEF9",
+        "text_muted": "#8E91A5",
+        "accent": "#FFD23F",
+        "accent_bright": "#FEDE82",
+        "accent_em": "#F6E7BD",
+        "paper": "#EFF0F6",
+        "paper_2": "#E5E6ED",
+        "ink": "#14123A",
+        "ink_soft": "#31325E",
+        "muted_ink": "#565971",
+        "accent_ink": null,
+        "print_ink": "#14151F",
+        "print_ink_soft": "#4B4C58",
+        "print_rule": "#4B4C58"
+      },
+      "reglas": [
+        "El oro va solo en trazos, filetes, numerales y texto; nunca resplandores ni rellenos dorados sobre el fondo: oro diluido sobre oscuro da café.",
+        "Admite un segundo acento #4FD1FF para juegos de color (excepción a la regla 13)."
+      ]
+    },
+    {
+      "id": "amor-y-amistad",
+      "nombre": "Amor y amistad",
+      "familia": "amor-y-amistad",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": "amor-amistad",
+      "temas": [
+        "amor",
+        "amistad",
+        "matrimonio"
+      ],
+      "ancla": "Jn 15:13",
+      "inspiracion": "Nadie tiene mayor amor que este.",
+      "tokens": {
+        "bg": "#2A0A1A",
+        "bg_2": "#411924",
+        "text": "#F7EBEF",
+        "text_muted": "#A28B94",
+        "accent": "#FF6F91",
+        "accent_bright": "#FE9DAF",
+        "accent_em": "#FEDFE3",
+        "paper": "#F5EEF1",
+        "paper_2": "#ECE4E7",
+        "ink": "#2A0A1A",
+        "ink_soft": "#4F2B3B",
+        "muted_ink": "#6D525D",
+        "accent_ink": "#A92E52",
+        "print_ink": "#1D1217",
+        "print_ink_soft": "#56494E",
+        "print_rule": "#D94D72"
+      },
+      "reglas": []
+    },
+    {
+      "id": "rosa-de-lutero",
+      "nombre": "Rosa de Lutero",
+      "familia": "rosa-de-lutero",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": "reforma",
+      "temas": [
+        "reforma",
+        "palabra",
+        "gracia",
+        "fe"
+      ],
+      "ancla": "Ro 1:17",
+      "inspiracion": "El campo azul, el corazón rojo y la rosa blanca del escudo de Lutero.",
+      "tokens": {
+        "bg": "#0B1024",
+        "bg_2": "#171D32",
+        "text": "#EBEEF9",
+        "text_muted": "#8B92A5",
+        "accent": "#FF4D5E",
+        "accent_bright": "#FF9F9F",
+        "accent_em": "#FEDFDE",
+        "paper": "#EEF0F6",
+        "paper_2": "#E4E6ED",
+        "ink": "#0B1024",
+        "ink_soft": "#30374E",
+        "muted_ink": "#525A72",
+        "accent_ink": "#AB2F3B",
+        "print_ink": "#13161F",
+        "print_ink_soft": "#494D58",
+        "print_rule": "#EB374E"
+      },
+      "reglas": []
+    },
+    {
+      "id": "buen-pastor",
+      "nombre": "Buen Pastor",
+      "familia": "buen-pastor",
+      "modo": "oscuro",
+      "auto": false,
+      "conmemoracion": "pastor",
+      "temas": [
+        "pastor",
+        "liderazgo",
+        "servicio"
+      ],
+      "ancla": "Jn 10:11",
+      "inspiracion": "Pastos verdes y cielo claro.",
+      "tokens": {
+        "bg": "#0B2620",
+        "bg_2": "#19342D",
+        "text": "#E5F2EE",
+        "text_muted": "#86A098",
+        "accent": "#9FE7FF",
+        "accent_bright": "#BDEDFE",
+        "accent_em": "#D5EDF5",
+        "paper": "#EBF2F0",
+        "paper_2": "#E0E8E6",
+        "ink": "#0B2620",
+        "ink_soft": "#233E37",
+        "muted_ink": "#46625A",
+        "accent_ink": "#19677C",
+        "print_ink": "#0C1916",
+        "print_ink_soft": "#42514D",
+        "print_rule": "#4A91A7"
+      },
+      "reglas": []
+    }
+  ]
+}

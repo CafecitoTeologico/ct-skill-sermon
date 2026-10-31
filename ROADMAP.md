@@ -83,6 +83,8 @@ Dependen del motor canónico: mientras la SPA se reconstruya en cada generación
 
 - **Validación de simetría más rica:** además de contar ideas secundarias, comparar longitud de cada punto en palabras/oraciones para detectar desequilibrio temporal.
 - **Detección de pasaje y autoaviso de versión bíblica:** si el bosquejo cita versículos sin traducción explícita, comparar con APIs públicas y sugerir cuál coincide.
+- **Variantes anuales de las conmemorativas:** hoy cada fecha tiene una sola paleta. Con dos o tres por fecha, la Navidad no se vería igual todos los años.
+- **Paletas institucionales registradas:** el override de `assets/paleta-{slug}.json` existe, pero ninguna entidad tiene sus colores registrados todavía.
 - **Memoria del control tras una recarga:** si el teléfono recarga la pestaña, la lámina se recupera de la cabina por MQTT, pero el cronómetro vuelve a cero. Guardar lámina y cronómetro en `localStorage`, dentro de `try/catch`, lo resolvería.
 - **Cronómetro adaptativo:** umbrales (verde/naranja/rojo) configurables por predicador en el frontmatter del bosquejo (`target_minutes: 35`).
 - **Entropía real en el topic MQTT:** el segmento `random10` debe generarse con una fuente de aleatoriedad real, no aproximado por el modelo.

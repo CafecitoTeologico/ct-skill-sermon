@@ -1,516 +1,144 @@
-# Theme mapping — selección de paleta según el tema del bosquejo
+# Theme mapping — cómo se elige la paleta
 
-Esta guía define **cómo elegir la paleta visual** de la presentación a partir del análisis temático del bosquejo. La paleta debe adaptarse coherentemente al tema, manteniendo modernidad, legibilidad y reverencia, sin "alocarse" ni desordenarse (regla 13 de doctrina).
+La paleta de cada sermón la elige `scripts/palettes.py` con las reglas de este documento. El modelo no elige colores a ojo: traduce el sermón a temas y corre el script. Así cada semana sale distinta, nada cae en café y no hace falta preguntarle al usuario.
+
+Las paletas viven en [`palettes/catalog.json`](./palettes/catalog.json). No hace falta leerlo: el script devuelve solo la paleta elegida.
 
 ## Principio rector
 
-> El tema oscuro nunca debe sentirse "tinieblas". Siempre incluye un acento luminoso que evoque presencia, gracia, o esperanza — incluso en sermones sobre juicio o sufrimiento.
+> El tema oscuro nunca debe sentirse «tinieblas». Siempre lleva un acento luminoso que evoque presencia, gracia o esperanza, incluso en sermones sobre juicio o sufrimiento.
 
-Todas las paletas siguen un esquema **Luminous Dark**: fondo oscuro + texto claro + acento luminoso (oro, ámbar, marfil, perla).
+Esquema **Luminous Dark**: fondo oscuro (casi negro con un tinte, o joya profunda y saturada), texto claro y un acento vivo. Fondo oscuro y texto claro se leen mejor en el proyector, a distancia.
 
-## Paletas predefinidas
+## Cómo se elige
 
-### `default` — Sobria reverente
-Para sermones sin tema dominante claro o cuando hay duda. Default seguro.
+1. **El modelo traduce el sermón a temas** del vocabulario de abajo, el principal primero, a partir del tema, el propósito, el título y el pasaje.
+2. **El script elige** (`palettes.py pick`):
+   - Paleta pedida explícitamente (`--paleta`): esa, sin filtros.
+   - Fecha conmemorativa y sermón sobre esa fecha: la conmemorativa.
+   - Si no, **rotación** entre las paletas automáticas: gana la que comparte más temas, con estas reglas:
+     - nunca una usada en las últimas **13 semanas** en cualquier repo de presentaciones;
+     - el mismo predicador no repite familia en **26 semanas**;
+     - las SPA de la misma semana se separan al menos **45°** de matiz.
+   - Si las reglas dejan el catálogo vacío, se relajan por niveles: el script nunca falla.
+3. **No se pregunta.** Se usa la paleta y se reporta al final, con su porqué. Solo si el usuario quiere elegir: mostrar la elegida y sus dos alternativas, o pasar `--paleta` con la que pida.
 
-```json
-{
-  "name": "default",
-  "background": "#0F1419",
-  "background_subtle": "#1A1F26",
-  "text_primary": "#E8E5E0",
-  "text_muted": "#8B8680",
-  "accent_primary": "#D4A574",
-  "accent_secondary": "#E6BC85",
-  "accent_emphasis": "#F4D7A8",
-  "scripture_serif": "Iowan Old Style, Palatino Linotype, Georgia, serif",
-  "ui_sans": "Inter, system-ui, sans-serif"
-}
+```bash
+python3 scripts/palettes.py pick --fecha 2026-11-01 --predicador "Nombre Apellido" \
+  --temas esperanza,fe --dirs <resources_root>/<presentaciones_dir> … [--css]
 ```
 
-### `grace` — Gracia, perdón, restauración
-Sermones sobre gracia, perdón, restauración, identidad en Cristo, hijos amados. Tonos cálidos, oro suave.
+- `--dirs`: los `presentaciones_dir` de **todas** las entidades del config. El script lee qué paleta usó cada SPA.
+- `--css`: imprime el bloque `:root` listo para la SPA. Sin `--css`, devuelve JSON con la paleta, las alternativas, la razón y el `<meta>`.
 
-```json
-{
-  "name": "grace",
-  "background": "#1A0F0A",
-  "background_subtle": "#241712",
-  "text_primary": "#F5EDE0",
-  "text_muted": "#A89478",
-  "accent_primary": "#D4A574",
-  "accent_secondary": "#E6BC85",
-  "accent_emphasis": "#FFE1B0"
-}
-```
+## Vocabulario de temas
 
-### `hope` — Esperanza, cielo, promesa
-Sermones sobre cielo, esperanza, segunda venida, vida eterna, promesa. Tonos azul-índigo con luz dorada.
-
-```json
-{
-  "name": "hope",
-  "background": "#0A1428",
-  "background_subtle": "#15203D",
-  "text_primary": "#F0F4FA",
-  "text_muted": "#94A3B8",
-  "accent_primary": "#D4AF37",
-  "accent_secondary": "#FFD75A",
-  "accent_emphasis": "#FFF2B0"
-}
-```
-
-### `judgment` — Juicio, santidad, temor reverente
-Sermones sobre juicio, santidad, temor de Dios, advertencia. Tonos profundos con acento cálido (rojo borgoña controlado).
-
-```json
-{
-  "name": "judgment",
-  "background": "#100A0A",
-  "background_subtle": "#1F1414",
-  "text_primary": "#EAE0DC",
-  "text_muted": "#8B7E78",
-  "accent_primary": "#8B3A3A",
-  "accent_secondary": "#B85E5E",
-  "accent_emphasis": "#D4A574"
-}
-```
-
-### `mission` — Misión, llamado, evangelismo
-Sermones sobre misión, llamado, evangelismo, el Reino avanzando. Tonos verdes profundos con dorado.
-
-```json
-{
-  "name": "mission",
-  "background": "#0A1F1A",
-  "background_subtle": "#142B26",
-  "text_primary": "#E8F0EB",
-  "text_muted": "#7A9588",
-  "accent_primary": "#D4A574",
-  "accent_secondary": "#E8C896",
-  "accent_emphasis": "#A8D4B5"
-}
-```
-
-### `passion` — Pasión, sacrificio, semana santa
-Sermones sobre la cruz, sacrificio de Cristo, pasión, sangre redentora. Tonos profundos con acento rojo profundo (no chillón).
-
-```json
-{
-  "name": "passion",
-  "background": "#0E0808",
-  "background_subtle": "#1C0F0F",
-  "text_primary": "#EAE0DC",
-  "text_muted": "#8B7E78",
-  "accent_primary": "#A04545",
-  "accent_secondary": "#C26060",
-  "accent_emphasis": "#E8D4A8"
-}
-```
-
-### `pentecost` — Espíritu Santo, Pentecostés
-Sermones sobre el Espíritu, Pentecostés, dones, fuego de Dios. Tonos cálidos rojo-naranja-dorado.
-
-```json
-{
-  "name": "pentecost",
-  "background": "#1A0F08",
-  "background_subtle": "#28180D",
-  "text_primary": "#F5EAE0",
-  "text_muted": "#B89878",
-  "accent_primary": "#E08B3D",
-  "accent_secondary": "#F0A858",
-  "accent_emphasis": "#FFD08A"
-}
-```
-
-### `wisdom` — Sabiduría, proverbios, sermón temático didáctico
-Para enseñanza didáctica, exposición temática, libros sapienciales. Tonos azul-verdes serenos con dorado.
-
-```json
-{
-  "name": "wisdom",
-  "background": "#0A1A1F",
-  "background_subtle": "#152A30",
-  "text_primary": "#E8EFF2",
-  "text_muted": "#8AA3AB",
-  "accent_primary": "#D4A574",
-  "accent_secondary": "#E6BC85",
-  "accent_emphasis": "#A8D4D0"
-}
-```
-
-### `lament` — Lamento, duelo, Salmos imprecatorios
-Sermones de lamento, duelo, dolor, "por qué Señor", quebranto. Azul nocturno con marfil cálido — no es juicio, no es default.
-
-```json
-{
-  "name": "lament",
-  "background": "#0B1320",
-  "background_subtle": "#15203A",
-  "text_primary": "#EDE8DC",
-  "text_muted": "#8A95AC",
-  "accent_primary": "#B89878",
-  "accent_secondary": "#D4B89A",
-  "accent_emphasis": "#F0E0BC"
-}
-```
-
-### `joy` — Gozo, celebración, fiestas, gratitud
-Sermones sobre gozo, alegría profunda, fiestas, gratitud, alabanza alegre. Ámbar puro y oro miel (distinto a `pentecost` que tira a rojo).
-
-```json
-{
-  "name": "joy",
-  "background": "#15110A",
-  "background_subtle": "#251D10",
-  "text_primary": "#F8F0DD",
-  "text_muted": "#B89F76",
-  "accent_primary": "#E8B842",
-  "accent_secondary": "#F5CE6B",
-  "accent_emphasis": "#FFE89A"
-}
-```
-
-### `covenant` — Pacto, fidelidad de Dios, alianza
-Sermones sobre el pacto, la fidelidad de Dios, alianza, promesa histórica. Tierra firme: arcilla rojiza y oro profundo.
-
-```json
-{
-  "name": "covenant",
-  "background": "#160E0A",
-  "background_subtle": "#261A12",
-  "text_primary": "#F0E6D8",
-  "text_muted": "#A89078",
-  "accent_primary": "#A85838",
-  "accent_secondary": "#C47550",
-  "accent_emphasis": "#DEA776"
-}
-```
-
-### `kingdom` — Reino escatológico, realeza de Cristo
-Sermones sobre el Reino como realidad escatológica, realeza de Cristo, trono. Púrpura profundo con oro real (distinto a `mission` que es el Reino *activo* en misión).
-
-```json
-{
-  "name": "kingdom",
-  "background": "#150B1F",
-  "background_subtle": "#221538",
-  "text_primary": "#EFE6F4",
-  "text_muted": "#9A8AAB",
-  "accent_primary": "#C9A14D",
-  "accent_secondary": "#E0BC6F",
-  "accent_emphasis": "#F5D898"
-}
-```
-
-### `prayer` — Intimidad, oración, comunión
-Sermones sobre oración, intimidad con Dios, comunión, contemplación, intercesión. Violeta noche con perla — quietud.
-
-```json
-{
-  "name": "prayer",
-  "background": "#0F0D1F",
-  "background_subtle": "#1B1832",
-  "text_primary": "#EBE8F0",
-  "text_muted": "#9590AB",
-  "accent_primary": "#B0A4C8",
-  "accent_secondary": "#C9BFD9",
-  "accent_emphasis": "#E8DFEC"
-}
-```
-
-### `creation` — Creación, providencia, asombro
-Sermones sobre Génesis 1-2, creación, providencia, asombro ante la obra de Dios, criatura. Verde bosque profundo con oro botánico (distinto a `mission` que es verde misión).
-
-```json
-{
-  "name": "creation",
-  "background": "#0A1810",
-  "background_subtle": "#142A1F",
-  "text_primary": "#E6F0E5",
-  "text_muted": "#82A089",
-  "accent_primary": "#C8A858",
-  "accent_secondary": "#E0C476",
-  "accent_emphasis": "#B4D49E"
-}
-```
-
-### `prophetic` — Voz profética, oráculo, denuncia constructiva
-Sermones de tono profético, oráculo, "así dice el Señor", denuncia constructiva (distinto a `judgment` que es juicio escatológico/santidad). Cobre oxidado sobre carbón.
-
-```json
-{
-  "name": "prophetic",
-  "background": "#14100B",
-  "background_subtle": "#221B12",
-  "text_primary": "#ECE2D2",
-  "text_muted": "#9A8870",
-  "accent_primary": "#C9743A",
-  "accent_secondary": "#DC8E58",
-  "accent_emphasis": "#F0B070"
-}
-```
-
-### `incarnation` — Encarnación, Adviento, Navidad
-Sermones sobre la encarnación, Adviento, Navidad, "el Verbo se hizo carne". Vino profundo con verde abeto controlado y oro pálido (sin cliché navideño).
-
-```json
-{
-  "name": "incarnation",
-  "background": "#1A0A10",
-  "background_subtle": "#2A1420",
-  "text_primary": "#F0E5E8",
-  "text_muted": "#A88090",
-  "accent_primary": "#6B8E5F",
-  "accent_secondary": "#92AD86",
-  "accent_emphasis": "#E8D4A0"
-}
-```
-
-### `resurrection` — Pascua, vida nueva, victoria
-Sermones sobre la resurrección, Pascua, vida nueva, victoria sobre la muerte, primicias. Violeta noche transitando a oro amanecer.
-
-```json
-{
-  "name": "resurrection",
-  "background": "#160E14",
-  "background_subtle": "#281C28",
-  "text_primary": "#F5EDE0",
-  "text_muted": "#B8A5A0",
-  "accent_primary": "#E8A050",
-  "accent_secondary": "#F5C078",
-  "accent_emphasis": "#FFE0A0"
-}
-```
-
-### `discipleship` — Vida cristiana práctica, formación
-Sermones sobre discipulado, formación, vida cristiana cotidiana, seguir a Cristo en lo ordinario. Bronce arcilla — cotidiano, no épico.
-
-```json
-{
-  "name": "discipleship",
-  "background": "#14110A",
-  "background_subtle": "#251F12",
-  "text_primary": "#E8E0CC",
-  "text_muted": "#9A8868",
-  "accent_primary": "#9A6D3D",
-  "accent_secondary": "#BC8B52",
-  "accent_emphasis": "#D4A574"
-}
-```
-
-### `suffering` — Sufrimiento del creyente, Job, perseverancia
-Sermones sobre el sufrimiento del creyente, Job, prueba, aflicción, perseverancia (distinto a `passion` que es el sufrimiento de Cristo). Pizarra con cobre suave y marfil — esperanza que persiste.
-
-```json
-{
-  "name": "suffering",
-  "background": "#0E1418",
-  "background_subtle": "#1A2228",
-  "text_primary": "#E5E8EA",
-  "text_muted": "#7A8A92",
-  "accent_primary": "#A87858",
-  "accent_secondary": "#C49678",
-  "accent_emphasis": "#E8D8C0"
-}
-```
-
-## Variantes intra-paleta
-
-Algunas paletas de alto tráfico tienen **variantes tonales** dentro de la misma familia temática. Cuando el bosquejo cae en una de estas familias, el predicador o el operador del skill puede elegir manualmente la variante para diferenciar dos sermones de tema cercano (p. ej. dos cultos del mismo domingo). Las variantes preservan la coherencia teológica de la familia — cambian el matiz visual, no el mensaje.
-
-**Cómo invocarlas:** el usuario indica explícitamente la variante (`grace-jewel`, `hope-twilight`, etc.) en lugar del slug base. Si no se indica, se usa la paleta base de la familia (`grace`, `hope`, `default`, `mission`, `wisdom`).
-
-### `grace-jewel` — variante joya de `grace`
-Más profunda y rica que `grace`. Oro joya en lugar de oro suave.
-
-```json
-{
-  "name": "grace-jewel",
-  "background": "#1A0F0A",
-  "background_subtle": "#241712",
-  "text_primary": "#F5EDE0",
-  "text_muted": "#A89478",
-  "accent_primary": "#B8763D",
-  "accent_secondary": "#D4925A",
-  "accent_emphasis": "#F5C788"
-}
-```
-
-### `grace-dawn` — variante alba de `grace`
-Más fresca, melocotón cálido en lugar de oro miel.
-
-```json
-{
-  "name": "grace-dawn",
-  "background": "#1A100E",
-  "background_subtle": "#251812",
-  "text_primary": "#F8EDE5",
-  "text_muted": "#B89A85",
-  "accent_primary": "#E8A878",
-  "accent_secondary": "#F5C49A",
-  "accent_emphasis": "#FFDDB5"
-}
-```
-
-### `hope-twilight` — variante crepúsculo de `hope`
-Más violeta que el `hope` base. Azul-violeta nocturno con oro.
-
-```json
-{
-  "name": "hope-twilight",
-  "background": "#14102A",
-  "background_subtle": "#1F1A40",
-  "text_primary": "#EFEAF5",
-  "text_muted": "#998AAB",
-  "accent_primary": "#D4AF37",
-  "accent_secondary": "#E8C766",
-  "accent_emphasis": "#F8E0A8"
-}
-```
-
-### `hope-ocean` — variante océano de `hope`
-Más profundo, azul oceánico en lugar de azul-índigo.
-
-```json
-{
-  "name": "hope-ocean",
-  "background": "#08182A",
-  "background_subtle": "#122638",
-  "text_primary": "#EAF2F8",
-  "text_muted": "#8FA8B8",
-  "accent_primary": "#D4AF37",
-  "accent_secondary": "#F0C95E",
-  "accent_emphasis": "#FFE9A8"
-}
-```
-
-### `default-stone` — variante piedra de `default`
-Gris piedra cálido en lugar de carbón azulado. Mantiene la neutralidad reverente.
-
-```json
-{
-  "name": "default-stone",
-  "background": "#15171A",
-  "background_subtle": "#21242A",
-  "text_primary": "#E5E5E2",
-  "text_muted": "#8A8A86",
-  "accent_primary": "#B89878",
-  "accent_secondary": "#CFB298",
-  "accent_emphasis": "#E8D6B8"
-}
-```
-
-### `default-ember` — variante brasa de `default`
-Carbón con acento brasa. Para mensajes neutros que necesitan un poco más de calor.
-
-```json
-{
-  "name": "default-ember",
-  "background": "#120F0E",
-  "background_subtle": "#1F1A18",
-  "text_primary": "#E8E2DC",
-  "text_muted": "#8A8278",
-  "accent_primary": "#B86838",
-  "accent_secondary": "#D08658",
-  "accent_emphasis": "#E8B080"
-}
-```
-
-### `mission-sage` — variante salvia de `mission`
-Verde salvia más quieto y reflexivo (para sermones de misión contemplativos, no exhortativos).
-
-```json
-{
-  "name": "mission-sage",
-  "background": "#101A14",
-  "background_subtle": "#1C281F",
-  "text_primary": "#E5ECE5",
-  "text_muted": "#8A9A88",
-  "accent_primary": "#B89878",
-  "accent_secondary": "#D0B898",
-  "accent_emphasis": "#B8C8A8"
-}
-```
-
-### `wisdom-slate` — variante pizarra de `wisdom`
-Azul pizarra más sobrio que el azul-verde de `wisdom`. Para enseñanza más austera.
-
-```json
-{
-  "name": "wisdom-slate",
-  "background": "#0E1418",
-  "background_subtle": "#1A2128",
-  "text_primary": "#E5EAEF",
-  "text_muted": "#889098",
-  "accent_primary": "#B89878",
-  "accent_secondary": "#D0B898",
-  "accent_emphasis": "#A8B8C8"
-}
-```
-
-## Algoritmo de selección
-
-1. **Leer el tema y propósito del bosquejo** (campos `theme` y `purpose`).
-2. **Identificar palabras clave** que matcheen con paletas:
-
-| Palabra clave | Paleta sugerida |
+| Temas | Palabras clave |
 |---|---|
-| gracia, perdón, restaura, identidad, hijo/hija, etiqueta | `grace` |
-| esperanza, cielo, eterno, promesa, futuro, segunda venida | `hope` |
-| juicio, santidad, temor, advertencia, ira, pecado | `judgment` |
-| misión activa, llamado, evangelio, ir, hacer discípulos | `mission` |
-| cruz, sacrificio, pasión de Cristo, sangre, Calvario | `passion` |
-| Espíritu, Pentecostés, fuego, dones, llenura | `pentecost` |
-| sabiduría, proverbios, prudencia, consejo, enseñanza didáctica | `wisdom` |
-| lamento, duelo, llanto, quebranto, "por qué Señor", Salmos imprecatorios | `lament` |
-| gozo, alegría, celebración, fiesta, gratitud, alabanza | `joy` |
-| pacto, alianza, fidelidad de Dios, juramento, promesa histórica | `covenant` |
-| Reino escatológico, realeza de Cristo, trono, Cristo Rey | `kingdom` |
-| oración, intimidad, comunión, súplica, intercesión, contemplación | `prayer` |
-| creación, providencia, asombro, naturaleza, Génesis 1-2, criatura | `creation` |
-| profecía, oráculo, denuncia, "así dice el Señor", voz profética | `prophetic` |
-| encarnación, Adviento, Navidad, Verbo, "se hizo carne" | `incarnation` |
-| resurrección, Pascua, vida nueva, victoria sobre la muerte, primicias | `resurrection` |
-| discipulado, formación, vida cristiana cotidiana, seguir a Cristo | `discipleship` |
-| sufrimiento del creyente, Job, prueba, aflicción, perseverancia | `suffering` |
-| (ningún match claro) | `default` |
+| `gracia`, `perdon` | gracia, perdón, restauración, misericordia |
+| `identidad` | identidad, hijo/hija de Dios, nombre, etiqueta |
+| `esperanza`, `fe` | esperanza, promesa, futuro, confiar, creer |
+| `juicio`, `santidad` | juicio, santidad, temor de Dios, advertencia, pecado |
+| `arrepentimiento` | arrepentimiento, volverse a Dios, confesión |
+| `mision`, `evangelio` | misión, llamado, ir, anunciar, hacer discípulos |
+| `cruz` | cruz, sacrificio, sangre, Calvario |
+| `espiritu` | Espíritu Santo, fuego, dones, llenura |
+| `sabiduria`, `palabra` | sabiduría, Proverbios, consejo, Escritura, enseñanza |
+| `lamento`, `consuelo` | lamento, duelo, llanto, pérdida, consuelo |
+| `sufrimiento`, `perseverancia` | prueba, aflicción, Job, perseverar |
+| `gozo`, `gratitud`, `alabanza` | gozo, celebración, gratitud, alabanza, adoración |
+| `pacto`, `fidelidad` | pacto, alianza, fidelidad de Dios, promesa cumplida |
+| `reino`, `liderazgo` | Reino, realeza de Cristo, autoridad, liderazgo |
+| `oracion`, `humildad` | oración, intimidad, súplica, humildad |
+| `creacion`, `providencia` | creación, naturaleza, cuidado y provisión de Dios |
+| `profecia` | profecía, «así dice el Señor», denuncia |
+| `encarnacion` | encarnación, el Verbo hecho carne |
+| `resurreccion`, `victoria` | resurrección, vida nueva, victoria |
+| `discipulado`, `servicio` | discipulado, formación, servir |
+| `transformacion` | cambio de vida, nueva criatura, renovación |
+| `paz`, `reconciliacion` | paz, perdón entre hermanos, reconciliación |
+| `familia`, `matrimonio`, `amor` | familia, hogar, matrimonio, amor |
+| `paternidad`, `maternidad`, `ninez`, `juventud`, `vejez` | padres, madres, niños, jóvenes, ancianos |
+| `iglesia`, `generosidad` | iglesia, comunidad, cuerpo de Cristo, dar, ofrenda |
+| Fechas | `navidad`, `ano-nuevo`, `ramos`, `viernes-santo`, `pentecostes`, `reforma`, `pastor`, `amistad` |
 
-3. **Si hay múltiples matches**, priorizar el que dominen palabras del **propósito** sobre el tema. El propósito refleja el destino emocional del sermón. En particular, distinguir:
-   - `passion` (sufrimiento *de Cristo* en la cruz) vs. `suffering` (sufrimiento *del creyente*).
-   - `judgment` (juicio escatológico/santidad de Dios) vs. `prophetic` (voz profética denunciante).
-   - `mission` (Reino *avanzando* / acción evangelizadora) vs. `kingdom` (Reino como *realidad escatológica* / realeza).
-   - `mission` (verde misión activa) vs. `creation` (verde creación contemplativa).
-   - `pentecost` (fuego/rojo-naranja, Espíritu activo) vs. `joy` (ámbar/oro miel, gozo celebrativo).
+Distinguir:
+- `cruz` (el sufrimiento de Cristo) de `sufrimiento` (el del creyente);
+- `juicio` (la santidad de Dios) de `profecia` (la voz que denuncia);
+- `mision` (el Reino que avanza) de `reino` (su realeza).
 
-4. **Reportar la decisión al usuario** antes de generar la SPA: "Detecté tema sobre `restauración e identidad`, propongo paleta `grace`. ¿Confirmas o cambias?"
+## Conmemoraciones
 
-5. **Si el usuario quiere una variante intra-paleta** (p. ej. dos cultos del mismo domingo con tema cercano), puede indicarlo explícitamente: `grace-jewel`, `hope-twilight`, `default-stone`, etc. Ver sección "Variantes intra-paleta" arriba. Si no se indica variante, usar la paleta base de la familia.
+| Fecha | Regla (Ecuador) | Paleta |
+|---|---|---|
+| Navidad | del 1.er domingo de Adviento al 25-dic | `estrella-de-belen` |
+| Fin de año / Año nuevo | 26-dic a 7-ene | `todo-nuevo` |
+| Domingo de Ramos | Pascua − 7 | `ramos-hosanna` |
+| Viernes Santo | Pascua − 2 | `viernes-santo` |
+| Domingo de Resurrección | Pascua | `alba-de-resurreccion` |
+| Pentecostés | Pascua + 49 | `lenguas-de-fuego` |
+| Día de la Madre | 2.º domingo de mayo | `amor-de-madre` |
+| Día del Padre | 3.er domingo de junio | `abrazo-del-padre` |
+| Día del Niño | 1 de junio | `dia-del-nino` |
+| Amor y Amistad | 14 de febrero | `amor-y-amistad` |
+| Día de la Reforma | 31 de octubre | `rosa-de-lutero` |
+| Día del Pastor | sin fecha por defecto (varía por país) | `buen-pastor` |
 
-6. **Si el lugar tiene paleta institucional registrada** en `assets/paleta-{org}.json`, fusionarla con la paleta temática (ver "Override institucional" abajo).
+- Las fechas puntuales valen ±3 días (el domingo cercano); Viernes Santo, ±1.
+- **Se usan solas** si el sermón cae en la fecha **y** trata de ella (los temas incluyen el de la fecha). En la fecha, con otro tema, va la rotación. Fuera de fecha, solo si se pide o el tema es inequívoco: pasar `--paleta`.
+- Otro país, o la fecha del Día del Pastor: sección `conmemoraciones` de `config-local.md`, que se pasa con `--regla id=REGLA`. Formatos: `fija:MM-DD`, `domingo:N:MM`, `pascua:±D`, `rango:MM-DD:MM-DD`. Para ver las fechas de un año: `palettes.py fechas --anio 2027`.
+
+## Nada de café
+
+Es una restricción dura, no una preferencia. El script la aplica a toda paleta automática, y vale igual para cualquier paleta hecha a mano:
+
+- **Fondos:** nada de oscuros teñidos de cálido (espresso, chocolate, tabaco).
+- **Acentos:**
+  - nada de naranjas o amarillos oscuros (terracota, cobre, bronce);
+  - nada de cálidos sin saturación (arena, tostado, khaki, beige);
+  - oros, ámbares y corales **vivos**, sí.
+- **El oro va solo en trazos, filetes y texto.** Un resplandor o un relleno dorado sobre oscuro da café.
+- **Al oscurecer para tinta de lámina clara**, un oro o un naranja sale bronce y un limón sale oliva. En esos casos no hay tinta de acento (`accent_ink` vacío) y el énfasis va en `ink` con peso.
+
+## Cómo usar la paleta en la SPA
+
+- Pegar el `:root` de `pick --css`:
+  - fondo y texto: `--bg`, `--bg-2` (degradados y superficies), `--text`, `--text-muted`;
+  - acentos: `--accent` (trazos, filetes y titulares grandes), `--accent-bright` (texto de acento: kickers, énfasis), `--accent-em` (destellos);
+  - láminas claras: `--paper`, `--paper-2`, `--ink`, `--ink-soft`, `--muted-ink`, `--accent-ink` (solo si existe);
+  - impresión: `--print-ink`, `--print-ink-soft`, `--print-rule`.
+- Poner `<meta name="sermon-palette" content="{id}">` en el `<head>`, para que la próxima elección sepa que esta paleta ya se usó.
+- Respetar las `reglas` de la paleta, que vienen en el JSON y en el comentario del `:root`.
+- Regla 13 de `doctrine.md`: un acento y sus variantes tonales. Las excepciones (`dia-del-nino`, `carmesi-real`) están en las reglas de cada paleta.
+
+## Paletas a pedido
+
+Tienen `auto: false` en el catálogo: el script nunca las elige solo. Se piden con `--paleta id`.
+
+- **Café:** las originales del skill que no pasan la regla (`grace`, `default`, `covenant`, `joy`, `wisdom`…).
+- **Claras:** `lino-y-vino`, para cuando el evento trae su propio arte claro.
+- **`prayer`:** se veía apagada y muy parecida a `hope-twilight`.
+
+## Agregar una paleta
+
+1. `python3 scripts/palettes.py derivar --bg '#…' --accent '#…'`: completa los 16 tokens con los contrastes de doctrine.
+2. Agregarla a `palettes/catalog.json` con `id`, `nombre`, `familia`, `temas` (del vocabulario), `ancla`, `inspiracion` y `reglas`. Dos paletas muy parecidas van en la misma `familia`, así la rotación no las pone seguidas.
+3. `python3 scripts/palettes.py check`: revisa contraste, anti-café, que no se parezca a otra y el mínimo de 60 en rotación.
+4. `python3 scripts/palettes.py muestrario --out muestrario.html`: revisarla a ojo junto a las demás.
 
 ## Override institucional
 
-Si la entidad tiene una paleta registrada en `<resources_root>/assets/paleta-{entity.slug}.json`, aplicar esta lógica:
+Si la entidad tiene `<resources_root>/assets/paleta-{slug}.json` (ver `identity-discovery.md`):
 
-- **Mantener:** `background`, `background_subtle`, `text_primary`, `text_muted` de la paleta temática.
-- **Reemplazar (si la institución lo tiene):** `accent_primary`, `accent_secondary` con los colores institucionales.
-- **Mantener:** `accent_emphasis` de la temática (preserva la "identidad emocional" del sermón).
+- Mantener `bg`, `bg_2`, `text` y `text_muted` de la paleta elegida.
+- Reemplazar `accent` y `accent_bright` por los institucionales, y verificarlos con `check` (contraste y anti-café).
+- Mantener `accent_em`.
 
-Esto permite que la presentación se vea "de la iglesia" pero adaptada al sermón.
+## Entidad no reconocida
 
-## Para el caso fallback (entidad no reconocida)
+Usar la paleta de `pick`, sin override ni logo, y ofrecer registrar la entidad:
 
-Usar `default` puro, sin override. Mostrar mensaje al usuario:
-
-> "No reconocí la entidad `'X'` en assets/. Genero con paleta neutra. ¿Quieres registrar esta entidad para futuros sermones? Si sí, ¿dónde guardo su logo y cuál es su paleta?"
-
-## Notas de uso
-
-- Las paletas son **valores hex puros**. Cualquier transparencia o variante se computa con `color-mix()` o `rgba()` en CSS.
-- Cada paleta está afinada para cumplir **regla 1** (contraste 7:1 entre `text_primary` y `background`).
-- Validar siempre el contraste con [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/) antes de finalizar la SPA.
+> «No reconocí la entidad 'X' en assets/. ¿Quieres registrarla para futuros sermones? Si sí, ¿dónde guardo su logo y cuál es su paleta?»
 
 ---
 

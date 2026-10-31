@@ -5,6 +5,45 @@ Todos los cambios notables de este skill se documentan aquí.
 El formato sigue [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 El versionado es semántico: `MAJOR.MINOR.PATCH`.
 
+## [1.4.0] — 60 paletas que rotan solas, sin café
+
+El skill caía una y otra vez en paletas café: 22 de las 27 paletas originales tenían fondo espresso o acentos tostados (`#D4A574`, `#B89878`), y el modelo, cuando dudaba, iba ahí. Además preguntaba la paleta en cada sermón. Ahora la elige un script: rota entre 60 paletas sin repetir, respeta las fechas conmemorativas y no usa café salvo que se pida.
+
+### Added
+- **`palettes/catalog.json`: 94 paletas.**
+  - **60 en rotación:**
+    - las paletas reales de los sermones de 2026;
+    - seis originales sin café;
+    - nuevas de fondo «noche» (casi negro con un tinte) y «joya» (profundo y saturado), con acentos vivos.
+  - **12 conmemorativas:** Navidad, Fin de año, Ramos, Viernes Santo, Resurrección, Pentecostés, Madre, Padre, Niño, Amor y Amistad, Reforma y Pastor.
+  - **22 solo a pedido:** las originales café y una clara.
+
+  Cada paleta trae 16 tokens (fondo, acentos, láminas claras e impresión), temas, ancla bíblica y sus reglas.
+- **`scripts/palettes.py`:**
+  - **`pick`** elige la paleta de un sermón. Gana la que comparte más temas; no repite una paleta usada en 13 semanas ni la familia del mismo predicador en 26, y separa por matiz las de la misma semana. Nunca falla.
+  - **`check`** valida el catálogo: contraste (regla 1), anti-café, que no haya dos casi iguales y el mínimo de 60.
+  - **`derivar`** completa una paleta a partir de su fondo y su acento.
+  - **`fechas`** lista las conmemoraciones de un año.
+  - **`muestrario`** genera un HTML para revisar las paletas a ojo.
+- **Módulos de apoyo, sin dependencias:**
+  - `scripts/palette_color.py`: OKLab/OKLCH, contraste WCAG y detección de café.
+  - `scripts/palette_calendar.py`: Pascua, Adviento, domingos n-ésimos y ventanas.
+- **`scripts/test_palettes.py`:** 44 pruebas, incluida la del catálogo real.
+- **Conmemoraciones configurables:** usan las reglas de Ecuador, y `config-local.md` puede sobrescribirlas y fijar el Día del Pastor.
+
+### Changed
+- **El skill ya no pregunta la paleta:** la usa y la reporta al final con su porqué. Solo pregunta si el usuario quiere elegir.
+- **`theme-mapping.md` reescrito:** vocabulario de temas, conmemoraciones, reglas anti-café y uso del script. Sin los bloques de paletas, pesa menos en cada invocación.
+- **Las SPA llevan `<meta name="sermon-palette">`** para que la rotación sepa qué paleta se usó.
+- **Entidad no reconocida:** va la paleta de `pick`, no `default`, que es café.
+- **`doctrine.md`, regla 13:** las excepciones de acento van escritas en las reglas de la paleta.
+
+### Notes
+- Las originales café siguen disponibles con `--paleta` (`grace`, `default`, `covenant`…).
+- Pentecostés y Pasión (originales) entran a la rotación con el fondo apenas neutralizado, para que no lea café.
+- El anti-café está calibrado con paletas reales: marca los tostados, las arenas y las terracotas, y respeta los oros, ámbares y corales vivos.
+- Las presentaciones ya generadas no cambian.
+
 ## [1.3.0] — el control funciona desde el teléfono
 
 En Android, las SPA no pasaban del selector de modo: al tocar una opción, Chrome mostraba un error. El selector navegaba con `?mode=`, y un HTML abierto desde WhatsApp o Descargas llega como `content://`. Chrome le pasa la URL completa al proveedor de contenido, y el permiso que da la app cubre solo la URI exacta: cualquier carga nueva con algo agregado a la URL falla. En la PC nunca se notó, porque `file://` ignora el query.

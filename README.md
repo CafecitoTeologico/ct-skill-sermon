@@ -19,7 +19,7 @@ Orar, ayunar, sumergirte en la Palabra, sensibilizarte al Espíritu Santo, escuc
 
 - 📝 **Recibe un bosquejo** en cualquier formato: `.md`, `.docx`, `.pdf`, `.odt`, `.txt` o texto pegado.
 - 🧠 **Extrae datos** automáticamente: título, predicador, lugar, fecha, pasaje, tema, propósito, cuerpo, aplicación, frase clave.
-- 🎨 **Aplica una paleta visual** según el tema del sermón — 19 paletas base (gracia, esperanza, juicio, misión, pasión, pentecostés, sabiduría, lamento, gozo, pacto, reino, oración, creación, profética, encarnación, resurrección, discipulado, sufrimiento, default) más 8 variantes intra-paleta para diferenciar cultos cercanos.
+- 🎨 **Elige la paleta visual por su cuenta**, según el tema del sermón: 60 paletas que rotan sin repetirse en tres meses, más 12 conmemorativas (Navidad, Semana Santa, Pentecostés, Día de la Madre, del Padre, del Niño, de la Reforma, del Pastor…). Nunca cae en tonos café, salvo que los pidas.
 - 🖼 **Detecta identidad institucional** (logos, colores) desde una carpeta de assets local.
 - 📤 **Genera 2 archivos por entidad destino:**
   - `bosquejo.md` limpio con frontmatter + licencia **CC BY-SA 4.0**.
@@ -83,7 +83,7 @@ Adjuntas o pegas tu bosquejo. El skill:
 1. 📋 Lee tu `config-local.md`.
 2. 🔍 Parsea el bosquejo (estructura canónica + heurística adaptativa).
 3. 🎯 Detecta entidad destino por el campo `At:` del bosquejo.
-4. 🎨 Propone paleta temática según el contenido del sermón.
+4. 🎨 Elige la paleta según el contenido y la fecha del sermón, sin repetir las de las últimas semanas.
 5. 📝 Genera los archivos en sus directorios destino.
 6. ✅ Te muestra resumen y **pide confirmación**.
 7. 📤 Solo tras tu OK explícito, hace commit/push.
@@ -95,7 +95,7 @@ Adjuntas o pegas tu bosquejo. El skill:
 | [`SKILL.md`](./SKILL.md) | Punto de entrada del skill — instrucciones para Claude. |
 | [`doctrine.md`](./doctrine.md) | Las 24 reglas no negociables de diseño visual homilético. |
 | [`parser-guidelines.md`](./parser-guidelines.md) | Cómo extraer estructura del bosquejo (canónica + heurística). |
-| [`theme-mapping.md`](./theme-mapping.md) | Las 19 paletas temáticas + 8 variantes intra-paleta + lógica de selección. |
+| [`theme-mapping.md`](./theme-mapping.md) | Cómo se elige la paleta: temas, conmemoraciones, reglas anti-café. Las paletas están en [`palettes/catalog.json`](./palettes/catalog.json) y las elige [`scripts/palettes.py`](./scripts/palettes.py). |
 | [`identity-discovery.md`](./identity-discovery.md) | Cómo encontrar logos/paletas institucionales en assets. |
 | [`license-attribution.md`](./license-attribution.md) | Templates de bloques de atribución (placeholders dinámicos). |
 | [`image-pipeline.md`](./image-pipeline.md) | Imágenes: dónde guardarlas, optimización a WebP, inyección y créditos. |

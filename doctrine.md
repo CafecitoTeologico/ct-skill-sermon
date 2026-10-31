@@ -20,7 +20,7 @@ Estas reglas definen los constraints que debe cumplir cualquier presentación ge
 | 10 | **Margen de seguridad** | Reservar 8–10% exterior libre de contenido. Algunos proyectores cortan los bordes. |
 | 11 | **Sin subrayados** | Usar negrita o color de acento para énfasis. El subrayado corta los descendentes (g, j, p, q, y) y reduce legibilidad. |
 | 12 | **Iconografía simple** | Iconos line-art con `stroke-width` consistente. Nada de clipart, gradientes complejos o emojis decorativos en exceso. |
-| 13 | **Paleta limitada** | Máximo 3 colores funcionales por presentación (fondo, texto principal, acento). Variantes tonales OK. |
+| 13 | **Paleta limitada** | Máximo 3 colores funcionales por presentación (fondo, texto principal, acento). Variantes tonales OK. Las excepciones (p. ej. `dia-del-nino`) vienen escritas en las reglas de la paleta. |
 | 14 | **Pantalla de cierre** | Terminar con frase clave del sermón o pantalla neutra/negra. **No** terminar con "Gracias" o emoticones. |
 | 15 | **Comillas tipográficas** | Usar comillas curvas `"texto"` (Unicode `“”`) por defecto (estándar latinoamericano). `«texto»` solo si el bosquejo o el usuario lo solicitan explícitamente. |
 | 16 | **Sin itálicas extensas** | Más de 3 líneas en cursiva = ilegible a distancia. Para énfasis largo usar negrita o cambio de peso. |

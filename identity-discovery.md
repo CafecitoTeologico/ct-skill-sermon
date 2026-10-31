@@ -40,7 +40,7 @@ logo-mi-iglesia-blanco.png        ← versión blanca para fondos oscuros
 paleta-{entidad-slug}.json
 ```
 
-Cuando existe, override sobre la paleta temática (ver `theme-mapping.md` § "Override institucional").
+Cuando existe, override sobre la paleta elegida por `palettes.py` (ver `theme-mapping.md` § "Override institucional").
 
 Schema esperado del JSON:
 
@@ -108,7 +108,7 @@ Probar la existencia de archivos en este orden:
 
 ### Paso 3: Si no hay paleta JSON
 
-Aplicar la paleta temática elegida en `theme-mapping.md` sin override.
+Aplicar la paleta elegida por `palettes.py pick` (ver `theme-mapping.md`), sin override.
 
 ### Paso 4: Si tampoco hay logo
 
@@ -132,8 +132,8 @@ Antes de generar la SPA, mostrar resumen al usuario (sustituyendo placeholders p
 Identidad visual aplicada:
 - Entidad detectada: <entity.name>
 - Logo: logo-<entity.slug>.svg (encontrado / no encontrado)
-- Paleta institucional: paleta-<entity.slug>.json (encontrada / usando paleta temática)
-  → override de accent_primary y accent_secondary aplicado sobre paleta '<theme>'
+- Paleta institucional: paleta-<entity.slug>.json (encontrada / usando la paleta elegida)
+  → override de accent y accent_bright aplicado sobre la paleta '<id>'
 - Logo variant para fondo oscuro: logo-<entity.slug>-blanco.png (si existe)
 ```
 
@@ -141,7 +141,7 @@ Si algo falló o usó fallback:
 
 ```
 ⚠ Logo de <entity.name> no encontrado en assets/.
-  Solo paleta temática '<theme>' aplicada, sin logo institucional.
+  Solo la paleta '<id>' aplicada, sin logo institucional.
   Para futuras presentaciones, sube el logo a:
   <resources_root>/assets/logo-<entity.slug>.svg
 ```
